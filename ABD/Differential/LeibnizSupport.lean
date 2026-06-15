@@ -56,6 +56,14 @@ theorem supportedLeibnizTheorem_of_coeff
   intro x m n hmn
   exact Hbridge x m n (Hcoeff m n hmn)
 
+/-- A coefficient-level theorem yields the supported Leibniz theorem, using the
+theoremized coefficient-to-sum bridge. -/
+theorem supportedLeibnizTheorem_of_supportedCoeff
+    {S : Finset ℕ}
+    (Hcoeff : SupportedCoeffLeibnizTheorem S) :
+    SupportedLeibnizTheorem S :=
+  supportedLeibnizTheorem_of_coeff Hcoeff (coeffLeibnizBridge S)
+
 /-- In an additive triple, the pair `(a,b)` is supported by the triple support. -/
 theorem ABCTriple.leibnizSupport_ab (T : ABCTriple) :
     LeibnizSupport T.support T.a T.b :=
@@ -93,5 +101,27 @@ theorem DifferentialCandidate.leibniz_bc_of_supported
     (H : SupportedLeibnizTheorem T.support) :
     LeibnizOn T.support h.x T.b T.c :=
   H h.x T.b T.c T.leibnizSupport_bc
+
+/-- A supported coefficient theorem is enough to get `(a,b)` Leibniz for a
+triple-level differential candidate. -/
+theorem DifferentialCandidate.leibniz_ab_of_supportedCoeff
+    {T : ABCTriple} (h : DifferentialCandidate T)
+    (Hcoeff : SupportedCoeffLeibnizTheorem T.support) :
+    LeibnizOn T.support h.x T.a T.b :=
+  h.leibniz_ab_of_supported (supportedLeibnizTheorem_of_supportedCoeff Hcoeff)
+
+/-- Same supported-coefficient bridge for `(a,c)`. -/
+theorem DifferentialCandidate.leibniz_ac_of_supportedCoeff
+    {T : ABCTriple} (h : DifferentialCandidate T)
+    (Hcoeff : SupportedCoeffLeibnizTheorem T.support) :
+    LeibnizOn T.support h.x T.a T.c :=
+  h.leibniz_ac_of_supported (supportedLeibnizTheorem_of_supportedCoeff Hcoeff)
+
+/-- Same supported-coefficient bridge for `(b,c)`. -/
+theorem DifferentialCandidate.leibniz_bc_of_supportedCoeff
+    {T : ABCTriple} (h : DifferentialCandidate T)
+    (Hcoeff : SupportedCoeffLeibnizTheorem T.support) :
+    LeibnizOn T.support h.x T.b T.c :=
+  h.leibniz_bc_of_supported (supportedLeibnizTheorem_of_supportedCoeff Hcoeff)
 
 end ABD
