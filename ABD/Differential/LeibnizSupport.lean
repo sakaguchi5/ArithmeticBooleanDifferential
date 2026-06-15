@@ -1,5 +1,6 @@
 import ABD.Core.SupportLemmas
 import ABD.Differential.TripleCandidate
+import ABD.Differential.LeibnizCoeff
 
 namespace ABD
 
@@ -19,6 +20,10 @@ shape of the theorem without pretending that the hard arithmetic proof is done.
 def SupportedLeibnizTheorem (S : Finset ℕ) : Prop :=
   ∀ (x : Tangent S) (m n : ℕ),
     LeibnizSupport S m n → LeibnizOn S x m n
+
+/-- Coefficient-level version of the supported Leibniz theorem. -/
+def SupportedCoeffLeibnizTheorem (S : Finset ℕ) : Prop :=
+  ∀ m n : ℕ, LeibnizSupport S m n → DerivCoeffLeibnizOn S m n
 
 /-- Build a Leibniz support hypothesis from the two component support facts. -/
 theorem leibnizSupport_of_supports {S : Finset ℕ} {m n : ℕ}
@@ -40,6 +45,16 @@ theorem zeroTangent_supportedLeibniz (S : Finset ℕ) :
     ∀ m n : ℕ, LeibnizSupport S m n → LeibnizOn S (zeroTangent S) m n := by
   intro m n _
   simp
+
+/-- A coefficient-level theorem plus the formal coefficient bridge yields the
+supported Leibniz theorem. -/
+theorem supportedLeibnizTheorem_of_coeff
+    {S : Finset ℕ}
+    (Hcoeff : SupportedCoeffLeibnizTheorem S)
+    (Hbridge : CoeffLeibnizBridge S) :
+    SupportedLeibnizTheorem S := by
+  intro x m n hmn
+  exact Hbridge x m n (Hcoeff m n hmn)
 
 /-- In an additive triple, the pair `(a,b)` is supported by the triple support. -/
 theorem ABCTriple.leibnizSupport_ab (T : ABCTriple) :
