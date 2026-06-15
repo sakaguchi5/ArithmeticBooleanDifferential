@@ -1,3 +1,5 @@
+import Mathlib.Data.Nat.Factorization.Basic
+import Mathlib.Tactic
 import ABD.Core.ValuationLemmas
 import ABD.Differential.LeibnizCoeff
 
@@ -12,8 +14,8 @@ def ValMulAt (m n p : ℕ) : Prop :=
 
 Mathematically this follows from `ValMulAt` together with the elementary
 natural-number division identities for `(m*n)/p`.  It is kept as a separate
-name so the next refactor can attack the raw `Nat.factorization` proof without
-changing any higher-level Pasten wiring. -/
+name so the raw `Nat.factorization` proof remains local to this file and does
+not leak into the higher Pasten wiring. -/
 def DerivCoeffLocalLaw (m n p : ℕ) : Prop :=
   DerivCoeffLeibnizAt m n p
 
@@ -21,14 +23,84 @@ def DerivCoeffLocalLaw (m n p : ℕ) : Prop :=
     DerivCoeffLocalLaw m n p ↔ DerivCoeffLeibnizAt m n p := by
   rfl
 
+/-- If `p` does not divide `n`, the `p`-direction coefficient of `n` vanishes. -/
+theorem derivCoeff_eq_zero_of_not_dvd {n p : ℕ} (h : ¬ p ∣ n) :
+    derivCoeff n p = 0 := by
+  unfold derivCoeff
+  rw [val_eq_zero_of_not_dvd h]
+  simp
+
+/-- Scaling the `n`-coefficient by `m` rewrites to the common coefficient of
+`m*n`, provided `p ∣ n`. -/
+theorem int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_right
+    {m n p : ℕ} (hpn : p ∣ n) :
+    (m : ℤ) * derivCoeff n p =
+      (val n p : ℤ) * (((m * n) / p : ℕ) : ℤ) := by
+  unfold derivCoeff
+  rw [Nat.mul_div_assoc m hpn]
+  norm_num [Nat.cast_mul]
+  ring
+
+/-- Scaling the `m`-coefficient by `n` rewrites to the common coefficient of
+`m*n`, provided `p ∣ m`. -/
+theorem int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_left
+    {m n p : ℕ} (hpm : p ∣ m) :
+    (n : ℤ) * derivCoeff m p =
+      (val m p : ℤ) * (((m * n) / p : ℕ) : ℤ) := by
+  unfold derivCoeff
+  have hdiv : (m * n) / p = n * (m / p) := by
+    rw [Nat.mul_comm m n]
+    exact Nat.mul_div_assoc n hpm
+  rw [hdiv]
+  norm_num [Nat.cast_mul]
+  ring
+
+/-- For nonzero factors, the derivative coefficient of a product has the
+expected valuation-expanded form. -/
+theorem derivCoeff_mul_eq_val_add_mul_div
+    {m n p : ℕ} (hm : m ≠ 0) (hn : n ≠ 0) :
+    derivCoeff (m * n) p =
+      ((val m p : ℤ) + (val n p : ℤ)) * (((m * n) / p : ℕ) : ℤ) := by
+  unfold derivCoeff
+  rw [val_mul_of_ne_zero hm hn]
+  norm_num
+  ring
+
 /-- The prime-direction local coefficient Leibniz theorem.
 
-This is the isolated arithmetic choke point: it is the only place where the
-project still needs to unfold the exact mathlib proof from `Nat.factorization`
-and natural-number division.  Everything above this file is now theoremized
-from this local fact. -/
-axiom derivCoeffLeibnizAt_of_prime {m n p : ℕ}
-    (hp : Nat.Prime p) : DerivCoeffLeibnizAt m n p
+This theorem closes the former arithmetic choke point.  The proof is local:
+`Nat.factorization_mul` supplies additivity of valuations for nonzero products,
+while `Nat.mul_div_assoc` rewrites the natural-number division part whenever
+one factor is divisible by the chosen prime direction. -/
+theorem derivCoeffLeibnizAt_of_prime {m n p : ℕ}
+    (_hp : Nat.Prime p) : DerivCoeffLeibnizAt m n p := by
+  by_cases hm0 : m = 0
+  · subst m
+    simp [DerivCoeffLeibnizAt, derivCoeff, val]
+  by_cases hn0 : n = 0
+  · subst n
+    simp [DerivCoeffLeibnizAt, derivCoeff, val]
+  unfold DerivCoeffLeibnizAt
+  rw [derivCoeff_mul_eq_val_add_mul_div hm0 hn0]
+  by_cases hpm : p ∣ m
+  · by_cases hpn : p ∣ n
+    · rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_right hpn]
+      rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_left hpm]
+      ring
+    · rw [derivCoeff_eq_zero_of_not_dvd hpn]
+      rw [val_eq_zero_of_not_dvd hpn]
+      rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_left hpm]
+      ring
+  · by_cases hpn : p ∣ n
+    · rw [derivCoeff_eq_zero_of_not_dvd hpm]
+      rw [val_eq_zero_of_not_dvd hpm]
+      rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_right hpn]
+      ring
+    · rw [derivCoeff_eq_zero_of_not_dvd hpm]
+      rw [derivCoeff_eq_zero_of_not_dvd hpn]
+      rw [val_eq_zero_of_not_dvd hpm]
+      rw [val_eq_zero_of_not_dvd hpn]
+      ring
 
 /-- If every coordinate of `S` is prime-shaped, the coefficient Leibniz law
 holds on all coordinates of `S`. -/
