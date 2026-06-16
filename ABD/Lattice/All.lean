@@ -5,6 +5,8 @@ Authors: NOIZ
 -/
 import ABD.Lattice.Kernel
 import ABD.Lattice.Smallness
+import ABD.Lattice.SmallnessAbs
+import ABD.Lattice.SmallnessWeighted
 import ABD.Lattice.Nondegenerate
 import ABD.Lattice.TripleKernel
 import ABD.Lattice.Nonzero
