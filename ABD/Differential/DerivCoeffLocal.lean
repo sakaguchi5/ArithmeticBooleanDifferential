@@ -1,9 +1,15 @@
-import Mathlib.Data.Nat.Factorization.Basic
-import Mathlib.Tactic
 import ABD.Core.ValuationLemmas
 import ABD.Differential.LeibnizCoeff
 
 namespace ABD
+
+private theorem int_mul_rotate (a b c : ℤ) :
+    a * (b * c) = b * (a * c) := by
+  exact mul_left_comm a b c
+
+private theorem int_add_mul_swap (a b c : ℤ) :
+    (a + b) * c = b * c + a * c := by
+  rw [add_mul, add_comm]
 
 /-- Local multiplicativity target for the valuation layer. -/
 def ValMulAt (m n p : ℕ) : Prop :=
@@ -38,8 +44,8 @@ theorem int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_right
       (val n p : ℤ) * (((m * n) / p : ℕ) : ℤ) := by
   unfold derivCoeff
   rw [Nat.mul_div_assoc m hpn]
-  norm_num [Nat.cast_mul]
-  ring
+  rw [Nat.cast_mul]
+  exact int_mul_rotate (m : ℤ) (val n p : ℤ) (((n / p : ℕ) : ℤ))
 
 /-- Scaling the `m`-coefficient by `n` rewrites to the common coefficient of
 `m*n`, provided `p ∣ m`. -/
@@ -52,8 +58,8 @@ theorem int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_left
     rw [Nat.mul_comm m n]
     exact Nat.mul_div_assoc n hpm
   rw [hdiv]
-  norm_num [Nat.cast_mul]
-  ring
+  rw [Nat.cast_mul]
+  exact int_mul_rotate (n : ℤ) (val m p : ℤ) (((m / p : ℕ) : ℤ))
 
 /-- For nonzero factors, the derivative coefficient of a product has the
 expected valuation-expanded form. -/
@@ -63,8 +69,7 @@ theorem derivCoeff_mul_eq_val_add_mul_div
       ((val m p : ℤ) + (val n p : ℤ)) * (((m * n) / p : ℕ) : ℤ) := by
   unfold derivCoeff
   rw [val_mul_of_ne_zero hm hn]
-  norm_num
-  ring
+  rw [Nat.cast_add]
 
 /-- The prime-direction local coefficient Leibniz theorem.
 
@@ -86,21 +91,21 @@ theorem derivCoeffLeibnizAt_of_prime {m n p : ℕ}
   · by_cases hpn : p ∣ n
     · rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_right hpn]
       rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_left hpm]
-      ring
+      simp [add_mul, add_comm]
     · rw [derivCoeff_eq_zero_of_not_dvd hpn]
       rw [val_eq_zero_of_not_dvd hpn]
       rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_left hpm]
-      ring
+      simp
   · by_cases hpn : p ∣ n
     · rw [derivCoeff_eq_zero_of_not_dvd hpm]
       rw [val_eq_zero_of_not_dvd hpm]
       rw [int_mul_derivCoeff_eq_val_mul_mul_div_of_dvd_right hpn]
-      ring
+      simp
     · rw [derivCoeff_eq_zero_of_not_dvd hpm]
       rw [derivCoeff_eq_zero_of_not_dvd hpn]
       rw [val_eq_zero_of_not_dvd hpm]
       rw [val_eq_zero_of_not_dvd hpn]
-      ring
+      simp
 
 /-- If every coordinate of `S` is prime-shaped, the coefficient Leibniz law
 holds on all coordinates of `S`. -/
