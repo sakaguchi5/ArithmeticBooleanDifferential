@@ -6,6 +6,7 @@ Authors: NOIZ
 import ABD.Lattice.Kernel
 import ABD.Lattice.AdditiveLinearFormLinear
 import ABD.Lattice.KernelClosure
+import ABD.Lattice.KernelSubmodule
 import ABD.Lattice.Smallness
 import ABD.Lattice.SmallnessAbs
 import ABD.Lattice.SmallnessWeighted

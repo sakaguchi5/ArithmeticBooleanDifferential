@@ -10,6 +10,13 @@ theorem zeroTangent_mem_additiveKernel
   rw [mem_additiveKernel_iff]
   exact additiveOn_zeroTangent S a b c
 
+/-- The standard zero tangent vector belongs to every additive kernel. -/
+theorem zero_mem_additiveKernel
+    (S : Finset ℕ) (a b c : ℕ) :
+    (0 : Tangent S) ∈ AdditiveKernel S a b c := by
+  rw [mem_additiveKernel_iff]
+  simp [AdditiveOn, formalDeriv]
+
 /-- Additive kernels are closed under addition of tangent vectors. -/
 theorem add_mem_additiveKernel
     {S : Finset ℕ} {a b c : ℕ} {x y : Tangent S}
@@ -47,6 +54,13 @@ theorem zeroTangent_mem_tripleAdditiveKernel
     zeroTangent T.support ∈ TripleAdditiveKernel T := by
   rw [mem_tripleAdditiveKernel_iff]
   exact additiveOn_zeroTangent T.support T.a T.b T.c
+
+/-- The standard zero tangent vector belongs to the additive kernel of every triple. -/
+theorem zero_mem_tripleAdditiveKernel
+    (T : ABCTriple) :
+    (0 : Tangent T.support) ∈ TripleAdditiveKernel T := by
+  rw [mem_tripleAdditiveKernel_iff]
+  simp [AdditiveOn, formalDeriv]
 
 /-- Triple additive kernels are closed under addition of tangent vectors. -/
 theorem add_mem_tripleAdditiveKernel
