@@ -9,7 +9,8 @@ The Wronskian-degenerate hyperplane on the `S_a ⊕ S_b` side.
 At this stage we represent the hyperplane by its kernel equation
 `restrictedABWronskian = 0`.  This is the precise support-block content needed
 for the SDC decomposition: the bad Wronskian locus lives only on the `a/b`
-seed side and does not mention the `c`-adjustment block. -/
+seed side and does not mention the `c`-adjustment block.
+-/
 def ABCTriple.ABWronskianHyperplane (T : ABCTriple) :
     Set (T.ATangent × T.BTangent) :=
   {z | T.restrictedABWronskian z.1 z.2 = 0}
@@ -57,7 +58,7 @@ theorem ABCTriple.glueBlocks_pastenNondegenerate_iff_ab_not_mem_hyperplane
     T.PastenNondegenerate (T.glueBlocks x) ↔
       (x.xA, x.xB) ∉ T.ABWronskianHyperplane := by
   rw [T.pastenNondegenerate_iff_restrictAB_not_mem_hyperplane]
-  rw [T.restrictA_glueBlocks hdisj]
+  rw [T.restrictA_glueBlocks]
   rw [T.restrictB_glueBlocks hdisj]
 
 /-- A full strict Pasten candidate decomposes into block balance plus avoidance
