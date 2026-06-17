@@ -20,4 +20,6 @@ import ABD.PastenBlock.Adjustment
 import ABD.PastenBlock.CLinear
 import ABD.PastenBlock.CImageLinear
 import ABD.PastenBlock.CoeffGCD
+import ABD.PastenBlock.CImageGCDDivisibility
+import ABD.PastenBlock.CImageGCDBezout
 import ABD.PastenBlock.NormalForm
