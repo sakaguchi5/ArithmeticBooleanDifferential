@@ -71,34 +71,52 @@ abbrev ABCTriple.BTangent (T : ABCTriple) : Type :=
 abbrev ABCTriple.CTangent (T : ABCTriple) : Type :=
   Tangent T.supportC
 
+/-- The `a`-block support is contained in the full Pasten support. -/
+theorem ABCTriple.supportA_subset_support
+    (T : ABCTriple) : T.supportA ⊆ T.support := by
+  intro p hp
+  exact T.mem_supportA_support hp
+
+/-- The `b`-block support is contained in the full Pasten support. -/
+theorem ABCTriple.supportB_subset_support
+    (T : ABCTriple) : T.supportB ⊆ T.support := by
+  intro p hp
+  exact T.mem_supportB_support hp
+
+/-- The `c`-block support is contained in the full Pasten support. -/
+theorem ABCTriple.supportC_subset_support
+    (T : ABCTriple) : T.supportC ⊆ T.support := by
+  intro p hp
+  exact T.mem_supportC_support hp
+
 /-- Restrict a full tangent vector to the `a`-support block. -/
 def ABCTriple.restrictA (T : ABCTriple) (x : Tangent T.support) : T.ATangent :=
-  fun hp => x ⟨hp.1, T.mem_supportA_support hp.2⟩
+  fun hp => x ⟨hp.1, T.supportA_subset_support hp.2⟩
 
 /-- Restrict a full tangent vector to the `b`-support block. -/
 def ABCTriple.restrictB (T : ABCTriple) (x : Tangent T.support) : T.BTangent :=
-  fun hp => x ⟨hp.1, T.mem_supportB_support hp.2⟩
+  fun hp => x ⟨hp.1, T.supportB_subset_support hp.2⟩
 
 /-- Restrict a full tangent vector to the `c`-support block. -/
 def ABCTriple.restrictC (T : ABCTriple) (x : Tangent T.support) : T.CTangent :=
-  fun hp => x ⟨hp.1, T.mem_supportC_support hp.2⟩
+  fun hp => x ⟨hp.1, T.supportC_subset_support hp.2⟩
 
 @[simp]
 theorem ABCTriple.restrictA_apply
     (T : ABCTriple) (x : Tangent T.support) (hp : {p : ℕ // p ∈ T.supportA}) :
-    T.restrictA x hp = x ⟨hp.1, T.mem_supportA_support hp.2⟩ := by
+    T.restrictA x hp = x ⟨hp.1, T.supportA_subset_support hp.2⟩ := by
   rfl
 
 @[simp]
 theorem ABCTriple.restrictB_apply
     (T : ABCTriple) (x : Tangent T.support) (hp : {p : ℕ // p ∈ T.supportB}) :
-    T.restrictB x hp = x ⟨hp.1, T.mem_supportB_support hp.2⟩ := by
+    T.restrictB x hp = x ⟨hp.1, T.supportB_subset_support hp.2⟩ := by
   rfl
 
 @[simp]
 theorem ABCTriple.restrictC_apply
     (T : ABCTriple) (x : Tangent T.support) (hp : {p : ℕ // p ∈ T.supportC}) :
-    T.restrictC x hp = x ⟨hp.1, T.mem_supportC_support hp.2⟩ := by
+    T.restrictC x hp = x ⟨hp.1, T.supportC_subset_support hp.2⟩ := by
   rfl
 
 end ABD
