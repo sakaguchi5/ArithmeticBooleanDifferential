@@ -17,4 +17,7 @@ import ABD.PastenBlock.DirectSumEquiv
 import ABD.PastenBlock.HyperplaneKernel
 import ABD.PastenBlock.Theorem12
 import ABD.PastenBlock.Adjustment
+import ABD.PastenBlock.CLinear
+import ABD.PastenBlock.CImageLinear
+import ABD.PastenBlock.CoeffGCD
 import ABD.PastenBlock.NormalForm
