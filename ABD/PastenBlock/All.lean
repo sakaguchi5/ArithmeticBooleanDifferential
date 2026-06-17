@@ -22,4 +22,6 @@ import ABD.PastenBlock.CImageLinear
 import ABD.PastenBlock.CoeffGCD
 import ABD.PastenBlock.CImageGCDDivisibility
 import ABD.PastenBlock.CImageGCDBezout
+import ABD.PastenBlock.CoeffGCDBridge
+import ABD.PastenBlock.Theorem3
 import ABD.PastenBlock.NormalForm
