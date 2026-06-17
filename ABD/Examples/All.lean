@@ -8,4 +8,5 @@ import ABD.Examples.PrimePowerToy
 import ABD.Examples.PastenTwoThreeFive
 import ABD.Examples.ConcreteKernel235
 import ABD.Examples.PastenConcrete235
+import ABD.Examples.StrictPastenConcrete235
 import ABD.Examples.SmallKernelPoint235FromPair
