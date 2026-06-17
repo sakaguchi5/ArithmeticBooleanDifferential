@@ -12,5 +12,9 @@ import ABD.PastenBlock.BlockDirectSum
 import ABD.PastenBlock.Hyperplane
 import ABD.PastenBlock.HyperplaneLinear
 import ABD.PastenBlock.Primitive
+import ABD.PastenBlock.PrimitiveAB
+import ABD.PastenBlock.DirectSumEquiv
+import ABD.PastenBlock.HyperplaneKernel
+import ABD.PastenBlock.Theorem12
 import ABD.PastenBlock.Adjustment
 import ABD.PastenBlock.NormalForm

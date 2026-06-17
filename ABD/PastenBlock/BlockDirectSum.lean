@@ -20,6 +20,7 @@ abbrev ABCTriple.PrimitiveSupport (T : ABCTriple) : Prop :=
   T.SupportBlocksDisjoint
 
 /-- The three independent tangent blocks attached to `S_a`, `S_b`, and `S_c`. -/
+@[ext]
 structure ABCTriple.TangentBlocks (T : ABCTriple) where
   xA : T.ATangent
   xB : T.BTangent
