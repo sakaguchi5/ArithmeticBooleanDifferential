@@ -24,4 +24,7 @@ import ABD.PastenBlock.CImageGCDDivisibility
 import ABD.PastenBlock.CImageGCDBezout
 import ABD.PastenBlock.CoeffGCDBridge
 import ABD.PastenBlock.Theorem3
+import ABD.PastenBlock.ABCompatible
+import ABD.PastenBlock.StrictReduction
+import ABD.PastenBlock.SmallLift
 import ABD.PastenBlock.NormalForm
