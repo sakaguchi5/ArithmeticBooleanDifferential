@@ -14,6 +14,7 @@ import ABD.Lattice.Nondegenerate
 import ABD.Lattice.TripleKernel
 import ABD.Lattice.Nonzero
 import ABD.Lattice.PastenCandidate
+import ABD.Lattice.KernelPointConstruction
 import ABD.Lattice.CoordinateBridge
 import ABD.Lattice.SiegelBridge
 import ABD.Lattice.PastenLeibniz

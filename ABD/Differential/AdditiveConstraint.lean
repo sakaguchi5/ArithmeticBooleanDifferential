@@ -19,12 +19,12 @@ This definition is intentionally the difference form.  It makes the first core t
 `additiveOn_iff_linearForm_zero` completely stable.  The coefficient-level expression
 is kept separately as `AdditiveLinearFormByCoeff`.
 -/
-noncomputable def AdditiveLinearForm
+def AdditiveLinearForm
     (S : Finset ℕ) (x : Tangent S) (a b c : ℕ) : ℤ :=
   formalDeriv S x a + formalDeriv S x b - formalDeriv S x c
 
 /-- The same linear constraint written directly as a coefficient sum over `S`. -/
-noncomputable def AdditiveLinearFormByCoeff
+def AdditiveLinearFormByCoeff
     (S : Finset ℕ) (x : Tangent S) (a b c : ℕ) : ℤ :=
   ∑ hp : {p : ℕ // p ∈ S}, addCoeff a b c hp.1 * x hp
 

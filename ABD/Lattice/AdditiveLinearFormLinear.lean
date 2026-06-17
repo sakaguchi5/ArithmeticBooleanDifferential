@@ -141,4 +141,26 @@ theorem additiveLinearFormByCoeff_zsmul
     AdditiveLinearFormByCoeff S (0 : Tangent S) a b c = 0 := by
   simp [AdditiveLinearFormByCoeff]
 
+/-- The difference-form additive linear form agrees with the coefficient-sum
+presentation. -/
+theorem additiveLinearForm_eq_additiveLinearFormByCoeff
+    (S : Finset ℕ) (x : Tangent S) (a b c : ℕ) :
+    AdditiveLinearForm S x a b c =
+      AdditiveLinearFormByCoeff S x a b c := by
+  unfold AdditiveLinearForm AdditiveLinearFormByCoeff formalDeriv addCoeff
+  rw [← Finset.sum_add_distrib]
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro hp _hmem
+  simp [sub_eq_add_neg, add_mul, add_assoc]
+
+/-- The coefficient-sum presentation agrees with the difference-form additive
+linear form. -/
+theorem additiveLinearFormByCoeff_eq_additiveLinearForm
+    (S : Finset ℕ) (x : Tangent S) (a b c : ℕ) :
+    AdditiveLinearFormByCoeff S x a b c =
+      AdditiveLinearForm S x a b c := by
+  exact (additiveLinearForm_eq_additiveLinearFormByCoeff S x a b c).symm
+
+
 end ABD

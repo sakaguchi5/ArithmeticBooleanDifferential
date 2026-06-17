@@ -15,7 +15,7 @@ def derivCoeff (n p : ℕ) : ℤ :=
 
 `formalDeriv S x n = Σ_{p∈S} v_p(n) * (n / p) * x_p`.
 -/
-noncomputable def formalDeriv (S : Finset ℕ) (x : Tangent S) (n : ℕ) : ℤ :=
+def formalDeriv (S : Finset ℕ) (x : Tangent S) (n : ℕ) : ℤ :=
   ∑ hp : {p : ℕ // p ∈ S}, derivCoeff n hp.1 * x hp
 
 @[simp]
