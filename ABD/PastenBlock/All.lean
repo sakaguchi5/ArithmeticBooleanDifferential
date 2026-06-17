@@ -6,7 +6,9 @@ Authors: NOIZ
 import ABD.PastenBlock.Support
 import ABD.PastenBlock.Derivative
 import ABD.PastenBlock.DerivativeRestriction
+import ABD.PastenBlock.BlockDirectSum
 import ABD.PastenBlock.Wronskian
 import ABD.PastenBlock.WronskianSeparation
+import ABD.PastenBlock.Hyperplane
 import ABD.PastenBlock.Adjustment
 import ABD.PastenBlock.NormalForm
