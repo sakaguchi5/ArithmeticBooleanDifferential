@@ -16,3 +16,4 @@ import ABD.ABD2.Reduction.CImageGCDInterface
 import ABD.ABD2.Reduction.CImageSupportBridge
 import ABD.ABD2.Reduction.CoeffLinearForm
 import ABD.ABD2.Reduction.CImageGCDFromBezout
+import ABD.ABD2.Reduction.CImageGCDFinal
