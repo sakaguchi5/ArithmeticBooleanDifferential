@@ -8,4 +8,5 @@ import ABD.ABD2.Module.All
 import ABD.ABD2.Differential.All
 import ABD.ABD2.Pasten.All
 import ABD.ABD2.Reduction.All
+import ABD.ABD2.Lattice.All
 import ABD.ABD2.Bridge.FromABD
