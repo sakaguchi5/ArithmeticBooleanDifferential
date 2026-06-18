@@ -1,5 +1,5 @@
 import ABD.ABD2.Reduction.All
-import ABD.PastenBlock.All
+import ABD.ABD.PastenBlock.All
 
 namespace ABD2
 

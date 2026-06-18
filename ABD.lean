@@ -1,9 +1,7 @@
 /-
---import ABD.Basic
-import ABD.Core.All
-import ABD.Differential.All
-import ABD.Lattice.All
-import ABD.PastenBlock.All
---import ABD.Examples.All
+Copyright (c) 2026 NOIZ. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: NOIZ
 -/
+--import ABD.ABD.All
 import ABD.ABD2.All
