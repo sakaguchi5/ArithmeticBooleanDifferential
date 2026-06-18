@@ -10,3 +10,4 @@ import ABD.ABD2.Pasten.All
 import ABD.ABD2.Reduction.All
 import ABD.ABD2.Lattice.All
 import ABD.ABD2.Bridge.FromABD
+import ABD.ABD2.Theorems.All

@@ -64,7 +64,7 @@ theorem extendC_restrictC_eq_of_isCPure
   by_cases hC : p.1 ∈ T.supportC
   · simp [extendC, restrictC, hC]
   · have hcover : p.1 ∈ T.supportA ∪ T.supportB ∪ T.supportC := by
-      simpa [h.cover] using p.2
+      simp [h.cover]
     have hAB : p.1 ∈ T.supportA ∨ p.1 ∈ T.supportB := by
       simpa [hC] using hcover
     have hxzero : x p = 0 := by
