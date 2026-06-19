@@ -15,3 +15,4 @@ import ABD.ABD2.Fibration.BadSeedFrontierA3
 import ABD.ABD2.Fibration.BadSeedFrontierA4
 import ABD.ABD2.Fibration.TargetZero
 import ABD.ABD2.Fibration.TargetZeroCost
+import ABD.ABD2.Fibration.TargetZeroCostAnatomy
