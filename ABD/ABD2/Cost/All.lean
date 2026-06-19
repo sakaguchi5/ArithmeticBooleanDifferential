@@ -14,3 +14,5 @@ import ABD.ABD2.Cost.ImageObstruction
 import ABD.ABD2.Cost.BezoutObstruction
 import ABD.ABD2.Cost.SupportRankObstruction
 import ABD.ABD2.Cost.TwoSidedPreimage
+import ABD.ABD2.Cost.TwoSidedPreimageGlue
+import ABD.ABD2.Cost.TwoSidedMaxAggregate
