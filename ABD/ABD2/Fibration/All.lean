@@ -11,3 +11,5 @@ import ABD.ABD2.Fibration.LiftCost
 import ABD.ABD2.Fibration.Frontier
 import ABD.ABD2.Fibration.BadSeedFrontierA
 import ABD.ABD2.Fibration.BadSeedFrontierA2
+import ABD.ABD2.Fibration.BadSeedFrontierA3
+import ABD.ABD2.Fibration.BadSeedFrontierA4
