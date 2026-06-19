@@ -15,3 +15,4 @@ import ABD.ABD2.Stratification.All
 import ABD.ABD2.Fibration.All
 import ABD.ABD2.Gauge.All
 import ABD.ABD2.Cost.All
+import ABD.ABD2.Regime.All
