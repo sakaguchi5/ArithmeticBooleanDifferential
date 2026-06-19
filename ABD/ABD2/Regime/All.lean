@@ -5,3 +5,4 @@ import ABD.ABD2.Regime.Stage2.UpperBound
 import ABD.ABD2.Regime.Stage3.RationalPowerSaving
 import ABD.ABD2.Regime.Bridge.All
 import ABD.ABD2.Regime.E.All
+import ABD.ABD2.Regime.E2.All
