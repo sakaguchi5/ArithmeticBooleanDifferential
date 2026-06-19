@@ -6,3 +6,4 @@ import ABD.ABD2.Fibration.StrictSkeleton
 import ABD.ABD2.Fibration.BadSeedInclusion
 import ABD.ABD2.Fibration.Qualitative
 import ABD.ABD2.Fibration.FiniteSmallSection
+import ABD.ABD2.Fibration.FiniteBound
