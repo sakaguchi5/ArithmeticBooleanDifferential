@@ -10,3 +10,6 @@ import ABD.ABD2.Cost.Hardness
 import ABD.ABD2.Cost.HardnessNormalForm
 import ABD.ABD2.Cost.OneSidedHardness
 import ABD.ABD2.Cost.TwoSidedHardness
+import ABD.ABD2.Cost.ImageObstruction
+import ABD.ABD2.Cost.BezoutObstruction
+import ABD.ABD2.Cost.SupportRankObstruction
