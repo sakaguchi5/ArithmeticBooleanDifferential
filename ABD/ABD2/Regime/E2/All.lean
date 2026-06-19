@@ -4,3 +4,6 @@ import ABD.ABD2.Regime.E2.D2
 import ABD.ABD2.Regime.E2.Coverage
 import ABD.ABD2.Regime.E2.Failure
 import ABD.ABD2.Regime.E2.Reduction
+import ABD.ABD2.Regime.E2.FailureNormalForm
+import ABD.ABD2.Regime.E2.HardFrontier
+import ABD.ABD2.Regime.E2.RadicalReductionGoal
