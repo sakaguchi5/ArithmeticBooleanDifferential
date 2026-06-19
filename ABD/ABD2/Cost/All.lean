@@ -7,3 +7,6 @@ import ABD.ABD2.Cost.SectionBridge
 import ABD.ABD2.Cost.Gauge
 import ABD.ABD2.Cost.Regime
 import ABD.ABD2.Cost.Hardness
+import ABD.ABD2.Cost.HardnessNormalForm
+import ABD.ABD2.Cost.OneSidedHardness
+import ABD.ABD2.Cost.TwoSidedHardness
