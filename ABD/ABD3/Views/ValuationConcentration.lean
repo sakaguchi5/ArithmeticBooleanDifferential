@@ -68,28 +68,25 @@ theorem theoremD_primeLocalTaxReward_forces_CValuationConcentration
   exact (T.hasPositiveCSurplus_iff_hasCValuationConcentration P).mp
     (T.theoremD_primeLocalTaxReward_forces_positiveCSurplus P hineq)
 
-/-- Theorem D from radical-smallness: once the raw radical-small inequality has
-been expanded over the common prime support, it forces a positive C-side surplus
-prime. -/
+/-- Theorem D from radical-smallness: the raw radical-small inequality forces a
+positive C-side surplus prime.  The prime-support expansion is now proved by
+`primeSupportExpansion`, so no expansion hypothesis is needed. -/
 theorem theoremD_radicalSmall_forces_positiveCSurplus
-    (T : ABCData) (P : PowerData)
-    (hexp : T.PrimeSupportExpansion P) :
+    (T : ABCData) (P : PowerData) :
     T.RadicalSmall P → T.HasPositiveCSurplus P := by
   intro hsmall
   have hlocal : T.PrimeLocalTaxRewardInequality P :=
-    (T.theoremA_radicalSmall_iff_primeLocalTaxReward P hexp).mp hsmall
+    (T.theoremA_radicalSmall_iff_primeLocalTaxReward P).mp hsmall
   exact T.theoremD_primeLocalTaxReward_forces_positiveCSurplus P hlocal
 
 /-- Theorem D, final valuation-concentration statement: a radical-small
-primitive positive ABC triple has a C-prime whose reward beats the radical tax,
-provided the two sides have been expanded over the common support. -/
+primitive positive ABC triple has a C-prime whose reward beats the radical tax. -/
 theorem theoremD_radicalSmall_forces_CValuationConcentration
-    (T : ABCData) (P : PowerData)
-    (hexp : T.PrimeSupportExpansion P) :
+    (T : ABCData) (P : PowerData) :
     T.RadicalSmall P → T.HasCValuationConcentration P := by
   intro hsmall
   exact (T.hasPositiveCSurplus_iff_hasCValuationConcentration P).mp
-    (T.theoremD_radicalSmall_forces_positiveCSurplus P hexp hsmall)
+    (T.theoremD_radicalSmall_forces_positiveCSurplus P hsmall)
 
 end ABCData
 end ABD3
