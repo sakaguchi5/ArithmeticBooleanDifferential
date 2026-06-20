@@ -66,5 +66,10 @@ def CoverageVia
     (I : CostInterface T) : Prop :=
   D1CoverageVia T P height I ∨ D2CoverageVia T P height I
 
+def CoverageAtCHeight
+    (T : ABCData) (P : PowerData)
+    (I : CommonScalar.CostInterface T) : Prop :=
+  CommonScalar.CoverageVia T P (T.C : ℤ) I
+
 end CommonScalar
 end ABD3
