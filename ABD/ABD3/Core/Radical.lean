@@ -29,13 +29,10 @@ def radC (T : ABCData) : ℕ :=
 def radABC (T : ABCData) : ℕ :=
   radOfSupport T.supportABC
 
-/-- The block product that becomes `radABC` under block-disjointness. -/
+/-- Product of the three block radicals.  For `ABCData`, this is equal to
+`radABC`; the equality is proved in `ABD3.Views.BlockProduct`. -/
 def blockRadicalProduct (T : ABCData) : ℕ :=
   T.radA * T.radB * T.radC
-
-/-- View asserting that the full radical splits as the three block radicals. -/
-def BlockRadicalProductView (T : ABCData) : Prop :=
-  T.radABC = T.blockRadicalProduct
 
 @[simp] theorem radA_def (T : ABCData) : T.radA = radOfSupport T.supportA := rfl
 @[simp] theorem radB_def (T : ABCData) : T.radB = radOfSupport T.supportB := rfl

@@ -12,7 +12,7 @@ structure PositiveNat where
 
 An `ABCData` consists of positive natural numbers `A`, `B`, and `C`
 with `A + B = C`, together with the primitive condition
-Nat.Coprime A.val B.val.
+`Nat.Coprime A.val B.val`
 
 Derived objects such as prime supports, valuations, radicals, and
 radical-small inequalities are intentionally not stored here.
