@@ -7,3 +7,4 @@ import ABD.ABD2.Regime.E2.Reduction
 import ABD.ABD2.Regime.E2.FailureNormalForm
 import ABD.ABD2.Regime.E2.HardFrontier
 import ABD.ABD2.Regime.E2.RadicalReductionGoal
+import ABD.ABD2.Regime.E2.ConcreteRadical
