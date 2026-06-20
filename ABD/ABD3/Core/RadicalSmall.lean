@@ -7,11 +7,11 @@ namespace ABCData
 
 /-- Nat-valued radical-small inequality generated from `A,B,C,N,M`. -/
 def RadicalSmallNat (T : ABCData) (P : PowerData) : Prop :=
-  T.radABC ^ P.N < T.C ^ P.M
+  T.radABC ^ P.N < T.C.val ^ P.M
 
 /-- Int-valued radical-small inequality, matching the ABD2 E2 convention. -/
 def RadicalSmallInt (T : ABCData) (P : PowerData) : Prop :=
-  ((T.radABC : ℤ) ^ P.N) < ((T.C : ℤ) ^ P.M)
+  ((T.radABC : ℤ) ^ P.N) < ((T.C.val : ℤ) ^ P.M)
 
 /-- Default ABD3 radical-small predicate: the ABD2-compatible integer-power form. -/
 def RadicalSmall (T : ABCData) (P : PowerData) : Prop :=
@@ -19,7 +19,7 @@ def RadicalSmall (T : ABCData) (P : PowerData) : Prop :=
 
 /-- Radical-large side, the harmless side used in the E2 contrapositive route. -/
 def RadicalLarge (T : ABCData) (P : PowerData) : Prop :=
-  ((T.C : ℤ) ^ P.M) ≤ ((T.radABC : ℤ) ^ P.N)
+  ((T.C.val : ℤ) ^ P.M) ≤ ((T.radABC : ℤ) ^ P.N)
 
 /-- Concrete dangerous normal form generated from `A,B,C,N,M`. -/
 def ConcreteDangerNormalForm (T : ABCData) (P : PowerData) : Prop :=

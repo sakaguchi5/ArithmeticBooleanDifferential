@@ -69,7 +69,7 @@ def CoverageVia
 def CoverageAtCHeight
     (T : ABCData) (P : PowerData)
     (I : CommonScalar.CostInterface T) : Prop :=
-  CommonScalar.CoverageVia T P (T.C : ℤ) I
+  CommonScalar.CoverageVia T P (T.C.val : ℤ) I
 
 end CommonScalar
 end ABD3

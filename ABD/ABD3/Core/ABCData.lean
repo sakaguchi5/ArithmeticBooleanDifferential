@@ -3,29 +3,44 @@ import Mathlib.Data.Nat.GCD.Basic
 
 namespace ABD3
 
-/-- Minimal ABC triple data used by ABD3.
+/-- A positive natural number, stored together with its positivity proof. -/
+structure PositiveNat where
+  val : ℕ
+  pos : 0 < val
 
-ABD3 deliberately keeps only the additive triple itself here.  Prime support,
-radicals, and radical-small inequalities are derived data, not stored fields. -/
+/-- Core ABC triple data for ABD3.
+
+An `ABCData` consists of positive natural numbers `A`, `B`, and `C`
+with `A + B = C`, together with the primitive condition
+`Nat.Coprime A B`.
+
+Derived objects such as prime supports, valuations, radicals, and
+radical-small inequalities are intentionally not stored here.
+-/
 structure ABCData where
-  A : ℕ
-  B : ℕ
-  C : ℕ
-  h_add : A + B = C
+  A : PositiveNat
+  B : PositiveNat
+  C : PositiveNat
+  h_add : A.val + B.val = C.val
+  h_coprime : Nat.Coprime A.val B.val
 
 namespace ABCData
 
 /-- Primitive condition for the additive triple. -/
 def Primitive (T : ABCData) : Prop :=
-  Nat.Coprime T.A T.B
+  Nat.Coprime T.A.val T.B.val
 
-/-- First-pass non-exceptional boundary used by the E2 route. -/
+/-- The non-exceptional boundary condition used in the ABD3/Pasten direction.
+
+The core `ABCData` allows `A = 1` or `B = 1`; those are valid primitive
+positive triples, but are separated here as exceptional boundary cases.
+-/
 def NonExceptional (T : ABCData) : Prop :=
-  T.A ≠ 1 ∧ T.B ≠ 1
+  T.A.val ≠ 1 ∧ T.B.val ≠ 1
 
 /-- The one-sided unit boundary used as the first concrete exceptional pattern. -/
 def UnitBoundary (T : ABCData) : Prop :=
-  T.A = 1 ∨ T.B = 1
+  T.A.val = 1 ∨ T.B.val = 1
 
 /-- `NonExceptional` is exactly the negation of the first-pass unit boundary. -/
 theorem nonExceptional_iff_not_unitBoundary (T : ABCData) :

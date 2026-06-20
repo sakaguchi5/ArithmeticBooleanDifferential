@@ -13,7 +13,7 @@ def CRadicalTax (T : ABCData) (P : PowerData) : ℤ :=
 
 /-- C-side height reward in the rational-power inequality. -/
 def CHeightReward (T : ABCData) (P : PowerData) : ℤ :=
-  ((T.C : ℤ) ^ P.M)
+  ((T.C.val : ℤ) ^ P.M)
 
 /-- Tax view of the block-powered radical-small inequality. -/
 def BlockTaxDominatedByCHeight (T : ABCData) (P : PowerData) : Prop :=

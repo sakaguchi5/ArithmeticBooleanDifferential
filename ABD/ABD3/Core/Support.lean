@@ -12,15 +12,15 @@ namespace ABCData
 
 /-- A-side prime support. -/
 def supportA (T : ABCData) : Support :=
-  primeSupport T.A
+  primeSupport T.A.val
 
 /-- B-side prime support. -/
 def supportB (T : ABCData) : Support :=
-  primeSupport T.B
+  primeSupport T.B.val
 
 /-- C-side prime support. -/
 def supportC (T : ABCData) : Support :=
-  primeSupport T.C
+  primeSupport T.C.val
 
 /-- Full Boolean support of the triple. -/
 def supportABC (T : ABCData) : Support :=

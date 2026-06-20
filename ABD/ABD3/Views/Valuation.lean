@@ -3,32 +3,32 @@ import ABD.ABD3.Views.TaxSurplus
 
 namespace ABD3
 
-/-- p-adic exponent using mathlib's factorization map. -/
-def val (n p : ℕ) : ℕ :=
+/-- Exponent of `p` in the factorization of `n`. -/
+def vp (n p : ℕ) : ℕ :=
   n.factorization p
 
 namespace ABCData
 
 /-- A-side valuation. -/
 def valA (T : ABCData) (p : ℕ) : ℕ :=
-  val T.A p
+  vp T.A.val p
 
 /-- B-side valuation. -/
 def valB (T : ABCData) (p : ℕ) : ℕ :=
-  val T.B p
+  vp T.B.val p
 
 /-- C-side valuation. -/
 def valC (T : ABCData) (p : ℕ) : ℕ :=
-  val T.C p
+  vp T.C.val p
 
 theorem valA_eq (T : ABCData) (p : ℕ) :
-    T.valA p = val T.A p := rfl
+    T.valA p = vp T.A.val p := rfl
 
 theorem valB_eq (T : ABCData) (p : ℕ) :
-    T.valB p = val T.B p := rfl
+    T.valB p = vp T.B.val p := rfl
 
 theorem valC_eq (T : ABCData) (p : ℕ) :
-    T.valC p = val T.C p := rfl
+    T.valC p = vp T.C.val p := rfl
 
 /-- Constant radical-support tax: one support prime pays `N`. -/
 def SupportTax (P : PowerData) : ℕ :=
@@ -123,40 +123,40 @@ def CSurplusAt (T : ABCData) (P : PowerData) (p : ℕ) : ℤ :=
 
 /-- Pasten/ABD coefficient scale on a number `n` at prime direction `p`. -/
 def coeffOf (n p : ℕ) : ℤ :=
-  (val n p : ℤ) * ((n / p : ℕ) : ℤ)
+  (vp n p : ℤ) * ((n / p : ℕ) : ℤ)
 
 @[simp] theorem coeffOf_eq_zero_of_val_eq_zero
-    {n p : ℕ} (h : val n p = 0) :
+    {n p : ℕ} (h : vp n p = 0) :
     coeffOf n p = 0 := by
   simp [coeffOf, h]
 
 /-- A-side coefficient scale. -/
 def coeffA (T : ABCData) (p : ℕ) : ℤ :=
-  coeffOf T.A p
+  coeffOf T.A.val p
 
 /-- B-side coefficient scale. -/
 def coeffB (T : ABCData) (p : ℕ) : ℤ :=
-  coeffOf T.B p
+  coeffOf T.B.val p
 
 /-- C-side coefficient scale. -/
 def coeffC (T : ABCData) (p : ℕ) : ℤ :=
-  coeffOf T.C p
+  coeffOf T.C.val p
 
 theorem coeffA_eq (T : ABCData) (p : ℕ) :
-    T.coeffA p = coeffOf T.A p := rfl
+    T.coeffA p = coeffOf T.A.val p := rfl
 
 theorem coeffB_eq (T : ABCData) (p : ℕ) :
-    T.coeffB p = coeffOf T.B p := rfl
+    T.coeffB p = coeffOf T.B.val p := rfl
 
 theorem coeffC_eq (T : ABCData) (p : ℕ) :
-    T.coeffC p = coeffOf T.C p := rfl
+    T.coeffC p = coeffOf T.C.val p := rfl
 
 @[simp] theorem coeffA_eq_zero_of_valA_eq_zero
     (T : ABCData) {p : ℕ} (h : T.valA p = 0) :
     T.coeffA p = 0 := by
   calc
-    T.coeffA p = (T.valA p : ℤ) * ((T.A / p : ℕ) : ℤ) := rfl
-    _ = ((0 : ℕ) : ℤ) * ((T.A / p : ℕ) : ℤ) := by
+    T.coeffA p = (T.valA p : ℤ) * ((T.A.val / p : ℕ) : ℤ) := rfl
+    _ = ((0 : ℕ) : ℤ) * ((T.A.val / p : ℕ) : ℤ) := by
       rw [h]
     _ = 0 := by
       simp
@@ -165,8 +165,8 @@ theorem coeffC_eq (T : ABCData) (p : ℕ) :
     (T : ABCData) {p : ℕ} (h : T.valB p = 0) :
     T.coeffB p = 0 := by
   calc
-    T.coeffB p = (T.valB p : ℤ) * ((T.B / p : ℕ) : ℤ) := rfl
-    _ = ((0 : ℕ) : ℤ) * ((T.B / p : ℕ) : ℤ) := by
+    T.coeffB p = (T.valB p : ℤ) * ((T.B.val / p : ℕ) : ℤ) := rfl
+    _ = ((0 : ℕ) : ℤ) * ((T.B.val / p : ℕ) : ℤ) := by
       rw [h]
     _ = 0 := by
       simp
@@ -175,8 +175,8 @@ theorem coeffC_eq (T : ABCData) (p : ℕ) :
     (T : ABCData) {p : ℕ} (h : T.valC p = 0) :
     T.coeffC p = 0 := by
   calc
-    T.coeffC p = (T.valC p : ℤ) * ((T.C / p : ℕ) : ℤ) := rfl
-    _ = ((0 : ℕ) : ℤ) * ((T.C / p : ℕ) : ℤ) := by
+    T.coeffC p = (T.valC p : ℤ) * ((T.C.val / p : ℕ) : ℤ) := rfl
+    _ = ((0 : ℕ) : ℤ) * ((T.C.val / p : ℕ) : ℤ) := by
       rw [h]
     _ = 0 := by
       simp

@@ -31,7 +31,7 @@ expansions are available, radical-smallness is just the same inequality written
 in prime-local tax/reward language. -/
 structure PrimeSupportExpansion (T : ABCData) (P : PowerData) : Prop where
   left_expand : (T.SupportTaxProduct P : ℤ) = ((T.radABC : ℤ) ^ P.N)
-  right_expand : (T.CRewardProductOnABC P : ℤ) = ((T.C : ℤ) ^ P.M)
+  right_expand : (T.CRewardProductOnABC P : ℤ) = ((T.C.val : ℤ) ^ P.M)
 
 /-- Theorem A: radical-smallness is equivalent to the prime-local tax/reward
 inequality, once the two sides have been expanded over the common support. -/

@@ -5,12 +5,12 @@ namespace ABCData
 
 /-- Radical-small view obtained by replacing `radABC` with the block radical product. -/
 def BlockProductRadicalSmall (T : ABCData) (P : PowerData) : Prop :=
-  (((T.blockRadicalProduct : ℕ) : ℤ) ^ P.N) < ((T.C : ℤ) ^ P.M)
+  (((T.blockRadicalProduct : ℕ) : ℤ) ^ P.N) < ((T.C.val : ℤ) ^ P.M)
 
 /-- Radical-small view in which each block radical is powered separately. -/
 def BlockPowerRadicalSmall (T : ABCData) (P : PowerData) : Prop :=
   ((T.radA : ℤ) ^ P.N) * ((T.radB : ℤ) ^ P.N) * ((T.radC : ℤ) ^ P.N) <
-    ((T.C : ℤ) ^ P.M)
+    ((T.C.val : ℤ) ^ P.M)
 
 /-- If the Boolean support radical splits as a block product, the raw radical-small
 predicate is the block-product radical-small predicate. -/
