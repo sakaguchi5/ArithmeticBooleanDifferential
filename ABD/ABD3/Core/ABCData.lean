@@ -12,7 +12,7 @@ structure PositiveNat where
 
 An `ABCData` consists of positive natural numbers `A`, `B`, and `C`
 with `A + B = C`, together with the primitive condition
-`Nat.Coprime A B`.
+Nat.Coprime A.val B.val.
 
 Derived objects such as prime supports, valuations, radicals, and
 radical-small inequalities are intentionally not stored here.
@@ -26,9 +26,25 @@ structure ABCData where
 
 namespace ABCData
 
-/-- Primitive condition for the additive triple. -/
+/-- The primitive condition already stored in `ABCData`. -/
 def Primitive (T : ABCData) : Prop :=
   Nat.Coprime T.A.val T.B.val
+
+/-- Every `ABCData` is primitive by construction. -/
+theorem primitive (T : ABCData) : T.Primitive :=
+  T.h_coprime
+
+/-- A-side positivity, available by construction. -/
+theorem A_pos (T : ABCData) : 0 < T.A.val :=
+  T.A.pos
+
+/-- B-side positivity, available by construction. -/
+theorem B_pos (T : ABCData) : 0 < T.B.val :=
+  T.B.pos
+
+/-- C-side positivity, available by construction. -/
+theorem C_pos (T : ABCData) : 0 < T.C.val :=
+  T.C.pos
 
 /-- The non-exceptional boundary condition used in the ABD3/Pasten direction.
 

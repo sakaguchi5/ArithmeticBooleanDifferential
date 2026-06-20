@@ -16,7 +16,11 @@ namespace ABD2Facts
 later without polluting the ABD3 core. -/
 axiom ABD2Triple : Type
 
-/-- An ABD2 triple can be viewed as ABD3 `ABCData`. -/
+/-- An ABD2 primitive positive triple can be viewed as ABD3 `ABCData`.
+
+Since ABD3's `ABCData` now stores positivity and coprimality, this bridge
+should only be instantiated for ABD2 triples carrying those conditions.
+-/
 axiom toABCData : ABD2Triple → ABCData
 
 /-- Abstract ABD2 power-data object.  This exists only so ABD3 can import
