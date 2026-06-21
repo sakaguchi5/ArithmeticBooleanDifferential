@@ -5,3 +5,4 @@ import ABD.ABD3.Views.DPlusGraph.Generators
 import ABD.ABD3.Views.DPlusGraph.CPortRefinement
 import ABD.ABD3.Views.DPlusGraph.PortProduct
 import ABD.ABD3.Views.DPlusGraph.PortPartition
+import ABD.ABD3.Views.DPlusGraph.PortMassDecomposition
