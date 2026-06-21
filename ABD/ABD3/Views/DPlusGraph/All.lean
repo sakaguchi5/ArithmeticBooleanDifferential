@@ -21,3 +21,4 @@ import ABD.ABD3.Views.DPlusGraph.ResidualStep11PointwiseResidualLedger
 import ABD.ABD3.Views.DPlusGraph.ResidualStep12GlobalResidualDichotomy
 import ABD.ABD3.Views.DPlusGraph.ResidualStep13AllCResidualRoute
 import ABD.ABD3.Views.DPlusGraph.ResidualStep14ActiveResidualFrontier
+import ABD.ABD3.Views.DPlusGraph.ProductObstruction.All
