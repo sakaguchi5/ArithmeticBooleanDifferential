@@ -13,3 +13,6 @@ import ABD.ABD3.Views.DPlusGraph.ResidualStep4Dominance
 import ABD.ABD3.Views.DPlusGraph.ResidualFrontier
 import ABD.ABD3.Views.DPlusGraph.ResidualStep5Frontier
 import ABD.ABD3.Views.DPlusGraph.ResidualStep6UnitBoundary
+import ABD.ABD3.Views.DPlusGraph.ResidualStep7SupportSmall
+import ABD.ABD3.Views.DPlusGraph.ResidualStep8RejectedNormalForm
+import ABD.ABD3.Views.DPlusGraph.ResidualStep9SurplusAbsorptionFrontier
