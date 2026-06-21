@@ -10,3 +10,6 @@ import ABD.ABD3.Views.DPlusGraph.ResidualStep1Dominance
 import ABD.ABD3.Views.DPlusGraph.ResidualStep2Split
 import ABD.ABD3.Views.DPlusGraph.ResidualStep3NoAccepted
 import ABD.ABD3.Views.DPlusGraph.ResidualStep4Dominance
+import ABD.ABD3.Views.DPlusGraph.ResidualFrontier
+import ABD.ABD3.Views.DPlusGraph.ResidualStep5Frontier
+import ABD.ABD3.Views.DPlusGraph.ResidualStep6UnitBoundary
