@@ -14,4 +14,4 @@ import ABD.ABD3.Views.DPlusGraph.ResidualFrontier
 import ABD.ABD3.Views.DPlusGraph.ResidualStep5Frontier
 import ABD.ABD3.Views.DPlusGraph.ResidualStep6UnitBoundary
 import ABD.ABD3.Views.DPlusGraph.ResidualStep7RejectedNormalForm
-import ABD.ABD3.Views.DPlusGraph.ResidualStep8SupportSmall
+import ABD.ABD3.Views.DPlusGraph.ResidualStep8MinimalSupportBoundary
