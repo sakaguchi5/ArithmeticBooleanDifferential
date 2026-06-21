@@ -6,3 +6,7 @@ import ABD.ABD3.Views.DPlusGraph.CPortRefinement
 import ABD.ABD3.Views.DPlusGraph.PortProduct
 import ABD.ABD3.Views.DPlusGraph.PortPartition
 import ABD.ABD3.Views.DPlusGraph.PortMassDecomposition
+import ABD.ABD3.Views.DPlusGraph.ResidualStep1Dominance
+import ABD.ABD3.Views.DPlusGraph.ResidualStep2Split
+import ABD.ABD3.Views.DPlusGraph.ResidualStep3NoAccepted
+import ABD.ABD3.Views.DPlusGraph.ResidualStep4Dominance

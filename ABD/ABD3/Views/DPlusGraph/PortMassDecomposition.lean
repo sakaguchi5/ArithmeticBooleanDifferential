@@ -76,6 +76,12 @@ theorem cPortMassProduct_eq_unaccepted_of_noAcceptedArithmeticEdge
   exact T.cPortMassProduct_eq_unaccepted_of_cPortAbsorptionLow
     P G R (T.cPortAbsorptionLow_of_noAcceptedArithmeticEdge P G R hno)
 
+@[simp]
+theorem negativeDeficitProduct_eq_deficitMassProduct
+    (T : ABCData) (P : PowerData) :
+    T.NegativeDeficitProduct P = (T.DeficitMassProduct P : ℤ) := by
+  simp [ABCData.NegativeDeficitProduct, ABCData.DeficitMassProduct]
+
 /-- In the low-absorption frontier, D+ dominance can be read entirely on the
 unaccepted C-port mass.  This is the final bookkeeping bridge before the real
 low-absorption contradiction argument. -/
@@ -86,7 +92,8 @@ theorem unacceptedCPortMassProduct_dominates_deficit_of_cPortMassDominatesDefici
     (hlow : T.CPortAbsorptionLow P G R) :
     T.NegativeDeficitProduct P < T.UnacceptedCPortMassProduct P G R := by
   unfold CPortMassDominatesDeficit at hdom
-  rwa [T.cPortMassProduct_eq_unaccepted_of_cPortAbsorptionLow P G R hlow] at hdom
+  rw [T.cPortMassProduct_eq_unaccepted_of_cPortAbsorptionLow P G R hlow] at hdom
+  simpa using hdom
 
 /-- If no arithmetic edge is accepted, D+ dominance is entirely carried by the
 unaccepted C-port mass. -/
