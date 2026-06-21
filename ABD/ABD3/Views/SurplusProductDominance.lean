@@ -160,6 +160,33 @@ theorem theoremDPlus
     T.RadicalSmall P → T.SurplusProductDominatesDeficit P := by
   exact (T.theoremDPlus_iff P).mp
 
+/-- Theorem D recovered from product-weighted surplus dominance.
+
+The stronger D+ statement says that the positive C-surplus product dominates
+the total negative deficit product.  Via `taxReward_iff_surplusDominance`, this
+recovers the original Theorem D conclusion: some C-prime has reward larger than
+one radical-tax unit. -/
+theorem theoremD_corollary_of_surplusDominance
+    (T : ABCData) (P : PowerData) :
+    T.SurplusProductDominatesDeficit P →
+      T.HasCValuationConcentration P := by
+  intro hdom
+  have hlocal : T.PrimeLocalTaxRewardInequality P :=
+    (T.taxReward_iff_surplusDominance P).mpr hdom
+  exact T.theoremD_primeLocalTaxReward_forces_CValuationConcentration P hlocal
+
+/-- Theorem D recovered as a corollary of Theorem D+.
+
+This is intentionally a corollary-style restatement: first use D+ to obtain
+product-weighted surplus dominance, then forget the stronger product information
+and recover the original C-valuation concentration conclusion. -/
+theorem theoremD_recovered_from_theoremDPlus
+    (T : ABCData) (P : PowerData) :
+    T.RadicalSmall P → T.HasCValuationConcentration P := by
+  intro hsmall
+  exact T.theoremD_corollary_of_surplusDominance P
+    (T.theoremDPlus P hsmall)
+
 end ABCData
 
 end ABD3

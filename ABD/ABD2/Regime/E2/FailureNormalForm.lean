@@ -62,7 +62,8 @@ theorem d1CommonScalarPowerSavingFailure_iff_not_d1PowerSavingEstimate
   · intro hfail hD1
     have hcommon : T.D1CommonScalarPowerSavingEstimate P data :=
       T.d1CommonScalarPowerSavingEstimate_of_d1PowerSavingEstimate P data hD1
-    exact ((T.d1CommonScalarPowerSavingFailure_iff_not_d1CommonScalarPowerSavingEstimate P data).1 hfail) hcommon
+    exact ((T.d1CommonScalarPowerSavingFailure_iff_not_d1CommonScalarPowerSavingEstimate P data).1
+      hfail) hcommon
   · intro hnot
     exact (T.d1CommonScalarPowerSavingFailure_iff_not_d1CommonScalarPowerSavingEstimate P data).2
       (fun hcommon => hnot
@@ -98,7 +99,8 @@ theorem d2CommonScalarPowerSavingFailure_iff_not_d2PowerSavingEstimate
   · intro hfail hD2
     have hcommon : T.D2CommonScalarPowerSavingEstimate P data :=
       T.d2CommonScalarPowerSavingEstimate_of_d2PowerSavingEstimate P data hD2
-    exact ((T.d2CommonScalarPowerSavingFailure_iff_not_d2CommonScalarPowerSavingEstimate P data).1 hfail) hcommon
+    exact ((T.d2CommonScalarPowerSavingFailure_iff_not_d2CommonScalarPowerSavingEstimate P data).1
+       hfail) hcommon
   · intro hnot
     exact (T.d2CommonScalarPowerSavingFailure_iff_not_d2CommonScalarPowerSavingEstimate P data).2
       (fun hcommon => hnot
@@ -119,8 +121,10 @@ theorem not_e2CommonScalarCoverage_iff_d1Failure_and_d2Failure
         (fun hD2 => hnot (Or.inr hD2))
   · intro hboth hcov
     rcases hcov with hD1 | hD2
-    · exact ((T.d1CommonScalarPowerSavingFailure_iff_not_d1CommonScalarPowerSavingEstimate P data).1 hboth.1) hD1
-    · exact ((T.d2CommonScalarPowerSavingFailure_iff_not_d2CommonScalarPowerSavingEstimate P data).1 hboth.2) hD2
+    · exact ((T.d1CommonScalarPowerSavingFailure_iff_not_d1CommonScalarPowerSavingEstimate P data).1
+         hboth.1) hD1
+    · exact ((T.d2CommonScalarPowerSavingFailure_iff_not_d2CommonScalarPowerSavingEstimate P data).1
+         hboth.2) hD2
 
 end ABCTriple
 end ABD2
