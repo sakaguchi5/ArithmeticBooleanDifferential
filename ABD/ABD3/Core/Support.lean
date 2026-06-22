@@ -8,6 +8,10 @@ namespace ABD3
 def primeSupport (n : ℕ) : Support :=
   n.factorization.support
 
+/-- The support rank of an integer: the number of distinct prime directions. -/
+def supportRank (n : ℕ) : ℕ :=
+  (primeSupport n).card
+
 /-- Membership in `primeSupport n` means the corresponding factorization
 coefficient is nonzero. -/
 theorem factorization_ne_zero_of_mem_primeSupport {n p : ℕ}
@@ -93,6 +97,26 @@ def SupportBlocksPartition (T : ABCData) : Prop :=
 theorem supportABC_eq_union (T : ABCData) :
     T.supportABC = T.supportA ∪ T.supportB ∪ T.supportC := by
   rfl
+
+/-- A-side support rank. -/
+def rankA (T : ABCData) : ℕ :=
+  supportRank T.A.val
+
+/-- B-side support rank. -/
+def rankB (T : ABCData) : ℕ :=
+  supportRank T.B.val
+
+/-- C-side support rank. -/
+def rankC (T : ABCData) : ℕ :=
+  supportRank T.C.val
+
+/-- Full block support rank of the ABC triple. -/
+def rankABC (T : ABCData) : ℕ :=
+  T.supportABC.card
+
+/-- Low A/B support-rank boundary: both A and B have one prime direction. -/
+def LowABSupportRank (T : ABCData) : Prop :=
+  T.rankA = 1 ∧ T.rankB = 1
 
 /-- The stored primitive condition. -/
 theorem coprimeAB (T : ABCData) :
