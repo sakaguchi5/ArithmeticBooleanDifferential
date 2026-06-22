@@ -10,3 +10,5 @@ import ABD.ABD3.Views.SurplusProductDominance
 import ABD.ABD3.Views.CommonScalarInterface
 import ABD.ABD3.Views.DPlusGraph.All
 import ABD.ABD3.Views.CollisionFrontier
+import ABD.ABD3.Views.CollisionFrontierA
+import ABD.ABD3.Views.CollisionFrontierA2
