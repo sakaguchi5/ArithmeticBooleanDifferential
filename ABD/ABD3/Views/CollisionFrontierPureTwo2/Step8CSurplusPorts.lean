@@ -1,5 +1,5 @@
 import ABD.ABD3.Views.CollisionFrontierPureTwo2.Step7RadicalSmall
-import ABD.ABD3.Views.DPlusGraph.CPort
+import ABD.ABD3.Views.DPlusGraph.LocalSurplus
 
 namespace ABD3
 namespace ABCData
@@ -68,19 +68,38 @@ theorem q_not_mem_cSurplusPorts (F : NormalForm T P) :
     simp
   simpa [hpos] using hmem.2
 
+/-- The remaining pure two-power numerical extraction.
+
+After moving the C-port membership step to the D+ local lemma, the only
+pure-specific hard input is the exponent inequality extracted from
+`(2*p*q)^N < (2^w)^M`: namely `N < M*w`. -/
+def N_lt_M_mul_w_of_explicitRadicalSmallGoal
+    (F : NormalForm T P) : Prop :=
+  F.ExplicitRadicalSmall → P.N < P.M * F.w
+
 /-- Hard local input left in the natural hierarchy: radical-smallness forces the
 pure C-prime `2` to carry positive C-surplus.
 
-Mathematically this is the extraction of `N < M*w` from
-`(2*p*q)^N < (2^w)^M`, then the local statement
-`0 < M*w - N`.  It is intentionally isolated so the rest of the refactored
-frontier can be read bottom-up. -/
+This is kept as the final API used by the frontier layer, but it should be
+proved via `N_lt_M_mul_w_of_explicitRadicalSmallGoal` plus the general D+ local
+lemma in `DPlusGraph.LocalSurplus`. -/
 def TwoMemCSurplusGoal : Prop :=
   T.RadicalSmall P → 2 ∈ T.CSurplusPorts P
 
 /-- Equivalent explicit form of the hard local input. -/
 def TwoMemCSurplusExplicitGoal (F : NormalForm T P) : Prop :=
   F.ExplicitRadicalSmall → 2 ∈ T.CSurplusPorts P
+
+/-- Convert the pure-specific exponent extraction `N < M*w` into the explicit
+C-surplus membership of `2`, using the general D+ local lemma. -/
+theorem twoMemCSurplusExplicitGoal_of_N_lt_M_mul_w_goal
+    (F : NormalForm T P)
+    (H : F.N_lt_M_mul_w_of_explicitRadicalSmallGoal) :
+    F.TwoMemCSurplusExplicitGoal := by
+  intro hsmall
+  have hgt : P.N < P.M * F.w := H hsmall
+  exact T.mem_cSurplusPorts_of_mem_supportABC_of_valC_eq_of_N_lt_M_mul
+    P 2 F.w F.two_mem_supportABC F.valC_two_eq_w hgt
 
 /-- Convert the explicit local input to the radical-small local input. -/
 theorem twoMemCSurplusGoal_of_explicitGoal
@@ -89,6 +108,15 @@ theorem twoMemCSurplusGoal_of_explicitGoal
     TwoMemCSurplusGoal (T := T) (P := P) := by
   intro hsmall
   exact H (F.explicitRadicalSmall_of_radicalSmall hsmall)
+
+/-- Convert the pure-specific exponent extraction goal directly into the final
+`TwoMemCSurplusGoal` API. -/
+theorem twoMemCSurplusGoal_of_N_lt_M_mul_w_goal
+    (F : NormalForm T P)
+    (H : F.N_lt_M_mul_w_of_explicitRadicalSmallGoal) :
+    TwoMemCSurplusGoal (T := T) (P := P) := by
+  exact F.twoMemCSurplusGoal_of_explicitGoal
+    (F.twoMemCSurplusExplicitGoal_of_N_lt_M_mul_w_goal H)
 
 /-- Once `2` is known to be positive, the already-proved exclusions of `p` and
 `q` identify the positive C-surplus ports as exactly `{2}`. -/
