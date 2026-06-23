@@ -24,46 +24,48 @@ theorem three_le_p (F : NormalForm T P) :
   have hne : F.p ≠ 2 := F.p_ne_two
   omega
 
-/-- The B base is at least `4`; the sharper `5 ≤ q` is recorded below as a
-separate elementary goal to avoid mixing primality/composite arithmetic into the
-frontier refactor. -/
+/-- The B base is at least `4`; the sharper `5 ≤ q` is kept in the elementary
+package below because it uses the primality boundary together with `p < q`. -/
 theorem four_le_q (F : NormalForm T P) :
     4 ≤ F.q := by
   have hp3 : 3 ≤ F.p := F.three_le_p
   have hpq : F.p < F.q := F.p_lt_q
   omega
 
-/-- Elementary lower-bound goal: sharpen `4 ≤ q` to `5 ≤ q` using primality. -/
+/-- Elementary lower-bound target: sharpen `4 ≤ q` to `5 ≤ q` using primality. -/
 def FiveLeQGoal (F : NormalForm T P) : Prop :=
   5 ≤ F.q
 
-/-- Elementary lower-bound goal: from `p^u + q^v = 2^w` and `p ≥ 3`, `q ≥ 5`,
+/-- Elementary lower-bound target: from `p^u + q^v = 2^w` and `p ≥ 3`, `q ≥ 5`,
 deduce `3 ≤ w`. -/
 def ThreeLeWGoal (F : NormalForm T P) : Prop :=
   3 ≤ F.w
 
-/-- Mod-8 source equation goal.  This is the first clean modular form of
+/-- Mod-8 source equation target.  This is the first clean modular form of
 `p^u + q^v = 2^w` once `3 ≤ w` is available. -/
 def SourceSumModEightGoal (F : NormalForm T P) : Prop :=
   (F.p ^ F.u + F.q ^ F.v) % 8 = 0
 
-/-- Parity obstruction goal: the two exponents cannot both be even. -/
+/-- Parity obstruction target: the two exponents cannot both be even. -/
 def NotBothExponentsEvenGoal (F : NormalForm T P) : Prop :=
   ¬ (Even F.u ∧ Even F.v)
 
-/-- First mod-8 branch goal: if `u` is even and `v` is odd then `q ≡ 7 mod 8`. -/
+/-- First mod-8 branch target: if `u` is even and `v` is odd then `q ≡ 7 mod 8`. -/
 def EvenUOddVForcesQSevenModEightGoal (F : NormalForm T P) : Prop :=
   Even F.u → ¬ Even F.v → F.q % 8 = 7
 
-/-- Second mod-8 branch goal: if `u` is odd and `v` is even then `p ≡ 7 mod 8`. -/
+/-- Second mod-8 branch target: if `u` is odd and `v` is even then `p ≡ 7 mod 8`. -/
 def OddUEvenVForcesPSevenModEightGoal (F : NormalForm T P) : Prop :=
   ¬ Even F.u → Even F.v → F.p % 8 = 7
 
-/-- Third mod-8 branch goal: if both exponents are odd then `p + q ≡ 0 mod 8`. -/
+/-- Third mod-8 branch target: if both exponents are odd then `p + q ≡ 0 mod 8`. -/
 def OddUOddVForcesPAddQZeroModEightGoal (F : NormalForm T P) : Prop :=
   ¬ Even F.u → ¬ Even F.v → (F.p + F.q) % 8 = 0
 
-/-- Collected elementary-number-theory layer for the pure two-power model. -/
+/-- Collected elementary-number-theory layer for the pure two-power model.  This
+package is independent of the `{2}` C-surplus identification from Steps 8--9; it
+is the remaining parity/mod-8 refinement that can be added to the frontier once
+proved. -/
 structure ElementaryConstraints (F : NormalForm T P) where
   five_le_q : F.FiveLeQGoal
   three_le_w : F.ThreeLeWGoal
@@ -73,7 +75,8 @@ structure ElementaryConstraints (F : NormalForm T P) where
   odd_u_even_v_forces_p_mod8_eq_7 : F.OddUEvenVForcesPSevenModEightGoal
   odd_u_odd_v_forces_p_add_q_mod8_eq_zero : F.OddUOddVForcesPAddQZeroModEightGoal
 
-/-- Future theorem slot for realizing all elementary constraints. -/
+/-- Remaining elementary target for enriching the final three-rejection frontier
+with parity and mod-8 information. -/
 def ElementaryConstraintsGoal (F : NormalForm T P) : Prop :=
   Nonempty (ElementaryConstraints F)
 

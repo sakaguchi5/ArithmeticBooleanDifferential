@@ -19,14 +19,15 @@ def ExplicitDesyncFrontier (T : ABCData) (P : PowerData) (R : ℕ) : Prop :=
     F.ExplicitRadicalSmall ∧
       T.NoAcceptedArithmeticEdge P F.pureSyncGenerators R
 
-/-- Explicit three-rejection frontier: the final concrete normal form for the
-pure two-power branch. -/
+/-- Explicit three-rejection frontier: the concrete normal form supplied by
+Steps 8--9.  Radical-smallness is explicit, and no accepted arithmetic edge has
+been replaced by the three rejections `A-B`, `A-C₂`, and `B-C₂`. -/
 def ExplicitThreeRejectionFrontier (T : ABCData) (P : PowerData) (R : ℕ) : Prop :=
   ∃ F : NormalForm T P,
     F.ExplicitRadicalSmall ∧ F.ThreeRejections R
 
-/-- Optional strengthened final frontier, adding the elementary-number-theory
-constraints once those goals are realized. -/
+/-- Optional strengthened final frontier, adding the parity/mod-8 elementary
+package once those remaining targets are realized. -/
 def ExplicitThreeRejectionElementaryFrontier
     (T : ABCData) (P : PowerData) (R : ℕ) : Prop :=
   ∃ F : NormalForm T P,
@@ -44,38 +45,28 @@ theorem desyncFrontier_iff_explicit
     rcases hfrontier with ⟨F, hsmall, hno⟩
     exact ⟨F, F.radicalSmall_of_explicitRadicalSmall hsmall, hno⟩
 
-/-- The remaining local C-surplus realization goal for the whole pure-two folder:
-radical-smallness makes `2` a positive C-surplus port.
-Once this is proved, the final bridge below becomes unconditional. -/
-def CSurplusSingletonRealGoal (T : ABCData) (P : PowerData) : Prop :=
-  NormalForm.TwoMemCSurplusGoal (T := T) (P := P)
-
-/-- Final bottom-up bridge: assuming only the isolated local C-surplus extraction
-`2 ∈ CSurplusPorts` from radical-smallness, the pure desynchronized frontier is
-converted to the explicit inequality plus the three concrete gcd/lcm rejections.
-
-All support, radical, and coefficient factories from the exploratory folder have
-been eliminated before this point. -/
+/-- Main Step 12 bridge.  The old C-surplus input is gone: Step 8 proves
+`CSurplusPorts = {2}` from radical-smallness, and Step 9 converts the abstract
+no-accepted-edge predicate into the three concrete rejections. -/
 theorem explicitThreeRejectionFrontier_of_desyncFrontier
-    (T : ABCData) (P : PowerData) (R : ℕ)
-    (Hports : CSurplusSingletonRealGoal T P) :
+    (T : ABCData) (P : PowerData) (R : ℕ) :
     DesyncFrontier T P R → ExplicitThreeRejectionFrontier T P R := by
   intro hfrontier
   rcases hfrontier with ⟨F, hsmall, hno⟩
   have hthree : F.ThreeRejections R :=
-    (F.noAcceptedArithmeticEdge_iff_threeRejections_of_radicalSmall R Hports hsmall).mp hno
+    F.threeRejections_of_noAcceptedArithmeticEdge_of_radicalSmall R hsmall hno
   exact ⟨F, F.explicitRadicalSmall_of_radicalSmall hsmall, hthree⟩
 
 /-- If the elementary layer is also realized, the final frontier can be enriched
-with the mod-8/parity package. -/
+with the mod-8/parity package.  The `{2}` C-surplus layer is already supplied by
+Steps 8--9 and is no longer an argument. -/
 theorem explicitThreeRejectionElementaryFrontier_of_desyncFrontier
     (T : ABCData) (P : PowerData) (R : ℕ)
-    (Hports : CSurplusSingletonRealGoal T P)
     (Helem : ∀ F : NormalForm T P, F.ElementaryConstraintsGoal) :
     DesyncFrontier T P R → ExplicitThreeRejectionElementaryFrontier T P R := by
   intro hfrontier
   rcases explicitThreeRejectionFrontier_of_desyncFrontier
-      (T := T) (P := P) (R := R) Hports hfrontier with
+      (T := T) (P := P) (R := R) hfrontier with
     ⟨F, hsmall, hthree⟩
   exact ⟨F, hsmall, hthree, Helem F⟩
 

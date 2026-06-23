@@ -73,16 +73,31 @@ theorem noAcceptedArithmeticEdge_iff_threeRejections_of_ports
   · exact F.threeRejections_of_noAcceptedArithmeticEdge_of_ports R hports
   · exact F.noAcceptedArithmeticEdge_of_threeRejections_of_ports R hports
 
-/-- Natural pure-model equivalence: if radical-smallness is present, the local
-C-surplus singleton layer supplies `{2}`, so no accepted edge is exactly the
-three explicit rejections. -/
+/-- Main Step 9 output: under radical-smallness, Step 8 supplies
+`CSurplusPorts = {2}`, so the abstract no-accepted-edge predicate is exactly the
+three concrete rejections `A-B`, `A-C₂`, and `B-C₂`. -/
 theorem noAcceptedArithmeticEdge_iff_threeRejections_of_radicalSmall
     (F : NormalForm T P) (R : ℕ)
-    (H : TwoMemCSurplusGoal (T := T) (P := P))
     (hsmall : T.RadicalSmall P) :
     T.NoAcceptedArithmeticEdge P F.pureSyncGenerators R ↔ F.ThreeRejections R := by
   exact F.noAcceptedArithmeticEdge_iff_threeRejections_of_ports R
-    (F.cSurplusPorts_eq_singleton_two_of_radicalSmall H hsmall)
+    (F.cSurplusPorts_eq_singleton_two_of_radicalSmall hsmall)
+
+/-- Forward form of the Step 9 equivalence. -/
+theorem threeRejections_of_noAcceptedArithmeticEdge_of_radicalSmall
+    (F : NormalForm T P) (R : ℕ)
+    (hsmall : T.RadicalSmall P)
+    (hno : T.NoAcceptedArithmeticEdge P F.pureSyncGenerators R) :
+    F.ThreeRejections R := by
+  exact (F.noAcceptedArithmeticEdge_iff_threeRejections_of_radicalSmall R hsmall).mp hno
+
+/-- Reverse form of the Step 9 equivalence. -/
+theorem noAcceptedArithmeticEdge_of_threeRejections_of_radicalSmall
+    (F : NormalForm T P) (R : ℕ)
+    (hsmall : T.RadicalSmall P)
+    (hthree : F.ThreeRejections R) :
+    T.NoAcceptedArithmeticEdge P F.pureSyncGenerators R := by
+  exact (F.noAcceptedArithmeticEdge_iff_threeRejections_of_radicalSmall R hsmall).mpr hthree
 
 end NormalForm
 end CollisionFrontierPureTwo2

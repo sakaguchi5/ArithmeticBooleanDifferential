@@ -9,7 +9,7 @@ namespace NormalForm
 
 variable {T : ABCData} {P : PowerData}
 
-/-- C-valuation at the pure C-prime `2` is `w`. -/
+/-- C-valuation at the pure C-prime `2` is exactly the C-exponent `w`. -/
 theorem valC_two_eq_w (F : NormalForm T P) :
     T.valC 2 = F.w := by
   have hfac : vp (2 ^ F.w) 2 = F.w := by
@@ -17,7 +17,7 @@ theorem valC_two_eq_w (F : NormalForm T P) :
       (Nat.factorization_pow_self (p := 2) (n := F.w) Nat.prime_two)
   simpa [valC, F.C_eq_two_pow] using hfac
 
-/-- The A-prime has zero C-valuation. -/
+/-- The A-prime contributes no C-valuation in the pure two-power model. -/
 theorem valC_p_eq_zero (F : NormalForm T P) :
     T.valC F.p = 0 := by
   have hpnot : F.p ∉ T.supportC := by
@@ -30,7 +30,7 @@ theorem valC_p_eq_zero (F : NormalForm T P) :
       simpa [primeSupport] using hpnot')
   simpa [valC, vp] using hz
 
-/-- The B-prime has zero C-valuation. -/
+/-- The B-prime contributes no C-valuation in the pure two-power model. -/
 theorem valC_q_eq_zero (F : NormalForm T P) :
     T.valC F.q = 0 := by
   have hqnot : F.q ∉ T.supportC := by
@@ -43,7 +43,7 @@ theorem valC_q_eq_zero (F : NormalForm T P) :
       simpa [primeSupport] using hqnot')
   simpa [valC, vp] using hz
 
-/-- A-side prime has no positive C-surplus. -/
+/-- The A-side prime is never a positive C-surplus port. -/
 theorem p_not_mem_cSurplusPorts (F : NormalForm T P) :
     F.p ∉ T.CSurplusPorts P := by
   intro hpport
@@ -56,7 +56,7 @@ theorem p_not_mem_cSurplusPorts (F : NormalForm T P) :
     simp
   simpa [hpos] using hmem.2
 
-/-- B-side prime has no positive C-surplus. -/
+/-- The B-side prime is never a positive C-surplus port. -/
 theorem q_not_mem_cSurplusPorts (F : NormalForm T P) :
     F.q ∉ T.CSurplusPorts P := by
   intro hqport
@@ -69,25 +69,16 @@ theorem q_not_mem_cSurplusPorts (F : NormalForm T P) :
     simp
   simpa [hpos] using hmem.2
 
-/-- The remaining pure two-power numerical extraction.
-
-After moving the C-port membership step to the D+ local lemma, the only
-pure-specific hard input is the exponent inequality extracted from
-`(2*p*q)^N < (2^w)^M`: namely `N < M*w`. -/
-def N_lt_M_mul_w_of_explicitRadicalSmallGoal
-    (F : NormalForm T P) : Prop :=
-  F.ExplicitRadicalSmall → P.N < P.M * F.w
-
-/-- Realize the pure-specific exponent extraction.
+/-- Exponent extraction in the pure two-power model.
 
 From the explicit radical-small inequality
-`(2*p*q)^N < (2^w)^M`, the positivity of the prime bases gives
-`2 ≤ 2*p*q`. Hence `2^N ≤ (2*p*q)^N < (2^w)^M = 2^(w*M)`, and strict
-monotonicity of powers of `2` yields `N < w*M`, equivalently `N < M*w`. -/
+`(2*p*q)^N < (2^w)^M`, positivity of `p` and `q` gives
+`2 ≤ 2*p*q`. Hence `2^N ≤ (2*p*q)^N < (2^w)^M = 2^(w*M)`, so
+monotonicity of powers of `2` yields `N < M*w`. -/
 theorem N_lt_M_mul_w_of_explicitRadicalSmall
-    (F : NormalForm T P) :
-    F.N_lt_M_mul_w_of_explicitRadicalSmallGoal := by
-  intro hsmall
+    (F : NormalForm T P)
+    (hsmall : F.ExplicitRadicalSmall) :
+    P.N < P.M * F.w := by
   unfold ExplicitRadicalSmall at hsmall
   have hsmallNat :
       (2 * F.p * F.q) ^ P.N < (2 ^ F.w) ^ P.M := by
@@ -114,54 +105,25 @@ theorem N_lt_M_mul_w_of_explicitRadicalSmall
     exact (not_lt_of_ge hpow_ge) hpow_lt'
   simpa [Nat.mul_comm] using hN
 
-/-- Hard local input left in the natural hierarchy: radical-smallness forces the
-pure C-prime `2` to carry positive C-surplus.
-
-This is kept as the final API used by the frontier layer, but it should be
-proved via `N_lt_M_mul_w_of_explicitRadicalSmallGoal` plus the general D+ local
-lemma in `DPlusGraph.LocalSurplus`. -/
-def TwoMemCSurplusGoal : Prop :=
-  T.RadicalSmall P → 2 ∈ T.CSurplusPorts P
-
-/-- Equivalent explicit form of the hard local input. -/
-def TwoMemCSurplusExplicitGoal (F : NormalForm T P) : Prop :=
-  F.ExplicitRadicalSmall → 2 ∈ T.CSurplusPorts P
-
-/-- Convert the pure-specific exponent extraction `N < M*w` into the explicit
-C-surplus membership of `2`, using the general D+ local lemma. -/
-theorem twoMemCSurplusExplicitGoal_of_N_lt_M_mul_w_goal
+/-- The explicit radical-small inequality makes the pure C-prime `2` a positive
+C-surplus port.  This is the point where the pure exponent extraction is handed
+to the general D+ local-surplus lemma. -/
+theorem two_mem_cSurplusPorts_of_explicitRadicalSmall
     (F : NormalForm T P)
-    (H : F.N_lt_M_mul_w_of_explicitRadicalSmallGoal) :
-    F.TwoMemCSurplusExplicitGoal := by
-  intro hsmall
-  have hgt : P.N < P.M * F.w := H hsmall
+    (hsmall : F.ExplicitRadicalSmall) :
+    2 ∈ T.CSurplusPorts P := by
+  have hgt : P.N < P.M * F.w :=
+    F.N_lt_M_mul_w_of_explicitRadicalSmall hsmall
   exact T.mem_cSurplusPorts_of_mem_supportABC_of_valC_eq_of_N_lt_M_mul
     P 2 F.w F.two_mem_supportABC F.valC_two_eq_w hgt
 
-/-- Convert the explicit local input to the radical-small local input. -/
-theorem twoMemCSurplusGoal_of_explicitGoal
+/-- Radical-smallness makes the pure C-prime `2` a positive C-surplus port. -/
+theorem two_mem_cSurplusPorts_of_radicalSmall
     (F : NormalForm T P)
-    (H : F.TwoMemCSurplusExplicitGoal) :
-    TwoMemCSurplusGoal (T := T) (P := P) := by
-  intro hsmall
-  exact H (F.explicitRadicalSmall_of_radicalSmall hsmall)
-
-/-- Convert the pure-specific exponent extraction goal directly into the final
-`TwoMemCSurplusGoal` API. -/
-theorem twoMemCSurplusGoal_of_N_lt_M_mul_w_goal
-    (F : NormalForm T P)
-    (H : F.N_lt_M_mul_w_of_explicitRadicalSmallGoal) :
-    TwoMemCSurplusGoal (T := T) (P := P) := by
-  exact F.twoMemCSurplusGoal_of_explicitGoal
-    (F.twoMemCSurplusExplicitGoal_of_N_lt_M_mul_w_goal H)
-
-/-- The final hard local input is no longer an input in the pure two-power model:
-it follows from the explicit exponent extraction theorem above. -/
-theorem twoMemCSurplusGoal_real
-    (F : NormalForm T P) :
-    TwoMemCSurplusGoal (T := T) (P := P) := by
-  exact F.twoMemCSurplusGoal_of_N_lt_M_mul_w_goal
-    F.N_lt_M_mul_w_of_explicitRadicalSmall
+    (hsmall : T.RadicalSmall P) :
+    2 ∈ T.CSurplusPorts P := by
+  exact F.two_mem_cSurplusPorts_of_explicitRadicalSmall
+    (F.explicitRadicalSmall_of_radicalSmall hsmall)
 
 /-- Once `2` is known to be positive, the already-proved exclusions of `p` and
 `q` identify the positive C-surplus ports as exactly `{2}`. -/
@@ -189,23 +151,14 @@ theorem cSurplusPorts_eq_singleton_two_of_two_mem
     subst x
     exact h2
 
-/-- Natural Step 8 statement: under the isolated local input, radical-small pure
-models have singleton positive C-surplus port `{2}`. -/
+/-- Main Step 8 output: in the pure two-power model, radical-smallness already
+fixes the positive C-surplus ports to the singleton `{2}`. -/
 theorem cSurplusPorts_eq_singleton_two_of_radicalSmall
     (F : NormalForm T P)
-    (H : TwoMemCSurplusGoal (T := T) (P := P))
     (hsmall : T.RadicalSmall P) :
     T.CSurplusPorts P = {2} := by
-  exact F.cSurplusPorts_eq_singleton_two_of_two_mem (H hsmall)
-
-/-- Unconditional pure two-power Step 8 statement: radical-small pure models have
-singleton positive C-surplus port `{2}`. -/
-theorem cSurplusPorts_eq_singleton_two_of_radicalSmall_real
-    (F : NormalForm T P)
-    (hsmall : T.RadicalSmall P) :
-    T.CSurplusPorts P = {2} := by
-  exact F.cSurplusPorts_eq_singleton_two_of_radicalSmall
-    F.twoMemCSurplusGoal_real hsmall
+  exact F.cSurplusPorts_eq_singleton_two_of_two_mem
+    (F.two_mem_cSurplusPorts_of_radicalSmall hsmall)
 
 end NormalForm
 end CollisionFrontierPureTwo2
