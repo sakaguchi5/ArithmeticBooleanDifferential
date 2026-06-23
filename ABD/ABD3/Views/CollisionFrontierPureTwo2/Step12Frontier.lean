@@ -26,12 +26,19 @@ def ExplicitThreeRejectionFrontier (T : ABCData) (P : PowerData) (R : ℕ) : Pro
   ∃ F : NormalForm T P,
     F.ExplicitRadicalSmall ∧ F.ThreeRejections R
 
-/-- Optional strengthened final frontier, adding the parity/mod-8 elementary
-package once those remaining targets are realized. -/
+/-- Strengthened frontier with the elementary parity/mod-8 package. -/
 def ExplicitThreeRejectionElementaryFrontier
     (T : ABCData) (P : PowerData) (R : ℕ) : Prop :=
   ∃ F : NormalForm T P,
     F.ExplicitRadicalSmall ∧ F.ThreeRejections R ∧ F.ElementaryConstraintsGoal
+
+/-- Final strengthened frontier with both the elementary parity/mod-8 package and
+exponent coprimality.  This is the endpoint of Steps 8--12 after the localized
+arithmetic `sorry`s in Steps 10--11 are accepted. -/
+def ExplicitThreeRejectionHardElementaryFrontier
+    (T : ABCData) (P : PowerData) (R : ℕ) : Prop :=
+  ∃ F : NormalForm T P,
+    F.ExplicitRadicalSmall ∧ F.ThreeRejections R ∧ NormalForm.HardElementaryGoals F
 
 /-- Radical-small expansion at the frontier level. -/
 theorem desyncFrontier_iff_explicit
@@ -57,18 +64,28 @@ theorem explicitThreeRejectionFrontier_of_desyncFrontier
     F.threeRejections_of_noAcceptedArithmeticEdge_of_radicalSmall R hsmall hno
   exact ⟨F, F.explicitRadicalSmall_of_radicalSmall hsmall, hthree⟩
 
-/-- If the elementary layer is also realized, the final frontier can be enriched
-with the mod-8/parity package.  The `{2}` C-surplus layer is already supplied by
-Steps 8--9 and is no longer an argument. -/
+/-- The elementary layer is now theorem-supplied by Step 10, so the elementary
+frontier no longer needs an external `Helem` argument. -/
 theorem explicitThreeRejectionElementaryFrontier_of_desyncFrontier
-    (T : ABCData) (P : PowerData) (R : ℕ)
-    (Helem : ∀ F : NormalForm T P, F.ElementaryConstraintsGoal) :
+    (T : ABCData) (P : PowerData) (R : ℕ) :
     DesyncFrontier T P R → ExplicitThreeRejectionElementaryFrontier T P R := by
   intro hfrontier
   rcases explicitThreeRejectionFrontier_of_desyncFrontier
       (T := T) (P := P) (R := R) hfrontier with
     ⟨F, hsmall, hthree⟩
-  exact ⟨F, hsmall, hthree, Helem F⟩
+  exact ⟨F, hsmall, hthree, NormalForm.elementaryConstraintsGoal F⟩
+
+/-- Final Step 12 bridge with both elementary constraints and exponent
+coprimality.  The only remaining debt is the localized arithmetic `sorry`s in
+Steps 10--11, not the ABD3 frontier plumbing. -/
+theorem explicitThreeRejectionHardElementaryFrontier_of_desyncFrontier
+    (T : ABCData) (P : PowerData) (R : ℕ) :
+    DesyncFrontier T P R → ExplicitThreeRejectionHardElementaryFrontier T P R := by
+  intro hfrontier
+  rcases explicitThreeRejectionFrontier_of_desyncFrontier
+      (T := T) (P := P) (R := R) hfrontier with
+    ⟨F, hsmall, hthree⟩
+  exact ⟨F, hsmall, hthree, NormalForm.hardElementaryGoals F⟩
 
 end CollisionFrontierPureTwo2
 end ABCData
