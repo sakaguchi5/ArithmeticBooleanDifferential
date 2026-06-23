@@ -1,3 +1,4 @@
+--import Mathlib.Tactic
 import ABD.ABD3.Views.CollisionFrontierPureTwo2.Step7RadicalSmall
 import ABD.ABD3.Views.DPlusGraph.LocalSurplus
 
@@ -77,6 +78,42 @@ def N_lt_M_mul_w_of_explicitRadicalSmallGoal
     (F : NormalForm T P) : Prop :=
   F.ExplicitRadicalSmall → P.N < P.M * F.w
 
+/-- Realize the pure-specific exponent extraction.
+
+From the explicit radical-small inequality
+`(2*p*q)^N < (2^w)^M`, the positivity of the prime bases gives
+`2 ≤ 2*p*q`. Hence `2^N ≤ (2*p*q)^N < (2^w)^M = 2^(w*M)`, and strict
+monotonicity of powers of `2` yields `N < w*M`, equivalently `N < M*w`. -/
+theorem N_lt_M_mul_w_of_explicitRadicalSmall
+    (F : NormalForm T P) :
+    F.N_lt_M_mul_w_of_explicitRadicalSmallGoal := by
+  intro hsmall
+  unfold ExplicitRadicalSmall at hsmall
+  have hsmallNat :
+      (2 * F.p * F.q) ^ P.N < (2 ^ F.w) ^ P.M := by
+    exact_mod_cast hsmall
+  have hp1 : 1 ≤ F.p := Nat.succ_le_of_lt F.p_pos
+  have hq1 : 1 ≤ F.q := Nat.succ_le_of_lt F.q_pos
+  have hpq1 : 1 ≤ F.p * F.q := Nat.mul_le_mul hp1 hq1
+  have hbase : (2 : ℕ) ≤ 2 * F.p * F.q := by
+    calc
+      (2 : ℕ) = 2 * 1 := by simp
+      _ ≤ 2 * (F.p * F.q) := Nat.mul_le_mul_left 2 hpq1
+      _ = 2 * F.p * F.q := by ac_rfl
+  have hpow_le : (2 : ℕ) ^ P.N ≤ (2 * F.p * F.q) ^ P.N := by
+    gcongr
+  have hpow_lt : (2 : ℕ) ^ P.N < (2 ^ F.w) ^ P.M :=
+    lt_of_le_of_lt hpow_le hsmallNat
+  have hpow_lt' : (2 : ℕ) ^ P.N < 2 ^ (F.w * P.M) := by
+    simpa [pow_mul] using hpow_lt
+  have hN : P.N < F.w * P.M := by
+    by_contra hnot
+    have hle : F.w * P.M ≤ P.N := Nat.le_of_not_gt hnot
+    have hpow_ge : (2 : ℕ) ^ (F.w * P.M) ≤ 2 ^ P.N := by
+      exact pow_le_pow_right' (by norm_num : (1 : ℕ) ≤ 2) hle
+    exact (not_lt_of_ge hpow_ge) hpow_lt'
+  simpa [Nat.mul_comm] using hN
+
 /-- Hard local input left in the natural hierarchy: radical-smallness forces the
 pure C-prime `2` to carry positive C-surplus.
 
@@ -118,6 +155,14 @@ theorem twoMemCSurplusGoal_of_N_lt_M_mul_w_goal
   exact F.twoMemCSurplusGoal_of_explicitGoal
     (F.twoMemCSurplusExplicitGoal_of_N_lt_M_mul_w_goal H)
 
+/-- The final hard local input is no longer an input in the pure two-power model:
+it follows from the explicit exponent extraction theorem above. -/
+theorem twoMemCSurplusGoal_real
+    (F : NormalForm T P) :
+    TwoMemCSurplusGoal (T := T) (P := P) := by
+  exact F.twoMemCSurplusGoal_of_N_lt_M_mul_w_goal
+    F.N_lt_M_mul_w_of_explicitRadicalSmall
+
 /-- Once `2` is known to be positive, the already-proved exclusions of `p` and
 `q` identify the positive C-surplus ports as exactly `{2}`. -/
 theorem cSurplusPorts_eq_singleton_two_of_two_mem
@@ -152,6 +197,15 @@ theorem cSurplusPorts_eq_singleton_two_of_radicalSmall
     (hsmall : T.RadicalSmall P) :
     T.CSurplusPorts P = {2} := by
   exact F.cSurplusPorts_eq_singleton_two_of_two_mem (H hsmall)
+
+/-- Unconditional pure two-power Step 8 statement: radical-small pure models have
+singleton positive C-surplus port `{2}`. -/
+theorem cSurplusPorts_eq_singleton_two_of_radicalSmall_real
+    (F : NormalForm T P)
+    (hsmall : T.RadicalSmall P) :
+    T.CSurplusPorts P = {2} := by
+  exact F.cSurplusPorts_eq_singleton_two_of_radicalSmall
+    F.twoMemCSurplusGoal_real hsmall
 
 end NormalForm
 end CollisionFrontierPureTwo2
