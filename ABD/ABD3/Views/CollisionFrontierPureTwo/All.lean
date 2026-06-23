@@ -5,3 +5,4 @@ import ABD.ABD3.Views.CollisionFrontierPureTwo.Step4SyncGraph
 import ABD.ABD3.Views.CollisionFrontierPureTwo.Step5Danger
 import ABD.ABD3.Views.CollisionFrontierPureTwo.Step6CoeffScalesReal
 import ABD.ABD3.Views.CollisionFrontierPureTwo.Step7CoeffScaleFactoryReal
+import ABD.ABD3.Views.CollisionFrontierPureTwo.Step8RadicalSmallExplicit
