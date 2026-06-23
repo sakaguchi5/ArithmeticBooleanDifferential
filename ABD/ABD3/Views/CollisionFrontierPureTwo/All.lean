@@ -8,3 +8,4 @@ import ABD.ABD3.Views.CollisionFrontierPureTwo.Step7CoeffScaleFactoryReal
 import ABD.ABD3.Views.CollisionFrontierPureTwo.Step8RadicalSmallExplicit
 import ABD.ABD3.Views.CollisionFrontierPureTwo.Step9RadicalFactsReal
 import ABD.ABD3.Views.CollisionFrontierPureTwo.Step10SupportABCReal
+import ABD.ABD3.Views.CollisionFrontierPureTwo.Step11SupportFactoryReal
