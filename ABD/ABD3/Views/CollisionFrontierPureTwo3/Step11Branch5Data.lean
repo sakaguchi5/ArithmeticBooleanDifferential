@@ -93,6 +93,24 @@ theorem branch5Package_of_branch5Data
   { branch5 := B
     hard := F.hardElementaryGoals }
 
+/-- Extract exponent coprimality from a Branch 5 package. -/
+theorem branch5Package_coprime
+    (F : NormalForm T P) (K : Branch5Package F) :
+    Nat.Coprime F.u F.v :=
+  F.exponentCoprime_of_branch5Data K.branch5
+
+/-- Extract the mod-8 base constraint from a Branch 5 package. -/
+theorem branch5Package_mod8
+    (F : NormalForm T P) (K : Branch5Package F) :
+    (F.p + F.q) % 8 = 0 :=
+  F.p_add_q_mod8_eq_zero_of_branch5Data K.branch5
+
+/-- Extract the nonlinear-exponent fact from a Branch 5 package. -/
+theorem branch5Package_nonlinear
+    (F : NormalForm T P) (K : Branch5Package F) :
+    F.NonlinearExponentBranch :=
+  F.nonlinearExponentBranch_of_branch5Data K.branch5
+
 end NormalForm
 end CollisionFrontierPureTwo3
 end ABCData

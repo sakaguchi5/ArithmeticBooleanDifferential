@@ -65,6 +65,28 @@ def branch5Mod5Signature_trivial
     _ = (2 ^ F.w) % 5 := hsource
     _ = ((2 ^ F.w) % 5) % 5 := by rw [Nat.mod_mod]
 
+/-- Recover the source congruence modulo `5` from a Branch 5 mod-5 signature. -/
+theorem source_mod5_of_branch5Mod5Signature
+    (F : NormalForm T P) (S : Branch5Mod5Signature F) :
+    F.SourceSumModFiveGoal := by
+  change (F.p ^ F.u + F.q ^ F.v) % 5 = (2 ^ F.w) % 5
+  calc
+    (F.p ^ F.u + F.q ^ F.v) % 5
+        = ((F.p ^ F.u % 5) + (F.q ^ F.v % 5)) % 5 := by
+            rw [Nat.add_mod]
+    _ = (S.p_pow_residue % 5 + S.q_pow_residue % 5) % 5 := by
+            rw [S.hp_pow, S.hq_pow]
+    _ = (S.p_pow_residue + S.q_pow_residue) % 5 := by
+            rw [← Nat.add_mod]
+    _ = S.rhs_residue % 5 := S.hsum
+    _ = (2 ^ F.w) % 5 := by rw [← S.hrhs]
+
+/-- A Branch 5 mod-5 signature always exists. -/
+theorem exists_branch5Mod5Signature
+    (F : NormalForm T P) (B : Branch5Data F) :
+    ∃ S : Branch5Mod5Signature F, S.branch5 = B :=
+  ⟨F.branch5Mod5Signature_trivial B, rfl⟩
+
 end NormalForm
 end CollisionFrontierPureTwo3
 end ABCData

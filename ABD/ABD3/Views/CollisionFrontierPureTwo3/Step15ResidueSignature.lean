@@ -21,27 +21,26 @@ structure PowResidueClassRule (m x d r value : ℕ) : Prop where
   class_eq : r < d
   realizes : ∀ n : ℕ, n % d = r → x ^ n % m = value % m
 
-/-- Generic source residue signature for the pure two-power equation.
+/-- Generic source residue signature for the pure two-power equation at a fixed modulus `m`.
 
-It records residues of the three power terms modulo an arbitrary modulus and the
-sum constraint inherited from `p^u + q^v = 2^w`. -/
-structure SourceResidueSignature (F : NormalForm T P) where
-  modulus : ℕ
+The modulus is an explicit type parameter, so a value of
+`SourceResidueSignature F m` is guaranteed by its type to be a signature modulo
+that same `m`. -/
+structure SourceResidueSignature (F : NormalForm T P) (m : ℕ) where
   p_pow_residue : ℕ
   q_pow_residue : ℕ
   rhs_residue : ℕ
-  hp_pow : F.p ^ F.u % modulus = p_pow_residue % modulus
-  hq_pow : F.q ^ F.v % modulus = q_pow_residue % modulus
-  hrhs : 2 ^ F.w % modulus = rhs_residue % modulus
-  hsum : (p_pow_residue + q_pow_residue) % modulus = rhs_residue % modulus
+  hp_pow : F.p ^ F.u % m = p_pow_residue % m
+  hq_pow : F.q ^ F.v % m = q_pow_residue % m
+  hrhs : 2 ^ F.w % m = rhs_residue % m
+  hsum : (p_pow_residue + q_pow_residue) % m = rhs_residue % m
 
 /-- Trivial generic signature obtained by taking the actual residues. -/
 def sourceResidueSignature_trivial
     (F : NormalForm T P) (m : ℕ) :
-    SourceResidueSignature F := by
+    SourceResidueSignature F m := by
   refine
-    { modulus := m
-      p_pow_residue := F.p ^ F.u % m
+    { p_pow_residue := F.p ^ F.u % m
       q_pow_residue := F.q ^ F.v % m
       rhs_residue := 2 ^ F.w % m
       hp_pow := by rw [Nat.mod_mod]
@@ -57,17 +56,39 @@ def sourceResidueSignature_trivial
     _ = (2 ^ F.w) % m := hsource
     _ = ((2 ^ F.w) % m) % m := by rw [Nat.mod_mod]
 
-/-- Branch 5 version of the generic residue signature. -/
-structure Branch5ResidueSignature (F : NormalForm T P) where
+/-- Recover the source congruence from a generic residue signature. -/
+theorem source_mod_of_sourceResidueSignature
+    (F : NormalForm T P) {m : ℕ} (S : SourceResidueSignature F m) :
+    F.SourceSumModGoal m := by
+  change (F.p ^ F.u + F.q ^ F.v) % m = (2 ^ F.w) % m
+  calc
+    (F.p ^ F.u + F.q ^ F.v) % m
+        = ((F.p ^ F.u % m) + (F.q ^ F.v % m)) % m := by
+            rw [Nat.add_mod]
+    _ = (S.p_pow_residue % m + S.q_pow_residue % m) % m := by
+            rw [S.hp_pow, S.hq_pow]
+    _ = (S.p_pow_residue + S.q_pow_residue) % m := by
+            rw [← Nat.add_mod]
+    _ = S.rhs_residue % m := S.hsum
+    _ = (2 ^ F.w) % m := by rw [← S.hrhs]
+
+/-- Branch 5 version of the generic residue signature at a fixed modulus. -/
+structure Branch5ResidueSignature (F : NormalForm T P) (m : ℕ) where
   branch5 : Branch5Data F
-  signature : SourceResidueSignature F
+  signature : SourceResidueSignature F m
 
 /-- Build a Branch 5 residue signature for any modulus. -/
 def branch5ResidueSignature_trivial
     (F : NormalForm T P) (B : Branch5Data F) (m : ℕ) :
-    Branch5ResidueSignature F :=
+    Branch5ResidueSignature F m :=
   { branch5 := B
     signature := F.sourceResidueSignature_trivial m }
+
+/-- A Branch 5 residue signature exists for every modulus. -/
+theorem exists_branch5ResidueSignature
+    (F : NormalForm T P) (B : Branch5Data F) (m : ℕ) :
+    ∃ S : Branch5ResidueSignature F m, S.branch5 = B :=
+  ⟨F.branch5ResidueSignature_trivial B m, rfl⟩
 
 /-- A named package collecting the first concrete residue refinements and the
 general arbitrary-modulus hook. -/
@@ -75,7 +96,7 @@ structure Branch5ResidueToolkit (F : NormalForm T P) where
   branch5 : Branch5Data F
   mod3 : Branch5Mod3Signature F
   mod5 : Branch5Mod5Signature F
-  arbitrary : ∀ _m : ℕ, Branch5ResidueSignature F
+  arbitrary : ∀ m : ℕ, Branch5ResidueSignature F m
 
 /-- Realization of the residue toolkit from Branch 5 core data. -/
 def branch5ResidueToolkit
@@ -85,6 +106,30 @@ def branch5ResidueToolkit
     mod3 := F.branch5Mod3Signature_trivial B
     mod5 := F.branch5Mod5Signature_trivial B
     arbitrary := fun m => F.branch5ResidueSignature_trivial B m }
+
+/-- A Branch 5 residue toolkit exists once Branch 5 core data is supplied. -/
+theorem exists_branch5ResidueToolkit
+    (F : NormalForm T P) (B : Branch5Data F) :
+    ∃ K : Branch5ResidueToolkit F, K.branch5 = B :=
+  ⟨F.branch5ResidueToolkit B, rfl⟩
+
+/-- Extract the arbitrary-modulus source congruence from the Branch 5 toolkit. -/
+theorem source_mod_of_branch5ResidueToolkit
+    (F : NormalForm T P) (K : Branch5ResidueToolkit F) (m : ℕ) :
+    F.SourceSumModGoal m := by
+  exact F.source_mod_of_sourceResidueSignature (K.arbitrary m).signature
+
+/-- Extract the mod-3 source congruence from the Branch 5 toolkit. -/
+theorem source_mod3_of_branch5ResidueToolkit
+    (F : NormalForm T P) (K : Branch5ResidueToolkit F) :
+    F.SourceSumModThreeGoal :=
+  F.source_mod3_of_branch5Mod3Signature K.mod3
+
+/-- Extract the mod-5 source congruence from the Branch 5 toolkit. -/
+theorem source_mod5_of_branch5ResidueToolkit
+    (F : NormalForm T P) (K : Branch5ResidueToolkit F) :
+    F.SourceSumModFiveGoal :=
+  F.source_mod5_of_branch5Mod5Signature K.mod5
 
 end NormalForm
 end CollisionFrontierPureTwo3
