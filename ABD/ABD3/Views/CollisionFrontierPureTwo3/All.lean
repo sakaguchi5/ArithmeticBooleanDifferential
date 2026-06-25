@@ -9,3 +9,8 @@ import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step7OddAddPowFactor
 import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step8ExponentCoprime
 import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step9ResidueTargets
 import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step10HardElementary
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step11Branch5Data
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step12Branch5Mod16
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step13Branch5Mod3
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step14Branch5Mod5
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step15ResidueSignature
