@@ -16,4 +16,7 @@ import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step14Branch5Mod5
 import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step15ResidueSignature
 import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step16ExternalBranchAxioms
 import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step17BothOddResidualCore
-import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step18BothOddContradictionGoal
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step18BothOddKillableFamilies
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step19ExternalFinitenessInputs
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step20ResidualAfterKillable
+import ABD.ABD3.Views.CollisionFrontierPureTwo3.Step21BalancedTwoAdicDesyncCore
