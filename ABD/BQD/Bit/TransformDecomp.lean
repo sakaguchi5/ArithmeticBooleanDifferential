@@ -44,65 +44,65 @@ def decompComplementBoth (w x y : ℕ) : Decomp ℕ :=
 @[simp] theorem decompComplementBoth_R (w x y : ℕ) :
     (decompComplementBoth w x y).R = bitComplement w y := rfl
 
-/-- In `(~x, y)`, the both-active quadrant is the original `Q`. -/
-@[simp] theorem decompComplementLeft_K_eq_Q (w x y : ℕ) :
-    (decompComplementLeft w x y).K = (decomp w x y).Q := by
-  exact (decomp w x y).complementLeft_K_eq_Q
+/-- In `(~x, y)`, the both-active atom is the original `RO`. -/
+@[simp] theorem decompComplementLeft_B_eq_RO (w x y : ℕ) :
+    (decompComplementLeft w x y).B = (decomp w x y).RO := by
+  exact (decomp w x y).complementLeft_B_eq_RO
 
-/-- In `(~x, y)`, the right-only quadrant is the original `K`. -/
-@[simp] theorem decompComplementLeft_Q_eq_K (w x y : ℕ) :
-    (decompComplementLeft w x y).Q = (decomp w x y).K := by
-  exact (decomp w x y).complementLeft_Q_eq_K
+/-- In `(~x, y)`, the right-only atom is the original `B`. -/
+@[simp] theorem decompComplementLeft_RO_eq_B (w x y : ℕ) :
+    (decompComplementLeft w x y).RO = (decomp w x y).B := by
+  exact (decomp w x y).complementLeft_RO_eq_B
 
-/-- In `(~x, y)`, the left-only quadrant is the original `Z`. -/
-@[simp] theorem decompComplementLeft_P_eq_Z (w x y : ℕ) :
-    (decompComplementLeft w x y).P = (decomp w x y).Z := by
-  exact (decomp w x y).complementLeft_P_eq_Z
+/-- In `(~x, y)`, the left-only atom is the original `N`. -/
+@[simp] theorem decompComplementLeft_LO_eq_N (w x y : ℕ) :
+    (decompComplementLeft w x y).LO = (decomp w x y).N := by
+  exact (decomp w x y).complementLeft_LO_eq_N
 
-/-- In `(~x, y)`, the neither-active quadrant is the original `P`. -/
-@[simp] theorem decompComplementLeft_Z_eq_P (w x y : ℕ) :
-    (decompComplementLeft w x y).Z = (decomp w x y).P := by
-  exact (decomp w x y).complementLeft_Z_eq_P
+/-- In `(~x, y)`, the neither-active atom is the original `LO`. -/
+@[simp] theorem decompComplementLeft_N_eq_LO (w x y : ℕ) :
+    (decompComplementLeft w x y).N = (decomp w x y).LO := by
+  exact (decomp w x y).complementLeft_N_eq_LO
 
-/-- In `(x, ~y)`, the both-active quadrant is the original `P`. -/
-@[simp] theorem decompComplementRight_K_eq_P (w x y : ℕ) :
-    (decompComplementRight w x y).K = (decomp w x y).P := by
-  exact (decomp w x y).complementRight_K_eq_P
+/-- In `(x, ~y)`, the both-active atom is the original `LO`. -/
+@[simp] theorem decompComplementRight_B_eq_LO (w x y : ℕ) :
+    (decompComplementRight w x y).B = (decomp w x y).LO := by
+  exact (decomp w x y).complementRight_B_eq_LO
 
-/-- In `(x, ~y)`, the left-only quadrant is the original `K`. -/
-@[simp] theorem decompComplementRight_P_eq_K (w x y : ℕ) :
-    (decompComplementRight w x y).P = (decomp w x y).K := by
-  exact (decomp w x y).complementRight_P_eq_K
+/-- In `(x, ~y)`, the left-only atom is the original `B`. -/
+@[simp] theorem decompComplementRight_LO_eq_B (w x y : ℕ) :
+    (decompComplementRight w x y).LO = (decomp w x y).B := by
+  exact (decomp w x y).complementRight_LO_eq_B
 
-/-- In `(x, ~y)`, the right-only quadrant is the original `Z`. -/
-@[simp] theorem decompComplementRight_Q_eq_Z (w x y : ℕ) :
-    (decompComplementRight w x y).Q = (decomp w x y).Z := by
-  exact (decomp w x y).complementRight_Q_eq_Z
+/-- In `(x, ~y)`, the right-only atom is the original `N`. -/
+@[simp] theorem decompComplementRight_RO_eq_N (w x y : ℕ) :
+    (decompComplementRight w x y).RO = (decomp w x y).N := by
+  exact (decomp w x y).complementRight_RO_eq_N
 
-/-- In `(x, ~y)`, the neither-active quadrant is the original `Q`. -/
-@[simp] theorem decompComplementRight_Z_eq_Q (w x y : ℕ) :
-    (decompComplementRight w x y).Z = (decomp w x y).Q := by
-  exact (decomp w x y).complementRight_Z_eq_Q
+/-- In `(x, ~y)`, the neither-active atom is the original `RO`. -/
+@[simp] theorem decompComplementRight_N_eq_RO (w x y : ℕ) :
+    (decompComplementRight w x y).N = (decomp w x y).RO := by
+  exact (decomp w x y).complementRight_N_eq_RO
 
-/-- In `(~x, ~y)`, the both-active quadrant is the original `Z`. -/
-@[simp] theorem decompComplementBoth_K_eq_Z (w x y : ℕ) :
-    (decompComplementBoth w x y).K = (decomp w x y).Z := by
-  exact (decomp w x y).complementBoth_K_eq_Z
+/-- In `(~x, ~y)`, the both-active atom is the original `N`. -/
+@[simp] theorem decompComplementBoth_B_eq_N (w x y : ℕ) :
+    (decompComplementBoth w x y).B = (decomp w x y).N := by
+  exact (decomp w x y).complementBoth_B_eq_N
 
-/-- In `(~x, ~y)`, the neither-active quadrant is the original `K`. -/
-@[simp] theorem decompComplementBoth_Z_eq_K (w x y : ℕ) :
-    (decompComplementBoth w x y).Z = (decomp w x y).K := by
-  exact (decomp w x y).complementBoth_Z_eq_K
+/-- In `(~x, ~y)`, the neither-active atom is the original `B`. -/
+@[simp] theorem decompComplementBoth_N_eq_B (w x y : ℕ) :
+    (decompComplementBoth w x y).N = (decomp w x y).B := by
+  exact (decomp w x y).complementBoth_N_eq_B
 
-/-- In `(~x, ~y)`, the left-only quadrant is the original `Q`. -/
-@[simp] theorem decompComplementBoth_P_eq_Q (w x y : ℕ) :
-    (decompComplementBoth w x y).P = (decomp w x y).Q := by
-  exact (decomp w x y).complementBoth_P_eq_Q
+/-- In `(~x, ~y)`, the left-only atom is the original `RO`. -/
+@[simp] theorem decompComplementBoth_LO_eq_RO (w x y : ℕ) :
+    (decompComplementBoth w x y).LO = (decomp w x y).RO := by
+  exact (decomp w x y).complementBoth_LO_eq_RO
 
-/-- In `(~x, ~y)`, the right-only quadrant is the original `P`. -/
-@[simp] theorem decompComplementBoth_Q_eq_P (w x y : ℕ) :
-    (decompComplementBoth w x y).Q = (decomp w x y).P := by
-  exact (decomp w x y).complementBoth_Q_eq_P
+/-- In `(~x, ~y)`, the right-only atom is the original `LO`. -/
+@[simp] theorem decompComplementBoth_RO_eq_LO (w x y : ℕ) :
+    (decompComplementBoth w x y).RO = (decomp w x y).LO := by
+  exact (decomp w x y).complementBoth_RO_eq_LO
 
 end Bit
 end BQD

@@ -22,13 +22,13 @@ def bitSumNoCarry (w x y : ℕ) : Finset ℕ :=
   (decomp w x y).SumNoCarry
 
 @[simp] theorem bitGenerate_eq (w x y : ℕ) :
-    bitGenerate w x y = (decomp w x y).K := rfl
+    bitGenerate w x y = (decomp w x y).B := rfl
 
 @[simp] theorem bitPropagate_eq (w x y : ℕ) :
     bitPropagate w x y = (decomp w x y).exclusive := rfl
 
 @[simp] theorem bitKill_eq (w x y : ℕ) :
-    bitKill w x y = (decomp w x y).Z := rfl
+    bitKill w x y = (decomp w x y).N := rfl
 
 @[simp] theorem bitSumNoCarry_eq_bitPropagate (w x y : ℕ) :
     bitSumNoCarry w x y = bitPropagate w x y := rfl

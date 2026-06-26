@@ -6,87 +6,87 @@ namespace Decomp
 
 variable {α : Type u} [DecidableEq α]
 
-/-- The both-active and left-only quadrants are orthogonal. -/
-@[simp] theorem K_inter_P_eq_empty (D : Decomp α) :
-    D.K ∩ D.P = (∅ : Finset α) := by
+/-- The both-active and left-only atoms are orthogonal. -/
+@[simp] theorem B_inter_LO_eq_empty (D : Decomp α) :
+    D.B ∩ D.LO = (∅ : Finset α) := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [K, P, hxL]
+    simp [B, LO, hxL]
 
-/-- The both-active and right-only quadrants are orthogonal. -/
-@[simp] theorem K_inter_Q_eq_empty (D : Decomp α) :
-    D.K ∩ D.Q = (∅ : Finset α) := by
+/-- The both-active and right-only atoms are orthogonal. -/
+@[simp] theorem B_inter_RO_eq_empty (D : Decomp α) :
+    D.B ∩ D.RO = (∅ : Finset α) := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [K, Q, hxL, hxR]
+    simp [B, RO, hxL, hxR]
 
-/-- The both-active and neither-active quadrants are orthogonal. -/
-@[simp] theorem K_inter_Z_eq_empty (D : Decomp α) :
-    D.K ∩ D.Z = (∅ : Finset α) := by
+/-- The both-active and neither-active atoms are orthogonal. -/
+@[simp] theorem B_inter_N_eq_empty (D : Decomp α) :
+    D.B ∩ D.N = (∅ : Finset α) := by
   ext x
   by_cases hxU : x ∈ D.U <;> by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [K, Z, hxU, hxL, hxR]
+    simp [B, N, hxU, hxL, hxR]
 
-/-- The left-only and right-only quadrants are orthogonal. -/
-@[simp] theorem P_inter_Q_eq_empty (D : Decomp α) :
-    D.P ∩ D.Q = (∅ : Finset α) := by
+/-- The left-only and right-only atoms are orthogonal. -/
+@[simp] theorem LO_inter_RO_eq_empty (D : Decomp α) :
+    D.LO ∩ D.RO = (∅ : Finset α) := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [P, Q, hxL, hxR]
+    simp [LO, RO, hxL, hxR]
 
-/-- The left-only and neither-active quadrants are orthogonal. -/
-@[simp] theorem P_inter_Z_eq_empty (D : Decomp α) :
-    D.P ∩ D.Z = (∅ : Finset α) := by
+/-- The left-only and neither-active atoms are orthogonal. -/
+@[simp] theorem LO_inter_N_eq_empty (D : Decomp α) :
+    D.LO ∩ D.N = (∅ : Finset α) := by
   ext x
   by_cases hxU : x ∈ D.U <;> by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [P, Z, hxU, hxL, hxR]
+    simp [LO, N, hxU, hxL, hxR]
 
-/-- The right-only and neither-active quadrants are orthogonal. -/
-@[simp] theorem Q_inter_Z_eq_empty (D : Decomp α) :
-    D.Q ∩ D.Z = (∅ : Finset α) := by
+/-- The right-only and neither-active atoms are orthogonal. -/
+@[simp] theorem RO_inter_N_eq_empty (D : Decomp α) :
+    D.RO ∩ D.N = (∅ : Finset α) := by
   ext x
   by_cases hxU : x ∈ D.U <;> by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [Q, Z, hxU, hxL, hxR]
+    simp [RO, N, hxU, hxL, hxR]
 
-/-- Reconstruct the left active set from `K` and `P`. -/
-@[simp] theorem K_union_P_eq_L (D : Decomp α) :
-    D.K ∪ D.P = D.L := by
+/-- Reconstruct the left active set from `B` and `LO`. -/
+@[simp] theorem B_union_LO_eq_L (D : Decomp α) :
+    D.B ∪ D.LO = D.L := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [K, P, hxL, hxR]
+    simp [B, LO, hxL, hxR]
 
-/-- Reconstruct the right active set from `K` and `Q`. -/
-@[simp] theorem K_union_Q_eq_R (D : Decomp α) :
-    D.K ∪ D.Q = D.R := by
+/-- Reconstruct the right active set from `B` and `RO`. -/
+@[simp] theorem B_union_RO_eq_R (D : Decomp α) :
+    D.B ∪ D.RO = D.R := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [K, Q, hxL, hxR]
+    simp [B, RO, hxL, hxR]
 
-/-- The nonzero-active part is `K ∪ P ∪ Q`, i.e. `L ∪ R`. -/
-@[simp] theorem K_union_P_union_Q_eq_active (D : Decomp α) :
-    D.K ∪ D.P ∪ D.Q = D.active := by
+/-- The nonzero-active part is `B ∪ LO ∪ RO`, i.e. `L ∪ R`. -/
+@[simp] theorem B_union_LO_union_RO_eq_active (D : Decomp α) :
+    D.B ∪ D.LO ∪ D.RO = D.active := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [K, P, Q, active, hxL, hxR]
+    simp [B, LO, RO, active, hxL, hxR]
 
-/-- The exclusive-active part is the union of the left-only and right-only quadrants. -/
-@[simp] theorem exclusive_eq_P_union_Q (D : Decomp α) :
-    D.exclusive = D.P ∪ D.Q := rfl
+/-- The exclusive-active part is the union of the left-only and right-only atoms. -/
+@[simp] theorem exclusive_eq_LO_union_RO (D : Decomp α) :
+    D.exclusive = D.LO ∪ D.RO := rfl
 
-/-- The four quadrants cover the common universe. -/
-@[simp] theorem K_union_P_union_Q_union_Z_eq_U (D : Decomp α) :
-    D.K ∪ D.P ∪ D.Q ∪ D.Z = D.U := by
+/-- The four atoms cover the common universe. -/
+@[simp] theorem B_union_LO_union_RO_union_N_eq_U (D : Decomp α) :
+    D.B ∪ D.LO ∪ D.RO ∪ D.N = D.U := by
   ext x
   by_cases hxU : x ∈ D.U
   · by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-      simp [K, P, Q, Z, hxU, hxL, hxR]
+      simp [B, LO, RO, N, hxU, hxL, hxR]
   · have hxL : x ∉ D.L := by
       intro h
       exact hxU (D.hL h)
     have hxR : x ∉ D.R := by
       intro h
       exact hxU (D.hR h)
-    simp [K, P, Q, Z, hxU, hxL, hxR]
+    simp [B, LO, RO, N, hxU, hxL, hxR]
 
 end Decomp
 end BQD

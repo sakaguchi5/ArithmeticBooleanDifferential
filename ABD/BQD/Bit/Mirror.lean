@@ -38,25 +38,25 @@ def mirrorPair (w n : ℕ) : Decomp ℕ :=
 @[simp] theorem mirrorPair_R (w n : ℕ) :
     (mirrorPair w n).R = mirrorActive w n := rfl
 
-/-- In a bit mirror pair, `K` is mirror-fixed. -/
-@[simp] theorem mirrorPair_image_K (w n : ℕ) :
-    (mirror w).image ((mirrorPair w n).K) = (mirrorPair w n).K := by
-  exact Decomp.mirrorPair_image_K (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
+/-- In a bit mirror pair, `B` is mirror-fixed. -/
+@[simp] theorem mirrorPair_image_B (w n : ℕ) :
+    (mirror w).image ((mirrorPair w n).B) = (mirrorPair w n).B := by
+  exact Decomp.mirrorPair_image_B (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
 
-/-- In a bit mirror pair, `P` maps to `Q`. -/
-@[simp] theorem mirrorPair_image_P (w n : ℕ) :
-    (mirror w).image ((mirrorPair w n).P) = (mirrorPair w n).Q := by
-  exact Decomp.mirrorPair_image_P (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
+/-- In a bit mirror pair, `LO` maps to `RO`. -/
+@[simp] theorem mirrorPair_image_LO (w n : ℕ) :
+    (mirror w).image ((mirrorPair w n).LO) = (mirrorPair w n).RO := by
+  exact Decomp.mirrorPair_image_LO (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
 
-/-- In a bit mirror pair, `Q` maps to `P`. -/
-@[simp] theorem mirrorPair_image_Q (w n : ℕ) :
-    (mirror w).image ((mirrorPair w n).Q) = (mirrorPair w n).P := by
-  exact Decomp.mirrorPair_image_Q (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
+/-- In a bit mirror pair, `RO` maps to `LO`. -/
+@[simp] theorem mirrorPair_image_RO (w n : ℕ) :
+    (mirror w).image ((mirrorPair w n).RO) = (mirrorPair w n).LO := by
+  exact Decomp.mirrorPair_image_RO (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
 
-/-- In a bit mirror pair, `Z` is mirror-fixed. -/
-@[simp] theorem mirrorPair_image_Z (w n : ℕ) :
-    (mirror w).image ((mirrorPair w n).Z) = (mirrorPair w n).Z := by
-  exact Decomp.mirrorPair_image_Z (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
+/-- In a bit mirror pair, `N` is mirror-fixed. -/
+@[simp] theorem mirrorPair_image_N (w n : ℕ) :
+    (mirror w).image ((mirrorPair w n).N) = (mirrorPair w n).N := by
+  exact Decomp.mirrorPair_image_N (mirror w) (bitActive w n) (bitActive_subset_bitUniverse w n)
 
 end Bit
 end BQD

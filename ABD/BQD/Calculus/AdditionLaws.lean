@@ -11,29 +11,29 @@ variable {α : Type u} [DecidableEq α]
 theorem Generate_subset_U (D : Decomp α) :
     D.Generate ⊆ D.U := by
   intro x hx
-  exact D.K_subset_U (by simpa [Generate] using hx)
+  exact D.B_subset_U (by simpa [Generate] using hx)
 
 /-- The propagate region lies inside the common universe. -/
 theorem Propagate_subset_U (D : Decomp α) :
     D.Propagate ⊆ D.U := by
   intro x hx
-  change x ∈ D.P ∪ D.Q at hx
-  rcases Finset.mem_union.mp hx with hxP | hxQ
-  · exact D.P_subset_U hxP
-  · exact D.Q_subset_U hxQ
+  change x ∈ D.LO ∪ D.RO at hx
+  rcases Finset.mem_union.mp hx with hxLO | hxRO
+  · exact D.LO_subset_U hxLO
+  · exact D.RO_subset_U hxRO
 
 /-- The kill region lies inside the common universe. -/
 theorem Kill_subset_U (D : Decomp α) :
     D.Kill ⊆ D.U := by
   intro x hx
-  exact D.Z_subset_U (by simpa [Kill] using hx)
+  exact D.N_subset_U (by simpa [Kill] using hx)
 
 /-- Generate and propagate are orthogonal. -/
 @[simp] theorem Generate_inter_Propagate_eq_empty (D : Decomp α) :
     D.Generate ∩ D.Propagate = (∅ : Finset α) := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [Generate, Propagate, K, P, Q, hxL, hxR]
+    simp [Generate, Propagate, B, LO, RO, hxL, hxR]
 
 /-- Generate and kill are orthogonal. -/
 @[simp] theorem Generate_inter_Kill_eq_empty (D : Decomp α) :
@@ -42,7 +42,7 @@ theorem Kill_subset_U (D : Decomp α) :
   by_cases hxU : x ∈ D.U <;>
   by_cases hxL : x ∈ D.L <;>
   by_cases hxR : x ∈ D.R <;>
-    simp [Generate, Kill, K, Z, hxU, hxL, hxR]
+    simp [Generate, Kill, B, N, hxU, hxL, hxR]
 
 /-- Propagate and kill are orthogonal. -/
 @[simp] theorem Propagate_inter_Kill_eq_empty (D : Decomp α) :
@@ -51,7 +51,7 @@ theorem Kill_subset_U (D : Decomp α) :
   by_cases hxU : x ∈ D.U <;>
   by_cases hxL : x ∈ D.L <;>
   by_cases hxR : x ∈ D.R <;>
-    simp [Propagate, Kill, P, Q, Z, hxU, hxL, hxR]
+    simp [Propagate, Kill, LO, RO, N, hxU, hxL, hxR]
 
 /-- Generate and propagate are disjoint. -/
 theorem Generate_disjoint_Propagate (D : Decomp α) :
@@ -73,20 +73,20 @@ theorem Propagate_disjoint_Kill (D : Decomp α) :
     D.Generate ∪ D.Propagate = D.active := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [Generate, Propagate, K, P, Q, active, hxL, hxR]
+    simp [Generate, Propagate, B, LO, RO, active, hxL, hxR]
 
 /-- Generate, propagate, and kill split the common universe. -/
 @[simp] theorem Generate_union_Propagate_union_Kill_eq_U (D : Decomp α) :
     D.Generate ∪ D.Propagate ∪ D.Kill = D.U := by
   calc
     D.Generate ∪ D.Propagate ∪ D.Kill
-        = D.active ∪ D.Z := by
-            rw [D.Generate_union_Propagate_eq_active, D.Kill_eq_Z]
-    _ = D.U := D.active_union_Z_eq_U
+        = D.active ∪ D.N := by
+            rw [D.Generate_union_Propagate_eq_active, D.Kill_eq_N]
+    _ = D.U := D.active_union_N_eq_U
 
-/-- Generate count is the `K` count. -/
-@[simp] theorem Generate_card_eq_kCount (D : Decomp α) :
-    D.Generate.card = D.kCount := rfl
+/-- Generate count is the `B` count. -/
+@[simp] theorem Generate_card_eq_bCount (D : Decomp α) :
+    D.Generate.card = D.bCount := rfl
 
 /-- Propagate count is the Hamming/xor distance. -/
 theorem Propagate_card_eq_hammingDistance (D : Decomp α) :
@@ -94,9 +94,9 @@ theorem Propagate_card_eq_hammingDistance (D : Decomp α) :
   rw [D.Propagate_eq_exclusive]
   exact D.hammingDistance_eq_exclusive_card.symm
 
-/-- Kill count is the `Z` count. -/
-@[simp] theorem Kill_card_eq_zCount (D : Decomp α) :
-    D.Kill.card = D.zCount := rfl
+/-- Kill count is the `N` count. -/
+@[simp] theorem Kill_card_eq_nCount (D : Decomp α) :
+    D.Kill.card = D.nCount := rfl
 
 /-- Sum without incoming carry has cardinality equal to Hamming distance. -/
 theorem SumNoCarry_card_eq_hammingDistance (D : Decomp α) :

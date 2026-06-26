@@ -21,21 +21,33 @@ namespace Decomp
 
 variable {α : Type u} [DecidableEq α]
 
-/-- `K`: both-active quadrant. -/
-def K (D : Decomp α) : Finset α :=
+/-- `B`: both-active atom, i.e. left and right are both active. -/
+def B (D : Decomp α) : Finset α :=
   D.L ∩ D.R
 
-/-- `P`: left-only quadrant. -/
-def P (D : Decomp α) : Finset α :=
+/-- `LO`: left-only atom, i.e. left is active and right is inactive. -/
+def LO (D : Decomp α) : Finset α :=
   D.L \ D.R
 
-/-- `Q`: right-only quadrant. -/
-def Q (D : Decomp α) : Finset α :=
+/-- `RO`: right-only atom, i.e. right is active and left is inactive. -/
+def RO (D : Decomp α) : Finset α :=
   D.R \ D.L
 
-/-- `Z`: neither-active quadrant inside the common universe. -/
-def Z (D : Decomp α) : Finset α :=
+/-- `N`: neither-active atom inside the common universe. -/
+def N (D : Decomp α) : Finset α :=
   D.U \ (D.L ∪ D.R)
+
+/-- Descriptive alias for `B`. -/
+abbrev Both (D : Decomp α) : Finset α := D.B
+
+/-- Descriptive alias for `LO`. -/
+abbrev LeftOnly (D : Decomp α) : Finset α := D.LO
+
+/-- Descriptive alias for `RO`. -/
+abbrev RightOnly (D : Decomp α) : Finset α := D.RO
+
+/-- Descriptive alias for `N`. -/
+abbrev Neither (D : Decomp α) : Finset α := D.N
 
 /-- The active union of the two objects. -/
 def active (D : Decomp α) : Finset α :=
@@ -43,32 +55,36 @@ def active (D : Decomp α) : Finset α :=
 
 /-- The exclusive-active part, i.e. Boolean xor of the active sets. -/
 def exclusive (D : Decomp α) : Finset α :=
-  D.P ∪ D.Q
+  D.LO ∪ D.RO
 
-@[simp] theorem K_def (D : Decomp α) : D.K = D.L ∩ D.R := rfl
-@[simp] theorem P_def (D : Decomp α) : D.P = D.L \ D.R := rfl
-@[simp] theorem Q_def (D : Decomp α) : D.Q = D.R \ D.L := rfl
-@[simp] theorem Z_def (D : Decomp α) : D.Z = D.U \ (D.L ∪ D.R) := rfl
+@[simp] theorem B_def (D : Decomp α) : D.B = D.L ∩ D.R := rfl
+@[simp] theorem LO_def (D : Decomp α) : D.LO = D.L \ D.R := rfl
+@[simp] theorem RO_def (D : Decomp α) : D.RO = D.R \ D.L := rfl
+@[simp] theorem N_def (D : Decomp α) : D.N = D.U \ (D.L ∪ D.R) := rfl
+@[simp] theorem Both_def (D : Decomp α) : D.Both = D.B := rfl
+@[simp] theorem LeftOnly_def (D : Decomp α) : D.LeftOnly = D.LO := rfl
+@[simp] theorem RightOnly_def (D : Decomp α) : D.RightOnly = D.RO := rfl
+@[simp] theorem Neither_def (D : Decomp α) : D.Neither = D.N := rfl
 @[simp] theorem active_def (D : Decomp α) : D.active = D.L ∪ D.R := rfl
-@[simp] theorem exclusive_def (D : Decomp α) : D.exclusive = D.P ∪ D.Q := rfl
+@[simp] theorem exclusive_def (D : Decomp α) : D.exclusive = D.LO ∪ D.RO := rfl
 
-/-- `K` lies inside the common universe. -/
-theorem K_subset_U (D : Decomp α) : D.K ⊆ D.U := by
+/-- `B` lies inside the common universe. -/
+theorem B_subset_U (D : Decomp α) : D.B ⊆ D.U := by
   intro x hx
   exact D.hL ((Finset.mem_inter.mp hx).1)
 
-/-- `P` lies inside the common universe. -/
-theorem P_subset_U (D : Decomp α) : D.P ⊆ D.U := by
+/-- `LO` lies inside the common universe. -/
+theorem LO_subset_U (D : Decomp α) : D.LO ⊆ D.U := by
   intro x hx
   exact D.hL ((Finset.mem_sdiff.mp hx).1)
 
-/-- `Q` lies inside the common universe. -/
-theorem Q_subset_U (D : Decomp α) : D.Q ⊆ D.U := by
+/-- `RO` lies inside the common universe. -/
+theorem RO_subset_U (D : Decomp α) : D.RO ⊆ D.U := by
   intro x hx
   exact D.hR ((Finset.mem_sdiff.mp hx).1)
 
-/-- `Z` lies inside the common universe. -/
-theorem Z_subset_U (D : Decomp α) : D.Z ⊆ D.U := by
+/-- `N` lies inside the common universe. -/
+theorem N_subset_U (D : Decomp α) : D.N ⊆ D.U := by
   intro x hx
   exact (Finset.mem_sdiff.mp hx).1
 

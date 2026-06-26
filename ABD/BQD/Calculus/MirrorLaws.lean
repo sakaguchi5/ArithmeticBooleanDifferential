@@ -125,7 +125,7 @@ theorem image_compl_U
     _ = U \ ρ.image A := by
       rw [ρ.image_U_eq_U]
 
-/-- In a mirror pair, the both-active region is fixed by the mirror. -/
+/-- In a mirror pair, the both-active atom is fixed by the mirror. -/
 theorem image_inter_image_eq_inter_image
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
     ρ.image (L ∩ ρ.image L) = L ∩ ρ.image L := by
@@ -138,7 +138,7 @@ theorem image_inter_image_eq_inter_image
     _ = L ∩ ρ.image L := by
             rw [Finset.inter_comm]
 
-/-- In a mirror pair, the left-only quadrant mirrors to the right-only quadrant. -/
+/-- In a mirror pair, the left-only atom mirrors to the right-only atom. -/
 theorem image_leftOnly_eq_rightOnly
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
     ρ.image (L \ ρ.image L) = ρ.image L \ L := by
@@ -149,7 +149,7 @@ theorem image_leftOnly_eq_rightOnly
     _ = ρ.image L \ L := by
             rw [ρ.image_image_eq_self hL]
 
-/-- In a mirror pair, the right-only quadrant mirrors to the left-only quadrant. -/
+/-- In a mirror pair, the right-only atom mirrors to the left-only atom. -/
 theorem image_rightOnly_eq_leftOnly
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
     ρ.image (ρ.image L \ L) = L \ ρ.image L := by
@@ -162,7 +162,7 @@ theorem image_rightOnly_eq_leftOnly
     _ = L \ ρ.image L := by
             rw [ρ.image_image_eq_self hL]
 
-/-- In a mirror pair, the neither-active quadrant is fixed by the mirror. -/
+/-- In a mirror pair, the neither-active atom is fixed by the mirror. -/
 theorem image_neither_eq_neither
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
     ρ.image (U \ (L ∪ ρ.image L)) = U \ (L ∪ ρ.image L) := by
@@ -188,29 +188,29 @@ namespace Decomp
 
 variable {α : Type u} [DecidableEq α] {U : Finset α}
 
-/-- For the canonical mirror pair `BQD(L, mirror L)`, the `K` quadrant is mirror-fixed. -/
-@[simp] theorem mirrorPair_image_K
+/-- For the canonical mirror pair `BQD(L, mirror L)`, the `B` atom is mirror-fixed. -/
+@[simp] theorem mirrorPair_image_B
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
-    ρ.image ((ρ.pair L hL).K) = (ρ.pair L hL).K := by
-  simpa [Mirror.pair, K] using ρ.image_inter_image_eq_inter_image L hL
+    ρ.image ((ρ.pair L hL).B) = (ρ.pair L hL).B := by
+  simpa [Mirror.pair, B] using ρ.image_inter_image_eq_inter_image L hL
 
-/-- For the canonical mirror pair `BQD(L, mirror L)`, the `P` quadrant maps to `Q`. -/
-@[simp] theorem mirrorPair_image_P
+/-- For the canonical mirror pair `BQD(L, mirror L)`, the `LO` atom maps to `RO`. -/
+@[simp] theorem mirrorPair_image_LO
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
-    ρ.image ((ρ.pair L hL).P) = (ρ.pair L hL).Q := by
-  simpa [Mirror.pair, P, Q] using ρ.image_leftOnly_eq_rightOnly L hL
+    ρ.image ((ρ.pair L hL).LO) = (ρ.pair L hL).RO := by
+  simpa [Mirror.pair, LO, RO] using ρ.image_leftOnly_eq_rightOnly L hL
 
-/-- For the canonical mirror pair `BQD(L, mirror L)`, the `Q` quadrant maps to `P`. -/
-@[simp] theorem mirrorPair_image_Q
+/-- For the canonical mirror pair `BQD(L, mirror L)`, the `RO` atom maps to `LO`. -/
+@[simp] theorem mirrorPair_image_RO
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
-    ρ.image ((ρ.pair L hL).Q) = (ρ.pair L hL).P := by
-  simpa [Mirror.pair, P, Q] using ρ.image_rightOnly_eq_leftOnly L hL
+    ρ.image ((ρ.pair L hL).RO) = (ρ.pair L hL).LO := by
+  simpa [Mirror.pair, LO, RO] using ρ.image_rightOnly_eq_leftOnly L hL
 
-/-- For the canonical mirror pair `BQD(L, mirror L)`, the `Z` quadrant is mirror-fixed. -/
-@[simp] theorem mirrorPair_image_Z
+/-- For the canonical mirror pair `BQD(L, mirror L)`, the `N` atom is mirror-fixed. -/
+@[simp] theorem mirrorPair_image_N
     (ρ : Mirror α U) (L : Finset α) (hL : L ⊆ U) :
-    ρ.image ((ρ.pair L hL).Z) = (ρ.pair L hL).Z := by
-  simpa [Mirror.pair, Z] using ρ.image_neither_eq_neither L hL
+    ρ.image ((ρ.pair L hL).N) = (ρ.pair L hL).N := by
+  simpa [Mirror.pair, N] using ρ.image_neither_eq_neither L hL
 
 end Decomp
 end BQD

@@ -39,35 +39,35 @@ def swap (D : Decomp α) : Decomp α where
   cases D
   rfl
 
-/-- The common-active quadrant is invariant under left-right duality. -/
-@[simp] theorem swap_K (D : Decomp α) :
-    D.swap.K = D.K := by
+/-- The both-active atom is invariant under left-right duality. -/
+@[simp] theorem swap_B (D : Decomp α) :
+    D.swap.B = D.B := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [swap, K, hxL, hxR]
+    simp [swap, B, hxL, hxR]
 
-/-- The left-only quadrant of the dual is the original right-only quadrant. -/
-@[simp] theorem swap_P (D : Decomp α) :
-    D.swap.P = D.Q := by
+/-- The left-only atom of the dual is the original right-only atom. -/
+@[simp] theorem swap_LO (D : Decomp α) :
+    D.swap.LO = D.RO := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [swap, P, Q, hxL, hxR]
+    simp [swap, LO, RO, hxL, hxR]
 
-/-- The right-only quadrant of the dual is the original left-only quadrant. -/
-@[simp] theorem swap_Q (D : Decomp α) :
-    D.swap.Q = D.P := by
+/-- The right-only atom of the dual is the original left-only atom. -/
+@[simp] theorem swap_RO (D : Decomp α) :
+    D.swap.RO = D.LO := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [swap, P, Q, hxL, hxR]
+    simp [swap, LO, RO, hxL, hxR]
 
-/-- The neither-active quadrant is invariant under left-right duality. -/
-@[simp] theorem swap_Z (D : Decomp α) :
-    D.swap.Z = D.Z := by
+/-- The neither-active atom is invariant under left-right duality. -/
+@[simp] theorem swap_N (D : Decomp α) :
+    D.swap.N = D.N := by
   ext x
   by_cases hxU : x ∈ D.U <;>
   by_cases hxL : x ∈ D.L <;>
   by_cases hxR : x ∈ D.R <;>
-    simp [swap, Z, hxU, hxL, hxR]
+    simp [swap, N, hxU, hxL, hxR]
 
 /-- The active union is invariant under left-right duality. -/
 @[simp] theorem swap_active (D : Decomp α) :
@@ -81,27 +81,27 @@ def swap (D : Decomp α) : Decomp α where
     D.swap.exclusive = D.exclusive := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [swap, exclusive, P, Q, hxL, hxR]
+    simp [swap, exclusive, LO, RO, hxL, hxR]
 
-/-- `K` count is invariant under left-right duality. -/
-@[simp] theorem swap_kCount (D : Decomp α) :
-    D.swap.kCount = D.kCount := by
-  simp [kCount,Finset.inter_comm]
+/-- `B` count is invariant under left-right duality. -/
+@[simp] theorem swap_bCount (D : Decomp α) :
+    D.swap.bCount = D.bCount := by
+  simp [bCount,Finset.inter_comm]
 
-/-- `P` count of the dual is the original `Q` count. -/
-@[simp] theorem swap_pCount (D : Decomp α) :
-    D.swap.pCount = D.qCount := by
-  simp [pCount, qCount]
+/-- `LO` count of the dual is the original `RO` count. -/
+@[simp] theorem swap_loCount (D : Decomp α) :
+    D.swap.loCount = D.roCount := by
+  simp [loCount, roCount]
 
-/-- `Q` count of the dual is the original `P` count. -/
-@[simp] theorem swap_qCount (D : Decomp α) :
-    D.swap.qCount = D.pCount := by
-  simp [pCount, qCount]
+/-- `RO` count of the dual is the original `LO` count. -/
+@[simp] theorem swap_roCount (D : Decomp α) :
+    D.swap.roCount = D.loCount := by
+  simp [loCount, roCount]
 
-/-- `Z` count is invariant under left-right duality. -/
-@[simp] theorem swap_zCount (D : Decomp α) :
-    D.swap.zCount = D.zCount := by
-  simp [zCount,Finset.union_comm]
+/-- `N` count is invariant under left-right duality. -/
+@[simp] theorem swap_nCount (D : Decomp α) :
+    D.swap.nCount = D.nCount := by
+  simp [nCount,Finset.union_comm]
 
 /-- Xor count is invariant under left-right duality. -/
 @[simp] theorem swap_xorCount (D : Decomp α) :
@@ -133,7 +133,7 @@ def swap (D : Decomp α) : Decomp α where
     D.swap.Propagate = D.Propagate := by
   ext x
   by_cases hxL : x ∈ D.L <;> by_cases hxR : x ∈ D.R <;>
-    simp [swap, Propagate, P, Q, hxL, hxR]
+    simp [swap, Propagate, LO, RO, hxL, hxR]
 
 /-- Kill is invariant under left-right duality. -/
 @[simp] theorem swap_Kill (D : Decomp α) :

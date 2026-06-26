@@ -65,9 +65,9 @@ def complementBoth (D : Decomp α) : Decomp α where
 @[simp] theorem complementBoth_R (D : Decomp α) :
     D.complementBoth.R = D.U \ D.R := rfl
 
-/-- Complementing the right side swaps `K` with `P`. -/
-@[simp] theorem complementRight_K_eq_P (D : Decomp α) :
-    D.complementRight.K = D.P := by
+/-- Complementing the right side swaps `B` with `LO`. -/
+@[simp] theorem complementRight_B_eq_LO (D : Decomp α) :
+    D.complementRight.B = D.LO := by
   ext x
   change x ∈ D.L ∩ (D.U \ D.R) ↔ x ∈ D.L \ D.R
   constructor
@@ -79,9 +79,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     exact Finset.mem_inter.mpr
       ⟨hxL, Finset.mem_sdiff.mpr ⟨D.hL hxL, hxNotR⟩⟩
 
-/-- Complementing the right side swaps `P` with `K`. -/
-@[simp] theorem complementRight_P_eq_K (D : Decomp α) :
-    D.complementRight.P = D.K := by
+/-- Complementing the right side swaps `LO` with `B`. -/
+@[simp] theorem complementRight_LO_eq_B (D : Decomp α) :
+    D.complementRight.LO = D.B := by
   ext x
   change x ∈ D.L \ (D.U \ D.R) ↔ x ∈ D.L ∩ D.R
   constructor
@@ -97,9 +97,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     intro hxUR
     exact (Finset.mem_sdiff.mp hxUR).2 hxR
 
-/-- Complementing the right side swaps `Q` with `Z`. -/
-@[simp] theorem complementRight_Q_eq_Z (D : Decomp α) :
-    D.complementRight.Q = D.Z := by
+/-- Complementing the right side swaps `RO` with `N`. -/
+@[simp] theorem complementRight_RO_eq_N (D : Decomp α) :
+    D.complementRight.RO = D.N := by
   ext x
   change x ∈ (D.U \ D.R) \ D.L ↔ x ∈ D.U \ (D.L ∪ D.R)
   constructor
@@ -120,9 +120,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     · intro hxL
       exact hxNotUnion (Finset.mem_union.mpr (Or.inl hxL))
 
-/-- Complementing the right side swaps `Z` with `Q`. -/
-@[simp] theorem complementRight_Z_eq_Q (D : Decomp α) :
-    D.complementRight.Z = D.Q := by
+/-- Complementing the right side swaps `N` with `RO`. -/
+@[simp] theorem complementRight_N_eq_RO (D : Decomp α) :
+    D.complementRight.N = D.RO := by
   ext x
   change x ∈ D.U \ (D.L ∪ (D.U \ D.R)) ↔ x ∈ D.R \ D.L
   constructor
@@ -144,9 +144,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     · exact hxNotL hxL
     · exact (Finset.mem_sdiff.mp hxUR).2 hxR
 
-/-- Complementing the left side swaps `K` with `Q`. -/
-@[simp] theorem complementLeft_K_eq_Q (D : Decomp α) :
-    D.complementLeft.K = D.Q := by
+/-- Complementing the left side swaps `B` with `RO`. -/
+@[simp] theorem complementLeft_B_eq_RO (D : Decomp α) :
+    D.complementLeft.B = D.RO := by
   ext x
   change x ∈ (D.U \ D.L) ∩ D.R ↔ x ∈ D.R \ D.L
   constructor
@@ -158,9 +158,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     exact Finset.mem_inter.mpr
       ⟨Finset.mem_sdiff.mpr ⟨D.hR hxR, hxNotL⟩, hxR⟩
 
-/-- Complementing the left side swaps `Q` with `K`. -/
-@[simp] theorem complementLeft_Q_eq_K (D : Decomp α) :
-    D.complementLeft.Q = D.K := by
+/-- Complementing the left side swaps `RO` with `B`. -/
+@[simp] theorem complementLeft_RO_eq_B (D : Decomp α) :
+    D.complementLeft.RO = D.B := by
   ext x
   change x ∈ D.R \ (D.U \ D.L) ↔ x ∈ D.L ∩ D.R
   constructor
@@ -176,9 +176,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     intro hxUL
     exact (Finset.mem_sdiff.mp hxUL).2 hxL
 
-/-- Complementing the left side swaps `P` with `Z`. -/
-@[simp] theorem complementLeft_P_eq_Z (D : Decomp α) :
-    D.complementLeft.P = D.Z := by
+/-- Complementing the left side swaps `LO` with `N`. -/
+@[simp] theorem complementLeft_LO_eq_N (D : Decomp α) :
+    D.complementLeft.LO = D.N := by
   ext x
   change x ∈ (D.U \ D.L) \ D.R ↔ x ∈ D.U \ (D.L ∪ D.R)
   constructor
@@ -199,9 +199,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     · intro hxR
       exact hxNotUnion (Finset.mem_union.mpr (Or.inr hxR))
 
-/-- Complementing the left side swaps `Z` with `P`. -/
-@[simp] theorem complementLeft_Z_eq_P (D : Decomp α) :
-    D.complementLeft.Z = D.P := by
+/-- Complementing the left side swaps `N` with `LO`. -/
+@[simp] theorem complementLeft_N_eq_LO (D : Decomp α) :
+    D.complementLeft.N = D.LO := by
   ext x
   change x ∈ D.U \ ((D.U \ D.L) ∪ D.R) ↔ x ∈ D.L \ D.R
   constructor
@@ -223,9 +223,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     · exact (Finset.mem_sdiff.mp hxUL).2 hxL
     · exact hxNotR hxR
 
-/-- Complementing both sides swaps `K` with `Z`. -/
-@[simp] theorem complementBoth_K_eq_Z (D : Decomp α) :
-    D.complementBoth.K = D.Z := by
+/-- Complementing both sides swaps `B` with `N`. -/
+@[simp] theorem complementBoth_B_eq_N (D : Decomp α) :
+    D.complementBoth.B = D.N := by
   ext x
   change x ∈ (D.U \ D.L) ∩ (D.U \ D.R) ↔ x ∈ D.U \ (D.L ∪ D.R)
   constructor
@@ -248,9 +248,9 @@ def complementBoth (D : Decomp α) : Decomp α where
       intro hxR
       exact hxNotUnion (Finset.mem_union.mpr (Or.inr hxR))
 
-/-- Complementing both sides swaps `Z` with `K`. -/
-@[simp] theorem complementBoth_Z_eq_K (D : Decomp α) :
-    D.complementBoth.Z = D.K := by
+/-- Complementing both sides swaps `N` with `B`. -/
+@[simp] theorem complementBoth_N_eq_B (D : Decomp α) :
+    D.complementBoth.N = D.B := by
   ext x
   change x ∈ D.U \ ((D.U \ D.L) ∪ (D.U \ D.R)) ↔ x ∈ D.L ∩ D.R
   constructor
@@ -273,9 +273,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     · exact (Finset.mem_sdiff.mp hxUL).2 hxL
     · exact (Finset.mem_sdiff.mp hxUR).2 hxR
 
-/-- Complementing both sides swaps `P` with `Q`. -/
-@[simp] theorem complementBoth_P_eq_Q (D : Decomp α) :
-    D.complementBoth.P = D.Q := by
+/-- Complementing both sides swaps `LO` with `RO`. -/
+@[simp] theorem complementBoth_LO_eq_RO (D : Decomp α) :
+    D.complementBoth.LO = D.RO := by
   ext x
   change x ∈ (D.U \ D.L) \ (D.U \ D.R) ↔ x ∈ D.R \ D.L
   constructor
@@ -293,9 +293,9 @@ def complementBoth (D : Decomp α) : Decomp α where
     · intro hxUR
       exact (Finset.mem_sdiff.mp hxUR).2 hxR
 
-/-- Complementing both sides swaps `Q` with `P`. -/
-@[simp] theorem complementBoth_Q_eq_P (D : Decomp α) :
-    D.complementBoth.Q = D.P := by
+/-- Complementing both sides swaps `RO` with `LO`. -/
+@[simp] theorem complementBoth_RO_eq_LO (D : Decomp α) :
+    D.complementBoth.RO = D.LO := by
   ext x
   change x ∈ (D.U \ D.R) \ (D.U \ D.L) ↔ x ∈ D.L \ D.R
   constructor

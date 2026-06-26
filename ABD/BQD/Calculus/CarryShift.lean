@@ -107,9 +107,9 @@ theorem shiftedCarryStep_subset_image_active_union_incoming
     simpa [carryStep] using hx
   have hxActiveOrIncoming : x ∈ D.active ∪ incoming := by
     rcases Finset.mem_union.mp hxStep with hxG | hxPI
-    · have hxK : x ∈ D.K := by
+    · have hxB : x ∈ D.B := by
         simpa [Generate] using hxG
-      have hxL : x ∈ D.L := (Finset.mem_inter.mp hxK).1
+      have hxL : x ∈ D.L := (Finset.mem_inter.mp hxB).1
       have hxActive : x ∈ D.active := by
         simpa [active] using Finset.mem_union.mpr (Or.inl hxL)
       exact Finset.mem_union.mpr (Or.inl hxActive)
