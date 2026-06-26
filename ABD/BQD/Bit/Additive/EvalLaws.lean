@@ -86,20 +86,38 @@ theorem evalMask_four_union_eq_add
       rw [ih, pow_succ]
       omega
 
+namespace Board
+
+variable {width : ℕ}
+
+/-- The integer value of all four board atoms is the value of the full bit universe. -/
+theorem eval_cover (G : Board width) :
+    G.valB + G.valLO + G.valRO + G.valN = evalMask (bitUniverse width) := by
+  rw [← G.hcover]
+  dsimp [Board.valB, Board.valLO, Board.valRO, Board.valN]
+  symm
+  exact evalMask_four_union_eq_add
+    G.hB_LO G.hB_RO G.hB_N G.hLO_RO G.hLO_N G.hRO_N
+
+/-- The integer value of all four board atoms is `2^width - 1`. -/
+@[simp] theorem eval_cover_eq_pow_sub_one (G : Board width) :
+    G.valB + G.valLO + G.valRO + G.valN = 2 ^ width - 1 := by
+  rw [G.eval_cover]
+  exact evalMask_bitUniverse width
+
+end Board
+
 namespace NormalForm
 
 variable {width : ℕ}
 
-/-- The integer value of all four atoms is the value of the full bit universe. -/
+/-- The integer value of all four atoms in a normal form is the universe value. -/
 theorem eval_cover (F : NormalForm width) :
     F.valB + F.valLO + F.valRO + F.valN = evalMask (bitUniverse width) := by
-  rw [← F.hcover]
-  dsimp [valB, valLO, valRO, valN]
-  symm
-  exact evalMask_four_union_eq_add
-    F.hB_LO F.hB_RO F.hB_N F.hLO_RO F.hLO_N F.hRO_N
+  simpa [NormalForm.valB, NormalForm.valLO, NormalForm.valRO, NormalForm.valN]
+    using F.board.eval_cover
 
-/-- The integer value of all four atoms is `2^width - 1`. -/
+/-- The integer value of all four atoms in a normal form is `2^width - 1`. -/
 @[simp] theorem eval_cover_eq_pow_sub_one (F : NormalForm width) :
     F.valB + F.valLO + F.valRO + F.valN = 2 ^ width - 1 := by
   rw [F.eval_cover]
