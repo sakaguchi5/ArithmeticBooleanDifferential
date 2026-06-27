@@ -7,6 +7,6 @@ import ABD.BQD.Bit.Reverse
 import ABD.BQD.Bit.Mirror
 import ABD.BQD.Bit.MirrorComplement
 import ABD.BQD.Bit.Addition
-import ABD.BQD.Bit.Additive.All
+import ABD.BQD.Bit.Additive2.All
 import ABD.BQD.Bit.Cardinality
 import ABD.BQD.Bit.System
