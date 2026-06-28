@@ -86,42 +86,31 @@ theorem evalMask_four_union_eq_add
       rw [ih, pow_succ]
       omega
 
-namespace Board
-
-variable {width : ℕ}
-
-/-- The integer value of all four board atoms is the value of the full bit universe. -/
-theorem eval_cover (G : Board width) :
-    G.valB + G.valLO + G.valRO + G.valN = evalMask (bitUniverse width) := by
-  rw [← G.hcover]
-  dsimp [Board.valB, Board.valLO, Board.valRO, Board.valN]
-  symm
-  exact evalMask_four_union_eq_add
-    G.hB_LO G.hB_RO G.hB_N G.hLO_RO G.hLO_N G.hRO_N
-
-/-- The integer value of all four board atoms is `2^width - 1`. -/
-@[simp] theorem eval_cover_eq_pow_sub_one (G : Board width) :
-    G.valB + G.valLO + G.valRO + G.valN = 2 ^ width - 1 := by
-  rw [G.eval_cover]
-  exact evalMask_bitUniverse width
-
-end Board
-
 namespace NormalForm
 
-variable {width : ℕ}
+variable {c : ℕ}
 
-/-- The integer value of all four atoms in a normal form is the universe value. -/
-theorem eval_cover (F : NormalForm width) :
-    F.valB + F.valLO + F.valRO + F.valN = evalMask (bitUniverse width) := by
-  simpa [NormalForm.valB, NormalForm.valLO, NormalForm.valRO, NormalForm.valN]
-    using F.board.eval_cover
+/-- Evaluation of the canonical universe of a normal form. -/
+@[simp] theorem eval_U (F : NormalForm c) :
+    evalMask F.U = 2 ^ bitLength c - 1 := by
+  simp [NormalForm.U, evalMask_bitUniverse]
 
-/-- The integer value of all four atoms in a normal form is `2^width - 1`. -/
-@[simp] theorem eval_cover_eq_pow_sub_one (F : NormalForm width) :
-    F.valB + F.valLO + F.valRO + F.valN = 2 ^ width - 1 := by
+/-- The integer value of all four atoms is the value of the canonical universe. -/
+theorem eval_cover (F : NormalForm c) :
+    F.valB + F.valLO + F.valRO + F.valN = evalMask F.U := by
+  rw [← F.B_union_LO_union_RO_union_N_eq_U]
+  dsimp [NormalForm.valB, NormalForm.valLO, NormalForm.valRO, NormalForm.valN,
+    Board.valB, Board.valLO, Board.valRO]
+  symm
+  exact evalMask_four_union_eq_add
+    F.board.hB_LO F.board.hB_RO F.B_inter_N_eq_empty
+    F.board.hLO_RO F.LO_inter_N_eq_empty F.RO_inter_N_eq_empty
+
+/-- The integer value of all four atoms is `2^bitLength c - 1`. -/
+@[simp] theorem eval_cover_eq_pow_sub_one (F : NormalForm c) :
+    F.valB + F.valLO + F.valRO + F.valN = 2 ^ bitLength c - 1 := by
   rw [F.eval_cover]
-  exact evalMask_bitUniverse width
+  exact F.eval_U
 
 end NormalForm
 end Additive

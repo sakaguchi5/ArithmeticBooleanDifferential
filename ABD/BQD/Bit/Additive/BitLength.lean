@@ -4,7 +4,7 @@ import ABD.BQD.Bit.Width
 namespace ABD
 namespace BQD
 namespace Bit
-namespace Additive2
+namespace Additive
 
 /-- Canonical output width used by additive normal forms.
 
@@ -43,7 +43,7 @@ theorem lt_two_pow_bitLength (c : ℕ) :
     simpa [Nat.log2_eq_log_two, Nat.succ_eq_add_one]
       using Nat.lt_pow_succ_log_self (by decide : 1 < 2) c
 
-end Additive2
+end Additive
 end Bit
 end BQD
 end ABD

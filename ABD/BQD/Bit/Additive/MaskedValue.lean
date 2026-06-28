@@ -111,7 +111,7 @@ theorem boardOfPair_b_eq_right_of_add_eq_of_c_lt {width x y c : ℕ}
 /-- Under `x + y = c` and `c < 2^width`, the board candidate is exactly the
 actual output `c`.
 
-This is the heavy bridge needed by the next entrance/completeness layer. -/
+This is the heavy bridge needed by the entrance/completeness layer. -/
 theorem boardOfPair_candidateC_eq_of_add_eq_of_c_lt {width x y c : ℕ}
     (hadd : x + y = c) (hc : c < 2 ^ width) :
     (boardOfPair width x y).candidateC = c := by
@@ -123,6 +123,27 @@ theorem boardOfPair_candidateC_eq_of_add_eq_of_c_lt {width x y c : ℕ}
             rw [boardOfPair_a_eq_left_of_add_eq_of_c_lt hadd hc,
               boardOfPair_b_eq_right_of_add_eq_of_c_lt hadd hc]
     _ = c := hadd
+
+/-- Canonical-width specialization: under `x + y = c`, the pair board built at
+`bitLength c` has left value `x`. -/
+theorem boardOfPair_a_eq_left_of_add_eq {x y c : ℕ}
+    (hadd : x + y = c) :
+    (boardOfPair (bitLength c) x y).a = x := by
+  exact boardOfPair_a_eq_left_of_add_eq_of_c_lt hadd (lt_two_pow_bitLength c)
+
+/-- Canonical-width specialization: under `x + y = c`, the pair board built at
+`bitLength c` has right value `y`. -/
+theorem boardOfPair_b_eq_right_of_add_eq {x y c : ℕ}
+    (hadd : x + y = c) :
+    (boardOfPair (bitLength c) x y).b = y := by
+  exact boardOfPair_b_eq_right_of_add_eq_of_c_lt hadd (lt_two_pow_bitLength c)
+
+/-- Canonical-width specialization: under `x + y = c`, the pair board built at
+`bitLength c` has candidate output `c`. -/
+theorem boardOfPair_candidateC_eq_of_add_eq {x y c : ℕ}
+    (hadd : x + y = c) :
+    (boardOfPair (bitLength c) x y).candidateC = c := by
+  exact boardOfPair_candidateC_eq_of_add_eq_of_c_lt hadd (lt_two_pow_bitLength c)
 
 end Additive
 end Bit

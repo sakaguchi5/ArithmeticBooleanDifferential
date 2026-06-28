@@ -5,56 +5,48 @@ namespace BQD
 namespace Bit
 namespace Additive
 
-/-- A normal form represents the ordinary additive triple `(x,y,c)` when its
-recovered inputs and output are exactly those three naturals. -/
-def Represents {width : ℕ} (F : NormalForm width) (x y c : ℕ) : Prop :=
-  F.a = x ∧ F.b = y ∧ F.c = c
+/-- A canonical normal form represents the ordinary additive pair `(x,y)` over
+its fixed output type parameter `c` when its recovered inputs are exactly `x`
+and `y`.  The output is already encoded by the type `NormalForm c`. -/
+def Represents {c : ℕ} (F : NormalForm c) (x y : ℕ) : Prop :=
+  F.a = x ∧ F.b = y
 
-/-- The entrance constructor represents the original ordinary additive triple. -/
-theorem represents_ofAddEq (width x y c : ℕ)
-    (hadd : x + y = c) (hc : c < 2 ^ width) :
-    Represents (ofAddEq width x y c hadd hc) x y c := by
+/-- The entrance constructor represents the original ordinary additive data. -/
+theorem represents_ofAddEq (x y c : ℕ) (hadd : x + y = c) :
+    Represents (ofAddEq x y c hadd) x y := by
   constructor
-  · exact ofAddEq_a width x y c hadd hc
-  constructor
-  · exact ofAddEq_b width x y c hadd hc
-  · exact ofAddEq_c width x y c hadd hc
+  · exact ofAddEq_a x y c hadd
+  · exact ofAddEq_b x y c hadd
 
-/-- Any representing normal form gives back ordinary addition and the width
-bound on the represented output. -/
-theorem add_eq_and_c_lt_of_represents {width x y c : ℕ}
-    {F : NormalForm width} (hF : Represents F x y c) :
-    x + y = c ∧ c < 2 ^ width := by
-  rcases hF with ⟨ha, hb, hcF⟩
-  constructor
-  · calc
-      x + y = F.a + F.b := by
-        rw [← ha, ← hb]
-      _ = F.c := NormalForm.add_eq_c F
-      _ = c := hcF
-  · rw [← hcF]
-    exact F.hC_lt
+/-- Any representing canonical normal form gives back ordinary addition. -/
+theorem add_eq_of_represents {x y c : ℕ}
+    {F : NormalForm c} (hF : Represents F x y) :
+    x + y = c := by
+  rcases hF with ⟨ha, hb⟩
+  calc
+    x + y = F.a + F.b := by
+      rw [← ha, ← hb]
+    _ = c := NormalForm.add_eq_c F
 
-/-- Ordinary addition with a common-width output bound produces a representing
-normal form. -/
-theorem exists_normalForm_of_add_eq_and_c_lt (width x y c : ℕ)
-    (hadd : x + y = c) (hc : c < 2 ^ width) :
-    ∃ F : NormalForm width, Represents F x y c := by
-  exact ⟨ofAddEq width x y c hadd hc, represents_ofAddEq width x y c hadd hc⟩
+/-- Ordinary addition produces a canonical normal form representing the same
+input pair. -/
+theorem exists_normalForm_of_add_eq (x y c : ℕ)
+    (hadd : x + y = c) :
+    ∃ F : NormalForm c, Represents F x y := by
+  exact ⟨ofAddEq x y c hadd, represents_ofAddEq x y c hadd⟩
 
-/-- Round-trip statement: ordinary bounded addition is equivalent to the
-existence of a bit-additive normal form representing the same triple.
+/-- Round-trip statement: ordinary addition is equivalent to the existence of a
+canonical bit-additive normal form representing the same input pair.
 
-This is intentionally an existence statement, not a uniqueness statement for
-boards or normal forms. -/
-theorem exists_normalForm_iff_add_eq_and_c_lt (width x y c : ℕ) :
-    (∃ F : NormalForm width, Represents F x y c) ↔
-      x + y = c ∧ c < 2 ^ width := by
+Unlike the fixed-width version, there is no external `c < 2^width` conjunct;
+the width is canonically `bitLength c`. -/
+theorem exists_normalForm_iff_add_eq (x y c : ℕ) :
+    (∃ F : NormalForm c, Represents F x y) ↔ x + y = c := by
   constructor
   · rintro ⟨F, hF⟩
-    exact add_eq_and_c_lt_of_represents hF
-  · rintro ⟨hadd, hc⟩
-    exact exists_normalForm_of_add_eq_and_c_lt width x y c hadd hc
+    exact add_eq_of_represents hF
+  · intro hadd
+    exact exists_normalForm_of_add_eq x y c hadd
 
 end Additive
 end Bit
