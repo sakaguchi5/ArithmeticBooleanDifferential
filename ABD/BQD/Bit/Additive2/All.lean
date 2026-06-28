@@ -5,3 +5,6 @@ import ABD.BQD.Bit.Additive2.NormalForm
 import ABD.BQD.Bit.Additive2.FromDecomp
 import ABD.BQD.Bit.Additive2.EvalLaws
 import ABD.BQD.Bit.Additive2.DerivedIdentities
+import ABD.BQD.Bit.Additive2.MaskedValue
+import ABD.BQD.Bit.Additive2.Completeness
+import ABD.BQD.Bit.Additive2.RoundTrip

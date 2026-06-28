@@ -114,9 +114,8 @@ This is the key width-free additive identity. -/
 @[simp] theorem add_eq_candidateC (G : Board) :
     G.a + G.b = G.candidateC := by
   dsimp [a, b, candidateC, xorValue, andValue, valB, valLO, valRO]
-  omega
-
-  --rw [two_mul]
+  rw [Nat.two_mul]
+  ac_rfl
 
 /-- Expanded form of the candidate output. -/
 theorem candidateC_eq_valLO_add_valRO_add_two_mul_valB (G : Board) :
