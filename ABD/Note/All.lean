@@ -6,3 +6,4 @@ import ABD.Note.ExponentCapacity
 import ABD.Note.CoprimeTriple
 import ABD.Note.CoprimeTripleMinRad
 import ABD.Note.CoprimeTripleExtraSupport
+import ABD.Note.CoprimeTripleOrderedAssignment
