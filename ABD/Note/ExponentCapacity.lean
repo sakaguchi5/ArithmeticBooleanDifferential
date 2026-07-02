@@ -18,8 +18,6 @@ one-integer support-scale facts used before passing to ordered coprime triples.
 namespace ABD
 namespace Note
 
-noncomputable section
-
 /--
 If `p ≤ q`, then every exponent fitting under the size bound `N` for base `q`
 also fits for base `p`.
@@ -137,8 +135,6 @@ theorem purePowerSmallerPrimeAtLeastAsDangerous_of_nat
   have hlog : log2 (p : ℝ) ≤ log2 (q : ℝ) :=
     log2_le_log2_of_pos_of_le hpPosReal hpqReal
   exact pure_power_danger_anti_mono_prime_log hα hlog
-
-end
 
 end Note
 end ABD

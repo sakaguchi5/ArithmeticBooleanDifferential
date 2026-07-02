@@ -28,8 +28,6 @@ The proof is split into two layers:
 namespace ABD
 namespace Note
 
-noncomputable section
-
 /--
 A prime divisor of `n` belongs to the support product defining `natRad n`,
 hence divides `natRad n`.
@@ -375,8 +373,6 @@ theorem natTripleDanger_le_minimal_skeleton_of_orderedPairwiseCoprime3
     hα
     habc
     (minimalCoprimeTripleLogRad_le_of_orderedPairwiseCoprime3 habc)
-
-end
 
 end Note
 end ABD
