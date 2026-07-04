@@ -145,6 +145,7 @@ unit facts in `ZMod (7^(r+1))`.
 theorem seed_a4_phi3_mod7 :
     Phi3 (4 : ZMod 7) = 0 := by
   norm_num [Phi3]
+  decide
 
 /-- Seed residue for the a = 4 non-target factor: 4 - 1 = 3 mod 7. -/
 theorem seed_a4_nonPhi3_factor_mod7 :
@@ -155,6 +156,7 @@ theorem seed_a4_nonPhi3_factor_mod7 :
 theorem seed_a5_phi6_mod7 :
     Phi6 (5 : ZMod 7) = 0 := by
   norm_num [Phi6]
+  decide
 
 /-- Non-target factor for a = 5: 5 - 1 = 4 mod 7. -/
 theorem seed_a5_x_minus_one_mod7 :
@@ -170,5 +172,6 @@ theorem seed_a5_x_plus_one_mod7 :
 theorem seed_a5_phi3_mod7 :
     Phi3 (5 : ZMod 7) = 3 := by
   norm_num [Phi3]
+  decide
 
 end QuadraticCyclotomicLift2
