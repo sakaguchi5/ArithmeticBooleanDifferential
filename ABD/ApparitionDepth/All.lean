@@ -23,3 +23,4 @@ import ABD.ApparitionDepth.HenselExistenceProofInterface
 import ABD.ApparitionDepth.TeichmullerFinite
 import ABD.ApparitionDepth.DerivativeNonzeroProof
 import ABD.ApparitionDepth.HenselSimpleRootTheoremShape
+import ABD.ApparitionDepth.HenselLemmaMathlibBridge
