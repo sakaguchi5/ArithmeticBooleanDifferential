@@ -9,3 +9,4 @@ import ABD.ApparitionDepth.NatDivisibilityBridge
 import ABD.ApparitionDepth.OrderAppearsBridge
 import ABD.ApparitionDepth.UnitAppearsBridgeProof
 import ABD.ApparitionDepth.ResidueDepthBridgeProof
+import ABD.ApparitionDepth.DepthValueBridgeProof
