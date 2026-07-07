@@ -14,3 +14,5 @@ import ABD.ApparitionDepth.TeichmullerBranch
 import ABD.ApparitionDepth.BranchSeedBasic
 import ABD.ApparitionDepth.PrimitiveRootBridge
 import ABD.ApparitionDepth.BranchSeedRootProof
+import ABD.ApparitionDepth.HenselLiftInterface
+import ABD.ApparitionDepth.HenselLiftExistence
