@@ -5,3 +5,5 @@ import ABD.ApparitionDepth.OrderBridge
 import ABD.ApparitionDepth.OrderBridgeMain
 import ABD.ApparitionDepth.DepthBridge
 import ABD.ApparitionDepth.MovingBase
+import ABD.ApparitionDepth.NatDivisibilityBridge
+import ABD.ApparitionDepth.OrderAppearsBridge
