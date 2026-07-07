@@ -20,3 +20,4 @@ import ABD.ApparitionDepth.HenselLiftUniqueness
 import ABD.ApparitionDepth.HenselDerivativeCondition
 import ABD.ApparitionDepth.HenselUniquenessProofInterface
 import ABD.ApparitionDepth.HenselExistenceProofInterface
+import ABD.ApparitionDepth.TeichmullerFinite
