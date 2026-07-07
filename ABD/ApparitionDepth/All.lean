@@ -24,3 +24,9 @@ import ABD.ApparitionDepth.TeichmullerFinite
 import ABD.ApparitionDepth.DerivativeNonzeroProof
 import ABD.ApparitionDepth.HenselSimpleRootTheoremShape
 import ABD.ApparitionDepth.HenselLemmaMathlibBridge
+import ABD.ApparitionDepth.FiniteHenselStep
+import ABD.ApparitionDepth.FiniteHenselLinearEquation
+import ABD.ApparitionDepth.FiniteHenselStepExistence
+import ABD.ApparitionDepth.FiniteHenselStepUniqueness
+import ABD.ApparitionDepth.FiniteHenselInduction
+import ABD.ApparitionDepth.FiniteHenselFinal
