@@ -12,3 +12,5 @@ import ABD.ApparitionDepth.ResidueDepthBridgeProof
 import ABD.ApparitionDepth.DepthValueBridgeProof
 import ABD.ApparitionDepth.TeichmullerBranch
 import ABD.ApparitionDepth.BranchSeedBasic
+import ABD.ApparitionDepth.PrimitiveRootBridge
+import ABD.ApparitionDepth.BranchSeedRootProof
