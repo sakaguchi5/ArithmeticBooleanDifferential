@@ -1,5 +1,3 @@
-namespace ApparitionDepth
-
 /-
   ApparitionDepth.Core
 
@@ -15,6 +13,9 @@ namespace ApparitionDepth
   The goal of Core is only to name the elementary divisibility predicates.
   Later files can connect these predicates to mathlib's orderOf and p-adic valuation.
 -/
+
+namespace ApparitionDepth
+
 
 /-- The basic sequence attached to a base `ell`: `N ell n = ell^n - 1`.
 
