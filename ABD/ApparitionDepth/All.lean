@@ -18,3 +18,5 @@ import ABD.ApparitionDepth.HenselLiftInterface
 import ABD.ApparitionDepth.HenselLiftExistence
 import ABD.ApparitionDepth.HenselLiftUniqueness
 import ABD.ApparitionDepth.HenselDerivativeCondition
+import ABD.ApparitionDepth.HenselUniquenessProofInterface
+import ABD.ApparitionDepth.HenselExistenceProofInterface
