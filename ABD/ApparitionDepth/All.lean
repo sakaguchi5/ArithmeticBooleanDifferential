@@ -51,3 +51,5 @@ import ABD.ApparitionDepth.QuotientCorrectionAssembly
 import ABD.ApparitionDepth.BinomialHigherTermsActualProof
 import ABD.ApparitionDepth.ZModLinearSolveActual
 import ABD.ApparitionDepth.HigherTermPowerDivisibilityActual
+import ABD.ApparitionDepth.PrimeNeZeroBridge
+import ABD.ApparitionDepth.BinomialFirstOrderExpansionActual
