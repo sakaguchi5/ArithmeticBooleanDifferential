@@ -58,12 +58,24 @@ theorem rootAtLevel_one_of_branchSeed_of_primitiveRoot
   ApparitionDepth.omegaRootAtLevel_one_of_branchSeed_of_primitiveRoot
     hprim hparams hseed
 
+/-- A base in an omega branch is a root at the same level.
+
+This is the first RootAtLevel-centered public exit: branch membership is kept in
+the residue-ring language before being translated back to Core depth. -/
+theorem rootAtLevel_of_baseInOmegaBranch
+    {ell omega p d j r : Nat}
+    (hbranch : BaseInOmegaBranch ell omega p d j r) :
+    RootAtLevel ell p d r :=
+  ApparitionDepth.movingBaseClass_residueDepthAtLeast
+    (ApparitionDepth.movingBaseClass_of_baseInOmegaBranch hbranch)
+
 /-- A positive base in an omega branch has depth at least `r`. -/
 theorem depthAtLeast_of_baseInOmegaBranch_of_base_pos
     {ell omega p d j r : Nat}
     (hbranch : BaseInOmegaBranch ell omega p d j r)
     (hell_pos : 0 < ell) :
     DepthAtLeast ell p d r :=
-  ApparitionDepth.depthAtLeast_of_baseInOmegaBranch_of_base_pos hbranch hell_pos
+  depthAtLeast_of_rootAtLevel_of_base_pos hell_pos
+    (rootAtLevel_of_baseInOmegaBranch hbranch)
 
 end ApparitionDepth2

@@ -28,7 +28,9 @@ abbrev SimpleRootModP (omega p d : Nat) : Prop :=
 abbrev BranchSeedSimpleRootModP (g p d j : Nat) : Prop :=
   ApparitionDepth.BranchSeedSimpleRootModP g p d j
 
-/-- Primitive-root branch data plus an explicit derivative certificate makes the branch seed simple. -/
+/--
+Primitive-root branch data plus an explicit derivative certificate makes the branch seed simple.
+-/
 theorem branch_seed_simpleRoot_of_factorCertificate
     {g p d j : Nat}
     (hprim : PrimitiveRootModP g p)
