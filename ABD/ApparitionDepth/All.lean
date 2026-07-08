@@ -49,3 +49,5 @@ import ABD.ApparitionDepth.ZModFieldLinearSolveProgress
 import ABD.ApparitionDepth.CorrectionSolvedFromDerivative
 import ABD.ApparitionDepth.QuotientCorrectionAssembly
 import ABD.ApparitionDepth.BinomialHigherTermsActualProof
+import ABD.ApparitionDepth.ZModLinearSolveActual
+import ABD.ApparitionDepth.HigherTermPowerDivisibilityActual
