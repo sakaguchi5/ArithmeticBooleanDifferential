@@ -28,6 +28,23 @@ theorem main_exists_generatedRoot_of_kernel {seed p d r : Nat}
     ∃ ell : Nat, GeneratedRoot ell seed p d r :=
   exists_generatedRoot_of_kernel hkernel hr_pos
 
+
+/-- Main simple-root finite-Hensel theorem. -/
+theorem main_exists_generatedRoot_of_simpleRoot {seed p d r : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d)
+    (hr_pos : 0 < r) :
+    ∃ ell : Nat, GeneratedRoot ell seed p d r :=
+  exists_generatedRoot_of_simpleRoot hsimple hlocal hr_pos
+
+/-- Main simple-root root-at-level theorem. -/
+theorem main_exists_rootAtLevel_of_simpleRoot {seed p d r : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d)
+    (hr_pos : 0 < r) :
+    ∃ ell : Nat, RootAtLevel ell p d r :=
+  exists_rootAtLevel_of_simpleRoot hsimple hlocal hr_pos
+
 /-- Main current theorem: generated branch plus order control gives first
 apparition with depth at least `r`. -/
 theorem main_generated_firstAppearsWithDepthAtLeast

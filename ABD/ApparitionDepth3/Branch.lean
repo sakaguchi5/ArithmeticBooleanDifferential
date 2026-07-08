@@ -67,7 +67,7 @@ theorem depthAtLeast_of_baseInBranchAtLevel_of_base_pos
   depthAtLeast_of_rootAtLevel_of_base_pos hell_pos
     (rootAtLevel_of_baseInBranchAtLevel h)
 
-/-- Transport a seed root mod p to level 1 of its branch representative. -/
+/-- At level one, a representative congruent to a seed root is itself a root. -/
 theorem rootAtLevel_one_of_seedRoot_of_seedCongr
     {seed omega p d : Nat}
     (hroot : SeedRootModP seed p d)

@@ -58,4 +58,35 @@ theorem generated_firstAppearsWithDepthAtLeast
   firstWithDepth_of_order_and_depth hord hd_pos hell_pos
     (generated_depthAtLeast hgen hell_pos)
 
+/-! ## Generated roots directly from simple roots
+
+These are the AD3-facing consequences of the local-data Hensel theorem.  The
+external theorem placeholder has been removed: callers now provide the local quotient,
+correction, expansion, and uniqueness data as `HenselLocalData` until those data
+are proved in concrete lower files.
+-/
+
+/-- A simple root plus local Hensel data generates a compatible root at every
+positive level. -/
+theorem exists_generatedRoot_of_simpleRoot
+    {seed p d r : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d)
+    (hr_pos : 0 < r) :
+    ∃ ell : Nat, GeneratedRoot ell seed p d r := by
+  rcases existsUniqueLiftAtLevel_of_simpleRoot hsimple hlocal hr_pos with
+    ⟨ell, hlift, _huniq⟩
+  exact ⟨ell, hlift⟩
+
+/-- A simple root plus local Hensel data generates an explicit RootAtLevel
+existence theorem. -/
+theorem exists_rootAtLevel_of_simpleRoot
+    {seed p d r : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d)
+    (hr_pos : 0 < r) :
+    ∃ ell : Nat, RootAtLevel ell p d r := by
+  rcases exists_generatedRoot_of_simpleRoot hsimple hlocal hr_pos with ⟨ell, hgen⟩
+  exact ⟨ell, generated_rootAtLevel hgen⟩
+
 end ApparitionDepth3

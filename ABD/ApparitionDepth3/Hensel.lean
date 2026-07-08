@@ -1,11 +1,12 @@
 /-
   ABD.ApparitionDepth3.Hensel
 
-  Third layer of the organic Hensel block: finite induction.
+  Finite induction layer.
 
-  The one-step algebra is supplied by `FiniteHenselKernel`; this file proves once
+  The local algebra is supplied by `FiniteHenselKernel`; this file proves once
   and for all that such a kernel gives a unique compatible lift at every positive
-  precision.
+  precision.  Consequences from a simple root now also take explicit
+  `HenselLocalData`, so no external theorem placeholder is used.
 -/
 
 import ABD.ApparitionDepth3.HenselStep
@@ -53,5 +54,36 @@ theorem rootAtLevel_of_kernel {seed p d r : Nat}
   rcases existsUniqueLiftAtLevel_of_kernel hkernel hr_pos with
     ⟨omega, hlift, _huniq⟩
   exact ⟨omega, hlift.2⟩
+
+/-- A simple root, together with the local Hensel algebra, has a unique
+compatible finite lift at every positive level. -/
+theorem existsUniqueLiftAtLevel_of_simpleRoot
+    {seed p d r : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d)
+    (hr_pos : 0 < r) :
+    ExistsUniqueLiftAtLevel seed p d r :=
+  existsUniqueLiftAtLevel_of_kernel
+    (finiteHenselKernel_of_simpleRoot hsimple hlocal) hr_pos
+
+/-- Seed-simple-root spelling. -/
+theorem existsUniqueLiftAtLevel_of_seedSimpleRoot
+    {seed p d r : Nat}
+    (hsimple : SeedSimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d)
+    (hr_pos : 0 < r) :
+    ExistsUniqueLiftAtLevel seed p d r :=
+  existsUniqueLiftAtLevel_of_simpleRoot hsimple hlocal hr_pos
+
+/-- A simple root, together with the local Hensel algebra, produces a root at
+every positive level. -/
+theorem rootAtLevel_of_simpleRoot
+    {seed p d r : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d)
+    (hr_pos : 0 < r) :
+    ∃ omega : Nat, RootAtLevel omega p d r :=
+  rootAtLevel_of_kernel
+    (finiteHenselKernel_of_simpleRoot hsimple hlocal) hr_pos
 
 end ApparitionDepth3

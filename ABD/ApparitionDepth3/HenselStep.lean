@@ -3,26 +3,20 @@
 
   Second layer of the organic Hensel block.
 
-  This file packages the local one-step Hensel data.  The package is intentionally
-  one mathematical object instead of the old interface/final/actual chain:
-    * roots descend one precision;
-    * the seed-compatible root exists and is unique at level 1;
-    * every lift at level r has a compatible lift at level r+1;
-    * that one-step lift is unique above the chosen old lift.
-
-  Later, the real local algebra theorem should prove this kernel from
-  `SimpleRootModP seed p d`.  For now this is the exact reusable Hensel kernel
-  needed by the finite induction theorem.
+  This file packages the local one-step Hensel data.  Unlike the earlier
+  temporary version, it contains no placeholder.  The bridge from simple-root language
+  to the kernel now requires explicit `HenselLocalData`, whose components are the
+  natural local lemmas: descent, base level, one-step existence, and one-step
+  uniqueness.
 -/
 
-import ABD.ApparitionDepth3.HenselAlgebra
+import ABD.ApparitionDepth3.HenselLocal
 
 namespace ApparitionDepth3
 
 /-- The local finite-Hensel kernel.
 
-This is the minimal local data required to run finite Hensel induction.  It is
-where the future one-step proof from a simple root will plug in. -/
+This is the minimal local data required to run finite Hensel induction. -/
 structure FiniteHenselKernel (seed p d : Nat) : Prop where
   root_descend : ∀ {x r : Nat}, 0 < r →
     RootAtLevel x p d (r + 1) → RootAtLevel x p d r
@@ -61,5 +55,62 @@ theorem existsUniqueLiftAtLevel_one_of_kernel {seed p d : Nat}
   refine ⟨omega, homega, ?_⟩
   intro omega' homega'
   exact hkernel.base_unique omega' omega homega' homega
+
+/-- The seed itself gives the level-one lift of a simple root. -/
+theorem baseLiftAtLevel_one_of_simpleRoot
+    {seed p d : Nat}
+    (hsimple : SimpleRootModP seed p d) :
+    LiftAtLevel seed seed p d 1 :=
+  ⟨rfl, simpleRoot_root hsimple⟩
+
+/-- Level-one uniqueness is just equality of representatives congruent to the
+same seed modulo `p`. -/
+theorem baseUniqueAtLevel_one_of_seedCongr
+    {seed p d : Nat} :
+    ∀ omega₁ omega₂ : Nat,
+      LiftAtLevel seed omega₁ p d 1 →
+      LiftAtLevel seed omega₂ p d 1 →
+        (omega₁ : ZMod (p ^ 1)) = (omega₂ : ZMod (p ^ 1)) := by
+  intro omega₁ omega₂ h₁ h₂
+  have hmod : (omega₁ : ZMod p) = (omega₂ : ZMod p) :=
+    h₁.1.trans h₂.1.symm
+  rw [levelOneModulus_eq p]
+  exact hmod
+
+/-- Assemble the finite-Hensel kernel from a simple root and local mathematical
+data.
+
+The base level is proved here from the simple root.  The only remaining local
+input is the genuine one-step Hensel algebra. -/
+theorem finiteHenselKernel_of_localData
+    {seed p d : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d) :
+    FiniteHenselKernel seed p d where
+  root_descend := hlocal.descent
+  base_exists := ⟨seed, baseLiftAtLevel_one_of_simpleRoot hsimple⟩
+  base_unique := baseUniqueAtLevel_one_of_seedCongr
+  step_exists := hlocal.step_exists
+  step_unique := hlocal.step_unique
+
+/-- Simple-root spelling of the kernel assembly.
+
+The external theorem placeholder is gone.  A caller must now supply the natural local Hensel
+step lemmas as `HenselLocalData`; future concrete files should prove that data
+from quotient/correction/expansion arguments. -/
+theorem finiteHenselKernel_of_simpleRoot
+    {seed p d : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d) :
+    FiniteHenselKernel seed p d :=
+  finiteHenselKernel_of_localData hsimple hlocal
+
+/-- Seed-simple-root spelling of the finite Hensel kernel assembly. -/
+theorem finiteHenselKernel_of_seedSimpleRoot
+    {seed p d : Nat}
+    (hsimple : SeedSimpleRootModP seed p d)
+    (hlocal : HenselLocalData seed p d) :
+    FiniteHenselKernel seed p d :=
+  finiteHenselKernel_of_simpleRoot hsimple hlocal
 
 end ApparitionDepth3
