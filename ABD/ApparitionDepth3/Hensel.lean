@@ -1,76 +1,16 @@
 /-
   ABD.ApparitionDepth3.Hensel
 
-  Organic finite-Hensel spine.
+  Third layer of the organic Hensel block: finite induction.
 
-  This is the replacement for the old many-file Hensel interface/final split.
-  The local algebra is represented by one compact kernel:
-    * roots descend one precision;
-    * level-one existence and uniqueness;
-    * one-step existence;
-    * one-step uniqueness above a fixed old lift.
-
-  From this kernel we prove the finite induction theorem once, directly.
+  The one-step algebra is supplied by `FiniteHenselKernel`; this file proves once
+  and for all that such a kernel gives a unique compatible lift at every positive
+  precision.
 -/
 
-import ABD.ApparitionDepth3.SimpleRoot
+import ABD.ApparitionDepth3.HenselStep
 
 namespace ApparitionDepth3
-
-/-- A lift at precision `p^r` staying on the same seed modulo `p`. -/
-def LiftAtLevel (seed omega p d r : Nat) : Prop :=
-  BranchSeedModP seed omega p ∧ RootAtLevel omega p d r
-
-/-- Existence and uniqueness of a seed-compatible lift at level `r`. -/
-def ExistsUniqueLiftAtLevel (seed p d r : Nat) : Prop :=
-  ∃ omega : Nat,
-    LiftAtLevel seed omega p d r ∧
-      ∀ omega' : Nat,
-        LiftAtLevel seed omega' p d r →
-          (omega' : ZMod (p ^ r)) = (omega : ZMod (p ^ r))
-
-/-- The local finite-Hensel kernel.
-
-This is intentionally a single object, not a chain of bridge files.  It is the
-minimal local data required to run finite Hensel induction. -/
-structure FiniteHenselKernel (seed p d : Nat) : Prop where
-  root_descend : ∀ {x r : Nat}, 0 < r →
-    RootAtLevel x p d (r + 1) → RootAtLevel x p d r
-  base_exists : ∃ omega : Nat, LiftAtLevel seed omega p d 1
-  base_unique : ∀ omega₁ omega₂ : Nat,
-    LiftAtLevel seed omega₁ p d 1 →
-    LiftAtLevel seed omega₂ p d 1 →
-      (omega₁ : ZMod (p ^ 1)) = (omega₂ : ZMod (p ^ 1))
-  step_exists : ∀ r : Nat, 0 < r → ∀ omega : Nat,
-    LiftAtLevel seed omega p d r →
-      ∃ omegaNext : Nat,
-        LiftAtLevel seed omegaNext p d (r + 1) ∧
-          (omegaNext : ZMod (p ^ r)) = (omega : ZMod (p ^ r))
-  step_unique : ∀ r : Nat, 0 < r → ∀ omega omegaNext₁ omegaNext₂ : Nat,
-    LiftAtLevel seed omega p d r →
-    LiftAtLevel seed omegaNext₁ p d (r + 1) →
-    (omegaNext₁ : ZMod (p ^ r)) = (omega : ZMod (p ^ r)) →
-    LiftAtLevel seed omegaNext₂ p d (r + 1) →
-    (omegaNext₂ : ZMod (p ^ r)) = (omega : ZMod (p ^ r)) →
-      (omegaNext₁ : ZMod (p ^ (r + 1))) =
-        (omegaNext₂ : ZMod (p ^ (r + 1)))
-
-/-- A level `r+1` lift descends to a level `r` lift. -/
-theorem liftAtLevel_descend {seed omega p d r : Nat}
-    (hkernel : FiniteHenselKernel seed p d)
-    (hr_pos : 0 < r)
-    (hlift : LiftAtLevel seed omega p d (r + 1)) :
-    LiftAtLevel seed omega p d r :=
-  ⟨hlift.1, hkernel.root_descend hr_pos hlift.2⟩
-
-/-- Level one exists-unique from the kernel. -/
-theorem existsUniqueLiftAtLevel_one_of_kernel {seed p d : Nat}
-    (hkernel : FiniteHenselKernel seed p d) :
-    ExistsUniqueLiftAtLevel seed p d 1 := by
-  rcases hkernel.base_exists with ⟨omega, homega⟩
-  refine ⟨omega, homega, ?_⟩
-  intro omega' homega'
-  exact hkernel.base_unique omega' omega homega' homega
 
 /-- Finite Hensel induction: the kernel produces a unique lift at every positive
 precision. -/
