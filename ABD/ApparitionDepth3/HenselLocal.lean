@@ -32,6 +32,21 @@ def HenselRootDescent (p d : Nat) : Prop :=
   ∀ {x r : Nat}, 0 < r →
     RootAtLevel x p d (r + 1) → RootAtLevel x p d r
 
+/-- Root descent is reduction of the congruence modulo `p^(r+1)` to the
+divisor modulus `p^r`. -/
+theorem henselRootDescent_actual (p d : Nat) :
+    HenselRootDescent p d := by
+  intro x r _ hroot
+  unfold RootAtLevel at hroot ⊢
+  have hroot' : (x ^ d) ≡ 1 [MOD p ^ (r + 1)] := by
+    rw [← ZMod.natCast_eq_natCast_iff (x ^ d) 1 (p ^ (r + 1))]
+    simpa using hroot
+  have hdesc : (x ^ d) ≡ 1 [MOD p ^ r] := hroot'.of_dvd (by
+    rw [pow_succ]
+    exact dvd_mul_right (p ^ r) p)
+  rw [← ZMod.natCast_eq_natCast_iff (x ^ d) 1 (p ^ r)] at hdesc
+  simpa using hdesc
+
 /-- A quotient/correction/expansion step over a fixed old lift.
 
 This packages the actual mathematical work of one Hensel step without exposing
