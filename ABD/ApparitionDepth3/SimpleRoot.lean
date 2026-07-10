@@ -38,6 +38,30 @@ theorem simpleRoot_derivative_unit {x p d : Nat}
     (h : SimpleRootModP x p d) : IsUnit (derivativeAt x p d) :=
   h.2
 
+/-- The derivative depends only on the residue class of its input modulo `p`. -/
+theorem derivativeAt_eq_of_zmod_eq
+    {x y p d : Nat}
+    (hxy : (x : ZMod p) = (y : ZMod p)) :
+    derivativeAt x p d = derivativeAt y p d := by
+  unfold derivativeAt
+  rw [hxy]
+
+/-- Transport the derivative from a branch representative back to its seed. -/
+theorem derivativeAt_eq_of_seedCongr
+    {seed omega p d : Nat}
+    (hseed : BranchSeedModP seed omega p) :
+    derivativeAt omega p d = derivativeAt seed p d := by
+  exact derivativeAt_eq_of_zmod_eq hseed
+
+/-- A representative congruent to a simple seed has unit derivative modulo `p`. -/
+theorem derivativeUnit_of_seedCongr
+    {seed omega p d : Nat}
+    (hsimple : SimpleRootModP seed p d)
+    (hseed : BranchSeedModP seed omega p) :
+    IsUnit (derivativeAt omega p d) := by
+  rw [derivativeAt_eq_of_seedCongr hseed]
+  exact simpleRoot_derivative_unit hsimple
+
 /-- If a representative is congruent to a simple seed modulo `p`, then it is a
 root modulo `p`.
 
