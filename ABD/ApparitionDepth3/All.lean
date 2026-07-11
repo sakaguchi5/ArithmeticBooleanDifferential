@@ -5,6 +5,11 @@ import ABD.ApparitionDepth3.Branch
 import ABD.ApparitionDepth3.SimpleRoot
 import ABD.ApparitionDepth3.HenselAlgebra
 import ABD.ApparitionDepth3.HenselLocal
+import ABD.ApparitionDepth3.HenselCorrection
+import ABD.ApparitionDepth3.HenselExpansion
+import ABD.ApparitionDepth3.HenselExistence
+import ABD.ApparitionDepth3.HenselUniqueness
+import ABD.ApparitionDepth3.HenselConcrete
 import ABD.ApparitionDepth3.HenselStep
 import ABD.ApparitionDepth3.Hensel
 import ABD.ApparitionDepth3.GeneratedRoot

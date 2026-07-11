@@ -58,32 +58,29 @@ theorem rootAtLevel_of_kernel {seed p d r : Nat}
 /-- A simple root, together with the local Hensel algebra, has a unique
 compatible finite lift at every positive level. -/
 theorem existsUniqueLiftAtLevel_of_simpleRoot
-    {seed p d r : Nat}
+    {seed p d r : Nat} [Fact p.Prime]
     (hsimple : SimpleRootModP seed p d)
-    (hlocal : HenselLocalData seed p d)
     (hr_pos : 0 < r) :
     ExistsUniqueLiftAtLevel seed p d r :=
   existsUniqueLiftAtLevel_of_kernel
-    (finiteHenselKernel_of_simpleRoot hsimple hlocal) hr_pos
+    (finiteHenselKernel_of_simpleRoot hsimple) hr_pos
 
 /-- Seed-simple-root spelling. -/
 theorem existsUniqueLiftAtLevel_of_seedSimpleRoot
-    {seed p d r : Nat}
+    {seed p d r : Nat} [Fact p.Prime]
     (hsimple : SeedSimpleRootModP seed p d)
-    (hlocal : HenselLocalData seed p d)
     (hr_pos : 0 < r) :
     ExistsUniqueLiftAtLevel seed p d r :=
-  existsUniqueLiftAtLevel_of_simpleRoot hsimple hlocal hr_pos
+  existsUniqueLiftAtLevel_of_simpleRoot hsimple hr_pos
 
 /-- A simple root, together with the local Hensel algebra, produces a root at
 every positive level. -/
 theorem rootAtLevel_of_simpleRoot
-    {seed p d r : Nat}
+    {seed p d r : Nat} [Fact p.Prime]
     (hsimple : SimpleRootModP seed p d)
-    (hlocal : HenselLocalData seed p d)
     (hr_pos : 0 < r) :
     ∃ omega : Nat, RootAtLevel omega p d r :=
   rootAtLevel_of_kernel
-    (finiteHenselKernel_of_simpleRoot hsimple hlocal) hr_pos
+    (finiteHenselKernel_of_simpleRoot hsimple) hr_pos
 
 end ApparitionDepth3

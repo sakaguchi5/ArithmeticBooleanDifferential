@@ -10,7 +10,7 @@
   uniqueness.
 -/
 
-import ABD.ApparitionDepth3.HenselLocal
+import ABD.ApparitionDepth3.HenselConcrete
 
 namespace ApparitionDepth3
 
@@ -99,18 +99,17 @@ The external theorem placeholder is gone.  A caller must now supply the natural 
 step lemmas as `HenselLocalData`; future concrete files should prove that data
 from quotient/correction/expansion arguments. -/
 theorem finiteHenselKernel_of_simpleRoot
-    {seed p d : Nat}
-    (hsimple : SimpleRootModP seed p d)
-    (hlocal : HenselLocalData seed p d) :
+    {seed p d : Nat} [Fact p.Prime]
+    (hsimple : SimpleRootModP seed p d) :
     FiniteHenselKernel seed p d :=
-  finiteHenselKernel_of_localData hsimple hlocal
+  finiteHenselKernel_of_localData hsimple
+    (henselLocalData_of_simpleRoot hsimple)
 
 /-- Seed-simple-root spelling of the finite Hensel kernel assembly. -/
 theorem finiteHenselKernel_of_seedSimpleRoot
-    {seed p d : Nat}
-    (hsimple : SeedSimpleRootModP seed p d)
-    (hlocal : HenselLocalData seed p d) :
+    {seed p d : Nat} [Fact p.Prime]
+    (hsimple : SeedSimpleRootModP seed p d) :
     FiniteHenselKernel seed p d :=
-  finiteHenselKernel_of_simpleRoot hsimple hlocal
+  finiteHenselKernel_of_simpleRoot hsimple
 
 end ApparitionDepth3
