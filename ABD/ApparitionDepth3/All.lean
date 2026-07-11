@@ -14,3 +14,6 @@ import ABD.ApparitionDepth3.HenselStep
 import ABD.ApparitionDepth3.Hensel
 import ABD.ApparitionDepth3.GeneratedRoot
 import ABD.ApparitionDepth3.Main
+import ABD.ApparitionDepth3.BranchGenerator
+import ABD.ApparitionDepth3.TeichmullerFinite
+import ABD.ApparitionDepth3.PrimitiveDivisor
