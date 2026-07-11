@@ -17,3 +17,7 @@ import ABD.ApparitionDepth3.Main
 import ABD.ApparitionDepth3.BranchGenerator
 import ABD.ApparitionDepth3.TeichmullerFinite
 import ABD.ApparitionDepth3.PrimitiveDivisor
+
+import ABD.ApparitionDepth3.CyclotomicDepth
+import ABD.ApparitionDepth3.HenselCarry
+import ABD.ApparitionDepth3.FiniteSynthesis
