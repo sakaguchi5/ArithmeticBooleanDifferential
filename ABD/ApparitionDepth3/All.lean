@@ -24,3 +24,6 @@ import ABD.ApparitionDepth3.FiniteSynthesis
 
 import ABD.ApparitionDepth3.WittPadicRoot
 import ABD.ApparitionDepth3.PadicFiniteBridge
+
+import ABD.ApparitionDepth3.PadicDigit
+import ABD.ApparitionDepth3.WittCarryBridge
