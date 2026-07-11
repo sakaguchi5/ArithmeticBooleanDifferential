@@ -21,3 +21,6 @@ import ABD.ApparitionDepth3.PrimitiveDivisor
 import ABD.ApparitionDepth3.CyclotomicDepth
 import ABD.ApparitionDepth3.HenselCarry
 import ABD.ApparitionDepth3.FiniteSynthesis
+
+import ABD.ApparitionDepth3.WittPadicRoot
+import ABD.ApparitionDepth3.PadicFiniteBridge
