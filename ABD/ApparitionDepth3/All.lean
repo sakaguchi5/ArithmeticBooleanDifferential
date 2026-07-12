@@ -27,3 +27,11 @@ import ABD.ApparitionDepth3.PadicFiniteBridge
 
 import ABD.ApparitionDepth3.PadicDigit
 import ABD.ApparitionDepth3.WittCarryBridge
+
+import ABD.ApparitionDepth3.BranchTreeExact
+import ABD.ApparitionDepth3.PadicDigitExpansion
+import ABD.ApparitionDepth3.GlobalSynthesis
+import ABD.ApparitionDepth3.BranchClassification
+import ABD.ApparitionDepth3.OddPrimeComplete
+import ABD.ApparitionDepth3.TwoAdicModFour
+import ABD.ApparitionDepth3.CompleteSynthesis
